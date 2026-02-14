@@ -34,6 +34,19 @@ const About = () => (
           </p>
         </div>
 
+        <div className="border border-border rounded-lg p-6 bg-accent/30">
+          <h2 className="text-xl font-bold mb-3">Restaurants, Butcher Shops & Business Owners</h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            We supply direct to restaurants, takeaways, butcher shops, and other food businesses. Because we control the full supply chain — farms, slaughterhouse, and delivery — we offer competitive trade pricing with consistent quality and reliable fulfilment. No middlemen, no markup.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Whether you need weekly bulk drops or a one-off large order, get in touch and we'll put together a tailored quote for your business.
+          </p>
+          <a href="/contact" className="inline-flex items-center font-bold text-primary hover:underline">
+            Get a trade quote →
+          </a>
+        </div>
+
         <div>
           <h2 className="text-xl font-bold mb-3">Customer Service</h2>
           <p className="text-muted-foreground leading-relaxed">

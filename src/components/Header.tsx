@@ -9,6 +9,7 @@ const navLinks = [
   { to: "/bulk-sheep", label: "Sheep" },
   { to: "/bulk-chicken", label: "Chicken" },
   { to: "/extras", label: "Extras" },
+  { to: "/wholesale", label: "Wholesale" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];

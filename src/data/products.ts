@@ -3,6 +3,7 @@ import { Product } from "@/types/product";
 export const WHATSAPP_NUMBER = "+44XXXXXXXXXXX";
 export const BUSINESS_EMAIL = "YOUR_EMAIL_HERE";
 export const DELIVERY_FEE = 20;
+export const FREE_DELIVERY_THRESHOLD = 120;
 export const PICKUP_AVAILABLE = true;
 
 export const beefProducts: Product[] = [

@@ -14,13 +14,144 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          address: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          phone: string
+          referral_code: string
+          referral_credit: number
+          referred_by: string | null
+          survey_completed: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          referral_code?: string
+          referral_credit?: number
+          referred_by?: string | null
+          survey_completed?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string
+          referral_code?: string
+          referral_credit?: number
+          referred_by?: string | null
+          survey_completed?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string
+          id: string
+          referred_spent: number
+          referred_user_id: string
+          referrer_user_id: string
+          reward_claimed_referred: boolean
+          reward_claimed_referrer: boolean
+          reward_unlocked: boolean
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          referred_spent?: number
+          referred_user_id: string
+          referrer_user_id: string
+          reward_claimed_referred?: boolean
+          reward_claimed_referrer?: boolean
+          reward_unlocked?: boolean
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          referred_spent?: number
+          referred_user_id?: string
+          referrer_user_id?: string
+          reward_claimed_referred?: boolean
+          reward_claimed_referrer?: boolean
+          reward_unlocked?: boolean
+        }
+        Relationships: []
+      }
+      survey_responses: {
+        Row: {
+          created_at: string
+          fitness_description: string | null
+          freezer_space: string | null
+          gym_frequency: string | null
+          how_found_us: string | null
+          id: string
+          meat_frequency: string | null
+          meat_ranking: Json | null
+          order_frequency: string | null
+          people_fed: string | null
+          referral_likelihood: string | null
+          subscription_interest: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          fitness_description?: string | null
+          freezer_space?: string | null
+          gym_frequency?: string | null
+          how_found_us?: string | null
+          id?: string
+          meat_frequency?: string | null
+          meat_ranking?: Json | null
+          order_frequency?: string | null
+          people_fed?: string | null
+          referral_likelihood?: string | null
+          subscription_interest?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          fitness_description?: string | null
+          freezer_space?: string | null
+          gym_frequency?: string | null
+          how_found_us?: string | null
+          id?: string
+          meat_frequency?: string | null
+          meat_ranking?: Json | null
+          order_frequency?: string | null
+          people_fed?: string | null
+          referral_likelihood?: string | null
+          subscription_interest?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      process_referral: {
+        Args: { referral_code_input: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

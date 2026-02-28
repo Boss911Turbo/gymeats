@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 
 const navLinks = [
@@ -16,6 +17,7 @@ const navLinks = [
 
 const Header = () => {
   const { totalItems } = useCart();
+  const { user } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -38,7 +40,10 @@ const Header = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <Link to={user ? "/account" : "/auth"} className="text-primary-foreground hover:text-accent transition-colors">
+            <User size={22} />
+          </Link>
           <Link to="/cart" className="relative text-primary-foreground hover:text-accent transition-colors">
             <ShoppingCart size={22} />
             {totalItems > 0 && (

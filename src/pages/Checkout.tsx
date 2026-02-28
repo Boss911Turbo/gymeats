@@ -2,7 +2,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
-import { WHATSAPP_NUMBER, BUSINESS_EMAIL, DELIVERY_FEE, PICKUP_AVAILABLE } from "@/data/products";
+import { WHATSAPP_NUMBER, BUSINESS_EMAIL, DELIVERY_FEE, PICKUP_AVAILABLE, FREE_DELIVERY_THRESHOLD } from "@/data/products";
 import { CheckoutForm } from "@/types/product";
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
@@ -15,7 +15,7 @@ const Checkout = () => {
   });
   const [placed, setPlaced] = useState(false);
 
-  const deliveryFee = form.deliveryMethod === "delivery" ? DELIVERY_FEE : 0;
+  const deliveryFee = form.deliveryMethod === "delivery" && subtotal < FREE_DELIVERY_THRESHOLD ? DELIVERY_FEE : 0;
   const total = subtotal + deliveryFee;
 
   const buildOrderSummary = () => {
@@ -112,7 +112,7 @@ const Checkout = () => {
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input type="radio" name="delivery" value="delivery" checked={form.deliveryMethod === "delivery"} onChange={() => setForm({ ...form, deliveryMethod: "delivery" })} />
-                      <span className="text-sm">Delivery (£{DELIVERY_FEE})</span>
+                      <span className="text-sm">Delivery ({subtotal >= FREE_DELIVERY_THRESHOLD ? "FREE" : `£${DELIVERY_FEE}`})</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input type="radio" name="delivery" value="pickup" checked={form.deliveryMethod === "pickup"} onChange={() => setForm({ ...form, deliveryMethod: "pickup" })} />
@@ -157,7 +157,7 @@ const Checkout = () => {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Delivery</span>
-                  <span>{deliveryFee > 0 ? `£${deliveryFee.toFixed(2)}` : "Free"}</span>
+                  <span>{deliveryFee > 0 ? `£${deliveryFee.toFixed(2)}` : `Free${form.deliveryMethod === "delivery" && subtotal >= FREE_DELIVERY_THRESHOLD ? " (over £120)" : ""}`}</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2 border-t border-border">
                   <span>Total</span>

@@ -12,6 +12,7 @@ import BulkChicken from "./pages/BulkChicken";
 import Extras from "./pages/Extras";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Wholesale from "./pages/Wholesale";
 import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/bulk-sheep" element={<BulkSheep />} />
             <Route path="/bulk-chicken" element={<BulkChicken />} />
             <Route path="/extras" element={<Extras />} />
+            <Route path="/wholesale" element={<Wholesale />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<CartPage />} />

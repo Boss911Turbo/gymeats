@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Truck, Package, Shield, ChevronRight } from "lucide-react";
+import { ShoppingCart, Truck, Package, Shield, ChevronRight, Flame, Star } from "lucide-react";
 import heroImage from "@/assets/hero-meat.jpg";
+import { ANNOUNCEMENT_TEXT, WEEKLY_DEAL_PRODUCT_ID, beefProducts, FREE_DELIVERY_THRESHOLD } from "@/data/products";
+import BatchProgressBar from "@/components/BatchProgressBar";
 
 const categories = [
   { to: "/bulk-beef", label: "Bulk Beef", emoji: "🥩" },
@@ -12,8 +14,15 @@ const categories = [
   { to: "/extras", label: "Extras", emoji: "🧂" },
 ];
 
+const weeklyDealProduct = beefProducts.find(p => p.id === WEEKLY_DEAL_PRODUCT_ID);
+
 const Index = () => (
   <Layout>
+    {/* Announcement Bar */}
+    <div className="bg-accent text-accent-foreground text-center py-2 px-4">
+      <p className="text-sm font-bold tracking-wide">{ANNOUNCEMENT_TEXT}</p>
+    </div>
+
     {/* Hero */}
     <section className="relative bg-primary text-primary-foreground overflow-hidden">
       <div
@@ -26,6 +35,7 @@ const Index = () => (
         </h1>
         <p className="text-lg md:text-xl text-primary-foreground/70 max-w-xl mb-8">
           Meal prep, family packs, bulk value. Vacuum packed and delivered fresh to your door.
+          <span className="block mt-1 font-semibold text-primary-foreground">Free delivery on orders over £{FREE_DELIVERY_THRESHOLD}!</span>
         </p>
         <div className="flex flex-wrap gap-3">
           <Link to="/bulk-beef">
@@ -46,6 +56,49 @@ const Index = () => (
         </div>
       </div>
     </section>
+
+    {/* Weekly Deal */}
+    {weeklyDealProduct && (
+      <section className="bg-accent/5 border-y border-accent/20 py-12">
+        <div className="container-tight">
+          <div className="flex items-center gap-2 mb-6 justify-center">
+            <Flame size={24} className="text-accent" />
+            <h2 className="text-2xl md:text-3xl font-black text-center">Weekly Deal</h2>
+            <Flame size={24} className="text-accent" />
+          </div>
+          <div className="max-w-2xl mx-auto bg-card border-2 border-accent/30 rounded-xl p-8">
+            <div className="flex items-center gap-2 mb-2">
+              <Star size={18} className="text-accent fill-accent" />
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">Save Big This Week</span>
+            </div>
+            <h3 className="text-2xl font-black mb-2">{weeklyDealProduct.name}</h3>
+            <p className="text-muted-foreground text-sm mb-4">{weeklyDealProduct.description}</p>
+            <p className="text-accent font-black text-3xl mb-4">
+              £{weeklyDealProduct.price.toFixed(2)}
+              <span className="text-muted-foreground text-sm font-normal ml-2">{weeklyDealProduct.priceLabel}</span>
+            </p>
+            {weeklyDealProduct.halfBoxAvailable && (
+              <p className="text-sm text-muted-foreground mb-4">
+                Also available as <span className="font-bold">Half Box — £{(weeklyDealProduct.halfBoxPrice || weeklyDealProduct.price / 2).toFixed(2)}</span>
+              </p>
+            )}
+            <BatchProgressBar productId={weeklyDealProduct.id} />
+            {weeklyDealProduct.components && (
+              <ul className="text-xs text-muted-foreground space-y-1 mb-4">
+                {weeklyDealProduct.components.map(c => (
+                  <li key={c.name}>• <span className="font-medium text-foreground">{c.name}</span>: {c.detail}</li>
+                ))}
+              </ul>
+            )}
+            <Link to="/bulk-beef">
+              <Button size="lg" className="w-full font-bold bg-accent text-accent-foreground hover:bg-accent/90">
+                Shop Now <ChevronRight size={18} />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+    )}
 
     {/* Categories */}
     <section className="container-tight py-16">
@@ -93,7 +146,7 @@ const Index = () => (
         {[
           { icon: <Shield size={24} />, title: "100% Halal", desc: "All meat is certified halal from trusted sources." },
           { icon: <Package size={24} />, title: "Vacuum Packed", desc: "Individually packed for freshness and easy freezing." },
-          { icon: <Truck size={24} />, title: "Delivery & Pickup", desc: "£20 flat delivery fee, or pick up for free." },
+          { icon: <Truck size={24} />, title: "Free Delivery Over £120", desc: `Free delivery on orders over £${FREE_DELIVERY_THRESHOLD}. Otherwise £20 flat fee.` },
           { title: "⚖️ Accurate Weights", desc: "All weights are as close as possible to your desired amount." },
         ].map(item => (
           <div key={item.title} className="border border-border rounded-lg p-6">
@@ -111,10 +164,11 @@ const Index = () => (
         <h2 className="text-2xl md:text-3xl font-black mb-8 text-center">FAQ</h2>
         <div className="max-w-2xl mx-auto space-y-4">
           {[
-            { q: "Do you deliver or offer pickup?", a: "Yes, both! Delivery is a flat £20 fee. Pickup is free — we'll arrange a time via WhatsApp." },
+            { q: "Do you deliver or offer pickup?", a: `Yes, both! Delivery is free on orders over £${FREE_DELIVERY_THRESHOLD} (otherwise £20). Pickup is always free — we'll arrange a time via WhatsApp.` },
             { q: "Is there a minimum order?", a: "Minimum order details coming soon. Contact us for more info." },
             { q: "What are the lead times?", a: "Lead times vary. We'll confirm via WhatsApp when you place your order." },
             { q: "How should I store the meat?", a: "All items are vacuum packed for easy freezing. Store in your freezer and defrost as needed. Most items will keep for several months when frozen." },
+            { q: "Can I order a half box?", a: "Yes! Most of our boxes are available as half box or full box. Select your preferred size when ordering." },
           ].map(faq => (
             <details key={faq.q} className="bg-card border border-border rounded-lg p-4 group">
               <summary className="font-semibold cursor-pointer list-none flex justify-between items-center">

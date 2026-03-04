@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      batch_drops: {
+        Row: {
+          created_at: string
+          id: string
+          order_count: number
+          product_id: string
+          target: number
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_count?: number
+          product_id: string
+          target?: number
+          week_start?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_count?: number
+          product_id?: string
+          target?: number
+          week_start?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address: string
@@ -148,6 +175,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      increment_batch_order: {
+        Args: { p_product_id: string }
+        Returns: undefined
+      }
       process_referral: {
         Args: { referral_code_input: string }
         Returns: undefined

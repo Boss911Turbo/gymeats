@@ -16,20 +16,24 @@ export interface Product {
   name: string;
   category: string;
   type: ProductType;
-  price: number; // placeholder price in GBP
-  priceLabel?: string; // e.g. "per kg", "per box"
+  price: number;
+  priceLabel?: string;
   description: string;
   details?: string[];
   components?: ProductComponent[];
   weightRange?: { min: number; max: number; avg: number; unit: string };
   options?: ProductOption[];
   packSizes?: string[];
-  unitLabel?: string; // e.g. "kg", "5-piece", "10-piece", "box"
+  unitLabel?: string;
   minQty?: number;
   image?: string;
   badge?: string;
   contactOnly?: boolean;
   note?: string;
+  halfBoxAvailable?: boolean;
+  halfBoxPrice?: number;
+  weeklyDrop?: boolean;
+  recommendedFor?: string[];
 }
 
 export interface CartItem {

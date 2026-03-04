@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Plus, Minus, Package } from "lucide-react";
+import { ShoppingCart, Plus, Minus, Package, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import BatchProgressBar from "./BatchProgressBar";
 
 interface ProductCardProps {
   product: Product;
@@ -13,6 +14,7 @@ interface ProductCardProps {
 const ProductCard = ({ product }: ProductCardProps) => {
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [boxSize, setBoxSize] = useState<"full" | "half">("full");
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() => {
     const defaults: Record<string, string> = {};
     product.options?.forEach(opt => {
@@ -23,6 +25,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [targetWeight, setTargetWeight] = useState(product.weightRange?.avg || 0);
   const [notes, setNotes] = useState("");
   const [kgAmount, setKgAmount] = useState(1);
+
+  const isHalf = boxSize === "half" && product.halfBoxAvailable;
+  const displayPrice = isHalf ? (product.halfBoxPrice || product.price / 2) : product.price;
+  const displayWeight = product.weightRange
+    ? isHalf
+      ? { min: Math.round(product.weightRange.min / 2), max: Math.round(product.weightRange.max / 2), avg: Math.round(product.weightRange.avg / 2), unit: product.weightRange.unit }
+      : product.weightRange
+    : undefined;
 
   if (product.contactOnly) {
     return (
@@ -41,22 +51,24 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const handleAdd = () => {
     const isPerKg = product.type === "per-kg";
     const qty = isPerKg ? kgAmount : quantity;
+    const itemName = isHalf ? `${product.name} (Half Box)` : product.name;
     addItem({
       productId: product.id,
-      productName: product.name,
+      productName: itemName,
       quantity: qty,
-      price: product.price,
+      price: displayPrice,
       selectedOptions,
-      targetWeight: product.weightRange ? targetWeight : undefined,
+      targetWeight: displayWeight ? targetWeight : undefined,
       notes: notes || undefined,
       unitLabel: product.unitLabel || (isPerKg ? "kg" : undefined),
     });
-    toast.success(`${product.name} added to cart`);
+    toast.success(`${itemName} added to cart`);
     setNotes("");
   };
 
   return (
     <div className="bg-card border border-border rounded-lg p-6 flex flex-col">
+      {/* Badge + name */}
       <div className="flex items-start justify-between mb-1">
         <h3 className="font-bold text-lg">{product.name}</h3>
         {product.badge && (
@@ -66,13 +78,48 @@ const ProductCard = ({ product }: ProductCardProps) => {
         )}
       </div>
 
+      {/* Recommended for */}
+      {product.recommendedFor && product.recommendedFor.length > 0 && (
+        <div className="flex flex-wrap gap-1 mb-2">
+          {product.recommendedFor.map(r => (
+            <span key={r} className="inline-flex items-center gap-1 bg-muted text-muted-foreground text-[10px] font-semibold px-2 py-0.5 rounded-full">
+              <Store size={10} /> {r}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Half / Full toggle */}
+      {product.halfBoxAvailable && (
+        <div className="flex gap-2 mb-3">
+          <button
+            onClick={() => setBoxSize("half")}
+            className={`flex-1 text-sm font-semibold py-2 rounded border transition-colors ${boxSize === "half" ? "bg-primary text-primary-foreground border-primary" : "border-input hover:bg-muted"}`}
+          >
+            Half Box
+          </button>
+          <button
+            onClick={() => setBoxSize("full")}
+            className={`flex-1 text-sm font-semibold py-2 rounded border transition-colors ${boxSize === "full" ? "bg-primary text-primary-foreground border-primary" : "border-input hover:bg-muted"}`}
+          >
+            Full Box
+          </button>
+        </div>
+      )}
+
+      {/* Price */}
       <p className="text-accent font-bold text-lg mb-2">
-        £{product.price.toFixed(2)}{" "}
-        <span className="text-muted-foreground text-sm font-normal">{product.priceLabel}</span>
+        £{displayPrice.toFixed(2)}{" "}
+        <span className="text-muted-foreground text-sm font-normal">
+          {isHalf ? "half box" : product.priceLabel}
+        </span>
       </p>
       <p className="text-xs text-muted-foreground italic mb-2">Placeholder price — will be updated</p>
 
       <p className="text-muted-foreground text-sm mb-4">{product.description}</p>
+
+      {/* Weekly drop batch bar */}
+      {product.weeklyDrop && <BatchProgressBar productId={product.id} />}
 
       {product.note && (
         <div className="bg-warning/10 text-warning-foreground border border-warning/20 rounded px-3 py-2 text-xs mb-4">
@@ -83,7 +130,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {product.components && (
         <div className="mb-4">
           <p className="text-xs font-semibold mb-2 flex items-center gap-1">
-            <Package size={14} /> Box Contents:
+            <Package size={14} /> {isHalf ? "Half Box Contents (approx.):" : "Box Contents:"}
           </p>
           <ul className="text-xs text-muted-foreground space-y-1">
             {product.components.map(c => (
@@ -99,22 +146,22 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </ul>
       )}
 
-      {product.weightRange && (
+      {displayWeight && (
         <div className="mb-4">
           <label className="text-xs font-semibold block mb-1">
-            Target Weight: {targetWeight}{product.weightRange.unit}
+            Target Weight: {targetWeight}{displayWeight.unit}
           </label>
           <input
             type="range"
-            min={product.weightRange.min}
-            max={product.weightRange.max}
-            value={targetWeight}
+            min={displayWeight.min}
+            max={displayWeight.max}
+            value={Math.min(targetWeight, displayWeight.max)}
             onChange={e => setTargetWeight(Number(e.target.value))}
             className="w-full accent-accent"
           />
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>{product.weightRange.min}{product.weightRange.unit}</span>
-            <span>{product.weightRange.max}{product.weightRange.unit}</span>
+            <span>{displayWeight.min}{displayWeight.unit}</span>
+            <span>{displayWeight.max}{displayWeight.unit}</span>
           </div>
         </div>
       )}

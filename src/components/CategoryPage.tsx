@@ -1,6 +1,7 @@
 import { Product } from "@/types/product";
 import ProductCard from "./ProductCard";
 import Layout from "./Layout";
+import { ANNOUNCEMENT_TEXT } from "@/data/products";
 
 interface CategoryPageProps {
   title: string;
@@ -11,6 +12,11 @@ interface CategoryPageProps {
 
 const CategoryPage = ({ title, subtitle, infoBlocks, products }: CategoryPageProps) => (
   <Layout>
+    {/* Announcement bar */}
+    <div className="bg-accent text-accent-foreground text-center py-2 px-4">
+      <p className="text-sm font-bold tracking-wide">{ANNOUNCEMENT_TEXT}</p>
+    </div>
+
     <section className="container-tight py-10">
       <h1 className="text-3xl md:text-4xl font-black mb-2">{title}</h1>
       {subtitle && <p className="text-muted-foreground mb-6">{subtitle}</p>}

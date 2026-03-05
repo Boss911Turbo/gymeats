@@ -2,7 +2,7 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import { useCart } from "@/context/CartContext";
 import { Button } from "@/components/ui/button";
-import { WHATSAPP_NUMBER, BUSINESS_EMAIL, DELIVERY_FEE, PICKUP_AVAILABLE, FREE_DELIVERY_THRESHOLD } from "@/data/products";
+import { WHATSAPP_NUMBER, BUSINESS_EMAIL, DELIVERY_FEE, PICKUP_AVAILABLE, FREE_DELIVERY_THRESHOLD, SMALL_ORDER_THRESHOLD, SMALL_ORDER_FEE } from "@/data/products";
 import { CheckoutForm } from "@/types/product";
 import { toast } from "sonner";
 import { CheckCircle } from "lucide-react";
@@ -15,8 +15,22 @@ const Checkout = () => {
   });
   const [placed, setPlaced] = useState(false);
 
-  const deliveryFee = form.deliveryMethod === "delivery" && subtotal < FREE_DELIVERY_THRESHOLD ? DELIVERY_FEE : 0;
+  const getDeliveryFee = () => {
+    if (form.deliveryMethod !== "delivery") return 0;
+    if (subtotal >= FREE_DELIVERY_THRESHOLD) return 0;
+    if (subtotal < SMALL_ORDER_THRESHOLD) return SMALL_ORDER_FEE;
+    return DELIVERY_FEE;
+  };
+
+  const deliveryFee = getDeliveryFee();
   const total = subtotal + deliveryFee;
+
+  const getDeliveryLabel = () => {
+    if (form.deliveryMethod !== "delivery") return "Free (Pickup)";
+    if (subtotal >= FREE_DELIVERY_THRESHOLD) return `Free (over £${FREE_DELIVERY_THRESHOLD})`;
+    if (subtotal < SMALL_ORDER_THRESHOLD) return `£${SMALL_ORDER_FEE} (under £${SMALL_ORDER_THRESHOLD})`;
+    return `£${DELIVERY_FEE}`;
+  };
 
   const buildOrderSummary = () => {
     let msg = `*GYMEATS ORDER*\n\n`;
@@ -36,7 +50,7 @@ const Checkout = () => {
       if (item.notes) msg += `\n  Notes: ${item.notes}`;
     });
     msg += `\n\n*Subtotal:* £${subtotal.toFixed(2)}`;
-    msg += `\n*Delivery:* ${deliveryFee > 0 ? `£${deliveryFee.toFixed(2)}` : "Free (Pickup)"}`;
+    msg += `\n*Delivery:* ${getDeliveryLabel()}`;
     msg += `\n*TOTAL:* £${total.toFixed(2)}`;
     return msg;
   };
@@ -46,13 +60,10 @@ const Checkout = () => {
     if (items.length === 0) { toast.error("Your cart is empty"); return; }
 
     const summary = buildOrderSummary();
-
-    // Open WhatsApp
     const waNumber = WHATSAPP_NUMBER.replace("+", "");
     const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(summary)}`;
     window.open(waUrl, "_blank");
 
-    // Email
     const subject = encodeURIComponent("GYMEATS Order from " + form.fullName);
     const body = encodeURIComponent(summary.replace(/\*/g, ""));
     window.open(`mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`, "_blank");
@@ -70,9 +81,7 @@ const Checkout = () => {
           <p className="text-muted-foreground mb-6">
             Your order has been sent via WhatsApp and email. We'll be in touch shortly to confirm details and arrange {form.deliveryMethod === "delivery" ? "delivery" : "pickup"}.
           </p>
-          <Link to="/">
-            <Button>Back to Home</Button>
-          </Link>
+          <Link to="/"><Button>Back to Home</Button></Link>
         </section>
       </Layout>
     );
@@ -112,7 +121,9 @@ const Checkout = () => {
                   <div className="flex gap-4">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input type="radio" name="delivery" value="delivery" checked={form.deliveryMethod === "delivery"} onChange={() => setForm({ ...form, deliveryMethod: "delivery" })} />
-                      <span className="text-sm">Delivery ({subtotal >= FREE_DELIVERY_THRESHOLD ? "FREE" : `£${DELIVERY_FEE}`})</span>
+                      <span className="text-sm">
+                        Delivery ({subtotal >= FREE_DELIVERY_THRESHOLD ? "FREE" : subtotal < SMALL_ORDER_THRESHOLD ? `£${SMALL_ORDER_FEE}` : `£${DELIVERY_FEE}`})
+                      </span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input type="radio" name="delivery" value="pickup" checked={form.deliveryMethod === "pickup"} onChange={() => setForm({ ...form, deliveryMethod: "pickup" })} />
@@ -157,7 +168,7 @@ const Checkout = () => {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Delivery</span>
-                  <span>{deliveryFee > 0 ? `£${deliveryFee.toFixed(2)}` : `Free${form.deliveryMethod === "delivery" && subtotal >= FREE_DELIVERY_THRESHOLD ? " (over £120)" : ""}`}</span>
+                  <span>{getDeliveryLabel()}</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2 border-t border-border">
                   <span>Total</span>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Plus, Minus, Package, Store } from "lucide-react";
+import { ShoppingCart, Plus, Minus, Package, Store, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import BatchProgressBar from "./BatchProgressBar";
@@ -34,11 +34,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
       : product.weightRange
     : undefined;
 
+  // Use half box components if available, otherwise fall back
+  const displayComponents = isHalf
+    ? (product.halfBoxComponents || product.components)
+    : product.components;
+
   if (product.contactOnly) {
     return (
       <div className="bg-card border border-border rounded-lg p-6 flex flex-col">
         <div className="flex items-start justify-between mb-3">
           <h3 className="font-bold text-lg">{product.name}</h3>
+          {product.badge && (
+            <span className="bg-accent text-accent-foreground text-xs font-semibold px-2 py-1 rounded">
+              {product.badge}
+            </span>
+          )}
         </div>
         <p className="text-muted-foreground text-sm mb-4 flex-1">{product.description}</p>
         <Link to="/contact">
@@ -72,7 +82,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <div className="flex items-start justify-between mb-1">
         <h3 className="font-bold text-lg">{product.name}</h3>
         {product.badge && (
-          <span className="bg-accent text-accent-foreground text-xs font-semibold px-2 py-1 rounded">
+          <span className="bg-accent text-accent-foreground text-xs font-semibold px-2 py-1 rounded whitespace-nowrap ml-2">
             {product.badge}
           </span>
         )}
@@ -116,6 +126,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
       </p>
       <p className="text-xs text-muted-foreground italic mb-2">Placeholder price — will be updated</p>
 
+      {/* Deposit info */}
+      {product.depositAmount && (
+        <div className="bg-warning/10 text-warning-foreground border border-warning/20 rounded px-3 py-2 text-xs mb-3 flex items-start gap-2">
+          <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+          <span>
+            💳 <span className="font-bold">£{product.depositAmount} deposit</span> required —{" "}
+            {product.depositRefundable ? "fully refundable if batch doesn't fill" : "non-refundable"}
+          </span>
+        </div>
+      )}
+
       <p className="text-muted-foreground text-sm mb-4">{product.description}</p>
 
       {/* Weekly drop batch bar */}
@@ -127,13 +148,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       )}
 
-      {product.components && (
+      {displayComponents && (
         <div className="mb-4">
           <p className="text-xs font-semibold mb-2 flex items-center gap-1">
             <Package size={14} /> {isHalf ? "Half Box Contents (approx.):" : "Box Contents:"}
           </p>
           <ul className="text-xs text-muted-foreground space-y-1">
-            {product.components.map(c => (
+            {displayComponents.map(c => (
               <li key={c.name}>• <span className="font-medium text-foreground">{c.name}</span>: {c.detail}</li>
             ))}
           </ul>

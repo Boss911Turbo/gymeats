@@ -4,10 +4,11 @@ import { sheepProducts } from "@/data/products";
 const BulkSheep = () => (
   <CategoryPage
     title="Bulk Sheep"
-    subtitle="Fresh sheep cuts, sold per kg."
+    subtitle="Whole sheep carcass boxes. Half box = half carcass, Full box = full carcass."
     infoBlocks={[
       "Sheep sizing: Small 20–25kg, Standard 25–35kg, Large 35–45kg",
       "Vacuum packed; 500g or 1kg bags; big pieces in meat bags.",
+      "Half box = half carcass. Full box = full carcass.",
     ]}
     products={sheepProducts}
   />

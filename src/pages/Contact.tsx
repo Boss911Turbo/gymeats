@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MessageCircle } from "lucide-react";
+import { Mail, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { WHATSAPP_NUMBER, BUSINESS_EMAIL } from "@/data/products";
@@ -27,16 +27,6 @@ const Contact = () => {
           <div>
             <div className="space-y-4 mb-8">
               <a
-                href={`tel:${WHATSAPP_NUMBER}`}
-                className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-muted transition-colors"
-              >
-                <Phone size={20} />
-                <div>
-                  <p className="font-semibold">Call Us</p>
-                  <p className="text-sm text-muted-foreground">+44 XXX XXXX XXX</p>
-                </div>
-              </a>
-              <a
                 href={`https://wa.me/${WHATSAPP_NUMBER.replace("+", "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -60,9 +50,17 @@ const Contact = () => {
               </a>
             </div>
 
-            {/* Map placeholder */}
-            <div className="bg-muted rounded-lg h-48 flex items-center justify-center text-muted-foreground text-sm">
-              📍 Map placeholder — add your location
+            {/* Social media */}
+            <div className="border border-border rounded-lg p-4">
+              <h3 className="font-bold mb-3">Follow Us</h3>
+              <a
+                href="https://instagram.com/gymeats"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+              >
+                📸 @gymeats on Instagram
+              </a>
             </div>
           </div>
 

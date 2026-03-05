@@ -21,6 +21,7 @@ export interface Product {
   description: string;
   details?: string[];
   components?: ProductComponent[];
+  halfBoxComponents?: ProductComponent[];
   weightRange?: { min: number; max: number; avg: number; unit: string };
   options?: ProductOption[];
   packSizes?: string[];
@@ -34,6 +35,8 @@ export interface Product {
   halfBoxPrice?: number;
   weeklyDrop?: boolean;
   recommendedFor?: string[];
+  depositAmount?: number;
+  depositRefundable?: boolean;
 }
 
 export interface CartItem {

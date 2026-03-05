@@ -11,6 +11,8 @@ const navLinks = [
   { to: "/bulk-chicken", label: "Chicken" },
   { to: "/extras", label: "Extras" },
   { to: "/wholesale", label: "Wholesale" },
+  { to: "/influencers", label: "Influencers" },
+  { to: "/careers", label: "Careers" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
@@ -28,7 +30,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-5">
           {navLinks.map(link => (
             <Link
               key={link.to}

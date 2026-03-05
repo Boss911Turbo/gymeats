@@ -3,10 +3,47 @@ import { Product } from "@/types/product";
 export const WHATSAPP_NUMBER = "+44XXXXXXXXXXX";
 export const BUSINESS_EMAIL = "YOUR_EMAIL_HERE";
 export const DELIVERY_FEE = 20;
-export const FREE_DELIVERY_THRESHOLD = 120;
+export const FREE_DELIVERY_THRESHOLD = 100;
+export const SMALL_ORDER_THRESHOLD = 50;
+export const SMALL_ORDER_FEE = 10;
 export const PICKUP_AVAILABLE = true;
 
 export const beefProducts: Product[] = [
+  // === VALUE BOX (Weekly Deal) ===
+  {
+    id: "beef-value-box",
+    name: "The Value Box",
+    category: "bulk-beef",
+    type: "box",
+    price: 199.99,
+    priceLabel: "per box",
+    badge: "⭐ Most Recommended",
+    description:
+      "Premium beef at an unbeatable price. Made from half cow carcasses — our zero-waste system means you get the best value. Contains steaks, roasts, mince, diced, slow cook cuts and bones. £30 refundable deposit required to confirm your order. If the weekly batch doesn't fill, your deposit is fully refunded.",
+    halfBoxAvailable: false,
+    weeklyDrop: true,
+    depositAmount: 30,
+    depositRefundable: true,
+    recommendedFor: ["Families", "Meal Prep", "Budget Conscious"],
+    components: [
+      { name: "Sirloin Steaks", detail: "~1.5kg" },
+      { name: "Ribeye Steaks", detail: "~1kg" },
+      { name: "Rump Steaks", detail: "~1.5kg" },
+      { name: "Topside Roast", detail: "~1.5kg" },
+      { name: "Silverside Roast", detail: "~1.5kg" },
+      { name: "Lean Mince (5–10% fat)", detail: "~8kg" },
+      { name: "Diced / Stew Beef (Chuck / Braising)", detail: "~3kg" },
+      { name: "Slow Cook Cuts (Short Ribs or Brisket)", detail: "~1kg" },
+      { name: "Bones (Marrow or Soup Bones)", detail: "~1kg" },
+    ],
+    weightRange: { min: 18, max: 22, avg: 20, unit: "kg" },
+    options: [
+      { label: "Roasting / Large Cuts", choices: ["Keep as Roast", "Mince", "Stir Fry Strips", "Diced Beef"], default: "Keep as Roast" },
+      { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
+    ],
+    image: "/images/value-box.jpg",
+  },
+  // === LOIN BOX ===
   {
     id: "beef-full-loin-box",
     name: "Full Loin Box",
@@ -14,15 +51,24 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 199.99,
     priceLabel: "per box",
-    description: "Premium full loin box with T-Bone, Sirloin, Fillet steaks and mince.",
+    badge: "🥩 Best for Steak Lovers",
+    description: "Premium full loin box with T-Bone, Sirloin, Fillet steaks and mince. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 109.99,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Retailers", "Restaurants"],
     components: [
       { name: "T-Bone Steaks", detail: "10–12 pieces, 1\" thick, 350g–450g each" },
       { name: "Sirloin Steaks", detail: "10–14 pieces, 1\" thick, 250g–350g each" },
       { name: "Fillet Steaks", detail: "8–14 pieces, 1\" thick, 200g–280g each" },
       { name: "Beef Mince", detail: "3–8kg (lean or with fat)" },
+    ],
+    halfBoxComponents: [
+      { name: "T-Bone Steaks", detail: "5–6 pieces, 1\" thick, 350g–450g each" },
+      { name: "Sirloin Steaks", detail: "5–7 pieces, 1\" thick, 250g–350g each" },
+      { name: "Fillet Steaks", detail: "4–7 pieces, 1\" thick, 200g–280g each" },
+      { name: "Beef Mince", detail: "1.5–4kg (lean or with fat)" },
     ],
     weightRange: { min: 22, max: 28, avg: 25, unit: "kg" },
     options: [
@@ -31,6 +77,7 @@ export const beefProducts: Product[] = [
     ],
     image: "/images/loin-box.jpg",
   },
+  // === RIB EYE BOX ===
   {
     id: "beef-rib-eye-box",
     name: "Primal Rib Box A: Rib Eye Box",
@@ -38,14 +85,22 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 179.99,
     priceLabel: "per box",
-    description: "Loaded with rib-eye steaks, short ribs, and mince.",
+    badge: "🥩 Best for Steak Lovers",
+    description: "Loaded with rib-eye steaks, short ribs, and mince. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 99.99,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Restaurants", "Caterers"],
     components: [
       { name: "Rib-eye Steaks", detail: "12–14kg, 1\" thick, 300g–400g each" },
       { name: "Short Ribs / Rib Fingers", detail: "6–12kg" },
       { name: "Beef Mince", detail: "3–4kg (lean or with fat)" },
+    ],
+    halfBoxComponents: [
+      { name: "Rib-eye Steaks", detail: "6–7kg, 1\" thick, 300g–400g each" },
+      { name: "Short Ribs / Rib Fingers", detail: "3–6kg" },
+      { name: "Beef Mince", detail: "1.5–2kg (lean or with fat)" },
     ],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
     options: [
@@ -54,6 +109,7 @@ export const beefProducts: Product[] = [
     ],
     image: "/images/ribeye-box.jpg",
   },
+  // === TOMAHAWK BOX ===
   {
     id: "beef-tomahawk-box",
     name: "Primal Rib Box B: Tomahawk Box",
@@ -62,15 +118,23 @@ export const beefProducts: Product[] = [
     price: 229.99,
     priceLabel: "per box",
     badge: "Luxury",
-    description: "Premium tomahawk steaks, rib-eye, short ribs and mince.",
+    description: "Premium tomahawk steaks, rib-eye, short ribs and mince. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 124.99,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Restaurants", "Hotels"],
     components: [
       { name: "Tomahawk Steaks", detail: "6–8kg, 700g–1kg each (big cut meat bag)" },
       { name: "Ribeye Steaks", detail: "10–14kg, 1\" thick, 300g–400g each" },
       { name: "Short Ribs", detail: "6–12kg" },
       { name: "Beef Mince", detail: "2–6kg (lean or with fat)" },
+    ],
+    halfBoxComponents: [
+      { name: "Tomahawk Steaks", detail: "3–4kg, 700g–1kg each (big cut meat bag)" },
+      { name: "Ribeye Steaks", detail: "5–7kg, 1\" thick, 300g–400g each" },
+      { name: "Short Ribs", detail: "3–6kg" },
+      { name: "Beef Mince", detail: "1–3kg (lean or with fat)" },
     ],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
     options: [
@@ -79,6 +143,7 @@ export const beefProducts: Product[] = [
     ],
     image: "/images/tomahawk-box.jpg",
   },
+  // === RUMP BOX ===
   {
     id: "beef-rump-box",
     name: "Primal Rump Box",
@@ -86,14 +151,21 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 159.99,
     priceLabel: "per box",
-    description: "Rump steaks, diced beef and mince — great all-rounder.",
+    description: "Rump steaks, diced beef and mince — great all-rounder. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 89.99,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Retailers", "Meal Prep"],
     components: [
       { name: "Rump Steaks", detail: "14–16 pieces, 1\" thick, 250g–350g each" },
       { name: "Diced Beef", detail: "8–10kg, 30–40mm chunks" },
       { name: "Beef Mince", detail: "4–6kg (lean or with fat)" },
+    ],
+    halfBoxComponents: [
+      { name: "Rump Steaks", detail: "7–8 pieces, 1\" thick, 250g–350g each" },
+      { name: "Diced Beef", detail: "4–5kg, 30–40mm chunks" },
+      { name: "Beef Mince", detail: "2–3kg (lean or with fat)" },
     ],
     weightRange: { min: 16, max: 24, avg: 20, unit: "kg" },
     options: [
@@ -102,6 +174,7 @@ export const beefProducts: Product[] = [
     ],
     image: "/images/rump-box.jpg",
   },
+  // === LEAN BULK / ROUND BOX ===
   {
     id: "beef-lean-bulk-box",
     name: "Primal Round Box: Lean Bulk Box",
@@ -109,10 +182,11 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 189.99,
     priceLabel: "per box",
-    description: "High-protein lean cuts — topside, silverside, diced lean beef and mince.",
+    description: "High-protein lean cuts — topside, silverside, diced lean beef and mince. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 104.99,
-    badge: "💪 Best Seller",
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Gym Goers", "Meal Prep"],
     weeklyDrop: true,
     components: [
@@ -121,13 +195,19 @@ export const beefProducts: Product[] = [
       { name: "Diced Lean Beef", detail: "7–14kg" },
       { name: "Lean Beef Mince", detail: "3–8kg" },
     ],
+    halfBoxComponents: [
+      { name: "Topside Steak", detail: "5–8 pieces, 1\" thick, 250g–350g each" },
+      { name: "Silverside Joint", detail: "4–7.5kg" },
+      { name: "Diced Lean Beef", detail: "3.5–7kg" },
+      { name: "Lean Beef Mince", detail: "1.5–4kg" },
+    ],
     weightRange: { min: 30, max: 45, avg: 37, unit: "kg" },
     options: [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/lean-box.jpg",
   },
-  // === NEW BOXES ===
+  // === CURRY PIECE BOX ===
   {
     id: "beef-curry-piece-box",
     name: "Curry Piece Box",
@@ -136,14 +216,17 @@ export const beefProducts: Product[] = [
     price: 99.99,
     priceLabel: "per box",
     badge: "🔥 New",
-    description: "Lamb shank cut into curry pieces — perfect for curries, stews and slow cooking.",
+    description: "Lamb shank cut into curry pieces — perfect for curries, stews and slow cooking. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 54.99,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Home Cooks", "Caterers"],
     weeklyDrop: true,
     weightRange: { min: 8, max: 14, avg: 11, unit: "kg" },
     image: "/images/curry-box.jpg",
   },
+  // === FULL CHUCK BOX ===
   {
     id: "beef-full-chuck-box",
     name: "Full Chuck Box",
@@ -151,9 +234,11 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 375,
     priceLabel: "per box (£330–£420)",
-    description: "Versatile chuck cuts — steaks, roasts, diced and mince. A kitchen workhorse.",
+    description: "Versatile chuck cuts — steaks, roasts, diced and mince. A kitchen workhorse. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 195,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Restaurants", "Retailers", "Caterers"],
     components: [
       { name: "Chuck Steaks", detail: "6–10 pieces, 1\" thick, 300g–400g each — £9 each" },
@@ -162,12 +247,20 @@ export const beefProducts: Product[] = [
       { name: "Diced Chuck", detail: "6–10kg — £11/kg" },
       { name: "Mince Beef", detail: "3–6kg — £22/kg" },
     ],
+    halfBoxComponents: [
+      { name: "Chuck Steaks", detail: "3–5 pieces, 1\" thick, 300g–400g each" },
+      { name: "Blade Steaks", detail: "2–4 pieces, 250g–350g each" },
+      { name: "Chuck Roasts", detail: "2–3 pieces, 1.5kg–2.5kg each" },
+      { name: "Diced Chuck", detail: "3–5kg" },
+      { name: "Mince Beef", detail: "1.5–3kg" },
+    ],
     weightRange: { min: 22, max: 30, avg: 26, unit: "kg" },
     options: [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/chuck-box.jpg",
   },
+  // === FULL BRISKET BOX ===
   {
     id: "beef-full-brisket-box",
     name: "Full Brisket Box",
@@ -175,22 +268,20 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 285,
     priceLabel: "per box (£240–£330)",
-    description: "Whole briskets, slices, diced and mince. BBQ favourite.",
+    description: "Choose how you want your brisket — whole, sliced, diced, or as mince. BBQ favourite. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 149,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["BBQ Enthusiasts", "Restaurants", "Caterers"],
-    components: [
-      { name: "Whole Briskets", detail: "2–4 pieces (flat + point), 4kg–6kg each — £12/kg" },
-      { name: "Brisket Slices", detail: "3–6kg — £13/kg" },
-      { name: "Diced Brisket", detail: "4–8kg — £12/kg" },
-      { name: "Mince", detail: "3–5kg — £22/kg" },
-    ],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
     options: [
+      { label: "Brisket Cut Style", choices: ["Whole Briskets", "Brisket Slices", "Diced Brisket", "Mince"], default: "Whole Briskets" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/brisket-box.jpg",
   },
+  // === FULL RIB BOX ===
   {
     id: "beef-full-rib-box",
     name: "Full Rib Box",
@@ -199,15 +290,23 @@ export const beefProducts: Product[] = [
     price: 575,
     priceLabel: "per box (£500–£650)",
     badge: "Premium",
-    description: "Ribeye steaks, rib roasts, short ribs and trimmings. The premium selection.",
+    description: "Ribeye steaks, rib roasts, short ribs and trimmings. The premium selection. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 299,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Restaurants", "Hotels", "Retailers"],
     components: [
       { name: "Ribeye Steaks", detail: "10–16 pieces, 1\" thick, 300g–400g each — £16 each" },
       { name: "Rib Roasts", detail: "2–4 pieces, 2kg–4kg each — £15/kg" },
       { name: "Short Ribs", detail: "4–8kg — £10/kg" },
       { name: "Rib Trimmings", detail: "3–5kg (BBQ or mince) — £22/kg" },
+    ],
+    halfBoxComponents: [
+      { name: "Ribeye Steaks", detail: "5–8 pieces, 1\" thick, 300g–400g each" },
+      { name: "Rib Roasts", detail: "1–2 pieces, 2kg–4kg each" },
+      { name: "Short Ribs", detail: "2–4kg" },
+      { name: "Rib Trimmings", detail: "1.5–2.5kg (BBQ or mince)" },
     ],
     weightRange: { min: 20, max: 28, avg: 24, unit: "kg" },
     options: [
@@ -216,6 +315,7 @@ export const beefProducts: Product[] = [
     ],
     image: "/images/rib-box.jpg",
   },
+  // === FULL ROUND (LEG) BOX ===
   {
     id: "beef-full-round-box",
     name: "Full Round (Leg) Box",
@@ -223,12 +323,12 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 365,
     priceLabel: "per box (£320–£420)",
-    badge: "💰 Value",
-    description: "Lean roasts, diced beef and mince. Premium beef at an affordable price.",
+    description: "Lean roasts, diced beef and mince. Can also be sold as caveman steaks/slices. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 189,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Budget Conscious", "Meal Prep", "Retailers"],
-    weeklyDrop: true,
     components: [
       { name: "Topside Roasts", detail: "4–6 pieces, 2kg–3kg each — £9/kg" },
       { name: "Silverside Roasts", detail: "4–6 pieces, 2kg–3kg each — £9/kg" },
@@ -236,12 +336,21 @@ export const beefProducts: Product[] = [
       { name: "Diced Beef", detail: "6–10kg — £11/kg" },
       { name: "Mince", detail: "5–8kg — £22/kg" },
     ],
+    halfBoxComponents: [
+      { name: "Topside Roasts", detail: "2–3 pieces, 2kg–3kg each" },
+      { name: "Silverside Roasts", detail: "2–3 pieces, 2kg–3kg each" },
+      { name: "Eye of Round", detail: "1–2 pieces, 1kg–2kg each" },
+      { name: "Diced Beef", detail: "3–5kg" },
+      { name: "Mince", detail: "2.5–4kg" },
+    ],
     weightRange: { min: 28, max: 35, avg: 32, unit: "kg" },
     options: [
+      { label: "Cut Style", choices: ["Standard Roasts & Diced", "Caveman Steaks / Slices"], default: "Standard Roasts & Diced" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/round-box.jpg",
   },
+  // === FULL RUMP BOX ===
   {
     id: "beef-full-rump-box",
     name: "Full Rump Box",
@@ -249,9 +358,12 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 430,
     priceLabel: "per box (£380–£480)",
-    description: "Rump steaks, picanha, roasts, diced and mince. All-rounder premium box.",
+    badge: "💰 Cheap Steak Box",
+    description: "Rump steaks, picanha, roasts, diced and mince. Affordable steaks in bulk. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 225,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Restaurants", "BBQ Enthusiasts", "Retailers"],
     components: [
       { name: "Rump Steaks", detail: "12–18 pieces, 250g–350g each — £12 each" },
@@ -260,12 +372,20 @@ export const beefProducts: Product[] = [
       { name: "Diced Rump", detail: "4–8kg — £12/kg" },
       { name: "Mince", detail: "3–5kg — £22/kg" },
     ],
+    halfBoxComponents: [
+      { name: "Rump Steaks", detail: "6–9 pieces, 250g–350g each" },
+      { name: "Picanha", detail: "1–2 pieces, 1.2kg–2kg each" },
+      { name: "Rump Roasts", detail: "1.5–3kg" },
+      { name: "Diced Rump", detail: "2–4kg" },
+      { name: "Mince", detail: "1.5–2.5kg" },
+    ],
     weightRange: { min: 20, max: 26, avg: 23, unit: "kg" },
     options: [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/full-rump-box.jpg",
   },
+  // === PLATE & FLANK BOX ===
   {
     id: "beef-plate-flank-box",
     name: "Full Plate & Flank Box",
@@ -273,15 +393,24 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 300,
     priceLabel: "per box (£260–£340)",
-    description: "Skirt steaks, flank steaks, short plate ribs and diced beef. Great for grilling and stir-fry.",
+    badge: "💰 Cheap Steak Box",
+    description: "Skirt steaks, flank steaks, short plate ribs and diced beef. Great for grilling and stir-fry. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 159,
+    depositAmount: 50,
+    depositRefundable: false,
     recommendedFor: ["Restaurants", "Caterers", "Food Trucks"],
     components: [
       { name: "Skirt Steaks", detail: "4–8 pieces, 300g–500g each — £11 each" },
       { name: "Flank Steaks", detail: "4–6 pieces, 700g–1.2kg each — £12/kg" },
       { name: "Short Plate Ribs", detail: "4–8kg — £10/kg" },
       { name: "Diced Beef", detail: "3–6kg — £11/kg" },
+    ],
+    halfBoxComponents: [
+      { name: "Skirt Steaks", detail: "2–4 pieces, 300g–500g each" },
+      { name: "Flank Steaks", detail: "2–3 pieces, 700g–1.2kg each" },
+      { name: "Short Plate Ribs", detail: "2–4kg" },
+      { name: "Diced Beef", detail: "1.5–3kg" },
     ],
     weightRange: { min: 16, max: 22, avg: 19, unit: "kg" },
     image: "/images/plate-flank-box.jpg",
@@ -304,13 +433,19 @@ export const beefProducts: Product[] = [
     id: "beef-bones",
     name: "Beef Bones",
     category: "bulk-beef",
-    type: "contact-only",
-    price: 0,
-    description: "Available on request. Contact us to order beef bones.",
-    contactOnly: true,
+    type: "per-kg",
+    price: 3.99,
+    priceLabel: "per kg",
+    description: "Perfect for broths, soups, or bone marrow. Choose your preferred cut style.",
+    options: [
+      { label: "Cut Style", choices: ["Whole", "Cut in Half (Bone Marrow)", "Chunks"], default: "Whole" },
+      { label: "Pack Size", choices: ["1kg", "2kg", "5kg"], default: "2kg" },
+    ],
+    unitLabel: "kg",
   },
 ];
 
+// === LAMB ===
 export const lambProducts: Product[] = [
   {
     id: "lamb-whole-box-a",
@@ -319,9 +454,10 @@ export const lambProducts: Product[] = [
     type: "box",
     price: 179.99,
     priceLabel: "per box",
-    description: "Complete whole lamb, broken down and vacuum packed.",
-    halfBoxAvailable: true,
-    halfBoxPrice: 99.99,
+    description: "Complete whole lamb, broken down and vacuum packed. Full lamb only. £50 non-refundable deposit required.",
+    halfBoxAvailable: false,
+    depositAmount: 50,
+    depositRefundable: false,
     details: [
       "Lamb sizing: Small 14–16kg, Standard 16–22kg, Large 22–26kg",
       "Vacuum packed; 500g or 1kg bags; big pieces in meat bags.",
@@ -350,9 +486,10 @@ export const lambProducts: Product[] = [
     type: "box",
     price: 169.99,
     priceLabel: "per box",
-    description: "Whole lamb curry cut, boneless diced, and mince options.",
-    halfBoxAvailable: true,
-    halfBoxPrice: 94.99,
+    description: "Whole lamb curry cut, boneless diced, and mince options. Full lamb only. £50 non-refundable deposit required.",
+    halfBoxAvailable: false,
+    depositAmount: 50,
+    depositRefundable: false,
     options: [
       { label: "Cut Style", choices: ["Whole Lamb Curry Cut (on the bone)", "Boneless Diced Lamb", "Mixed"], default: "Whole Lamb Curry Cut (on the bone)" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -361,23 +498,174 @@ export const lambProducts: Product[] = [
   },
 ];
 
+// === SHEEP (Carcass boxes like lamb, with half/full option) ===
 export const sheepProducts: Product[] = [
-  { id: "sheep-shoulder", name: "Sheep Shoulder", category: "bulk-sheep", type: "per-kg", price: 9.99, priceLabel: "per kg", description: "Fresh sheep shoulder, perfect for roasting or slow cooking.", unitLabel: "kg", options: [{ label: "Pack Size", choices: ["500g", "1kg"], default: "1kg" }] },
-  { id: "sheep-shank", name: "Sheep Shank", category: "bulk-sheep", type: "per-kg", price: 8.99, priceLabel: "per kg", description: "Tender sheep shanks, ideal for braising.", unitLabel: "kg", options: [{ label: "Pack Size", choices: ["500g", "1kg"], default: "1kg" }] },
-  { id: "sheep-leg", name: "Sheep Leg", category: "bulk-sheep", type: "per-kg", price: 10.99, priceLabel: "per kg", description: "Whole sheep leg, great for roasting.", unitLabel: "kg", options: [{ label: "Pack Size", choices: ["500g", "1kg"], default: "1kg" }] },
-  { id: "sheep-chops", name: "Sheep Chops", category: "bulk-sheep", type: "per-kg", price: 11.99, priceLabel: "per kg", description: "Thick-cut sheep chops, perfect for grilling.", unitLabel: "kg", options: [{ label: "Pack Size", choices: ["500g", "1kg"], default: "1kg" }] },
-  { id: "sheep-neck", name: "Sheep Neck", category: "bulk-sheep", type: "per-kg", price: 7.99, priceLabel: "per kg", description: "Sheep neck, excellent for curries and slow cooking.", unitLabel: "kg", options: [{ label: "Pack Size", choices: ["500g", "1kg"], default: "1kg" }] },
+  {
+    id: "sheep-whole-box",
+    name: "Whole Sheep Box",
+    category: "bulk-sheep",
+    type: "box",
+    price: 219.99,
+    priceLabel: "per box",
+    description: "Complete whole sheep, broken down and vacuum packed. Half box = half carcass, Full box = full carcass. £50 non-refundable deposit required.",
+    halfBoxAvailable: true,
+    halfBoxPrice: 119.99,
+    depositAmount: 50,
+    depositRefundable: false,
+    details: [
+      "Sheep sizing: Small 20–25kg, Standard 25–35kg, Large 35–45kg",
+      "Vacuum packed; 500g or 1kg bags; big pieces in meat bags.",
+      "Half box = half carcass. Full box = full carcass.",
+    ],
+    components: [
+      { name: "Legs", detail: "6–10kg" },
+      { name: "Shoulder", detail: "5–8kg" },
+      { name: "Chops", detail: "3–6kg (1 inch)" },
+      { name: "Neck Slices", detail: "1.5–3kg" },
+      { name: "Shanks", detail: "2–4kg" },
+      { name: "Ribs", detail: "3–5kg" },
+      { name: "Mince", detail: "3–6kg" },
+    ],
+    halfBoxComponents: [
+      { name: "Legs", detail: "3–5kg" },
+      { name: "Shoulder", detail: "2.5–4kg" },
+      { name: "Chops", detail: "1.5–3kg (1 inch)" },
+      { name: "Neck Slices", detail: "0.75–1.5kg" },
+      { name: "Shanks", detail: "1–2kg" },
+      { name: "Ribs", detail: "1.5–2.5kg" },
+      { name: "Mince", detail: "1.5–3kg" },
+    ],
+    weightRange: { min: 20, max: 45, avg: 30, unit: "kg" },
+    options: [
+      { label: "Leg Cut", choices: ["Whole", "1-inch Steaks", "Diced"], default: "Whole" },
+      { label: "Shoulder Cut", choices: ["Whole", "Diced"], default: "Whole" },
+      { label: "Ribs Cut", choices: ["Cubed", "Sliced"], default: "Sliced" },
+      { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
+    ],
+  },
+  {
+    id: "sheep-curry-cut-box",
+    name: "Sheep Curry Cut Box",
+    category: "bulk-sheep",
+    type: "box",
+    price: 209.99,
+    priceLabel: "per box",
+    description: "Whole sheep curry cut, boneless diced, and mince options. Half box = half carcass, Full box = full carcass. £50 non-refundable deposit required.",
+    halfBoxAvailable: true,
+    halfBoxPrice: 114.99,
+    depositAmount: 50,
+    depositRefundable: false,
+    options: [
+      { label: "Cut Style", choices: ["Whole Sheep Curry Cut (on the bone)", "Boneless Diced", "Mixed"], default: "Whole Sheep Curry Cut (on the bone)" },
+      { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
+    ],
+    weightRange: { min: 20, max: 45, avg: 30, unit: "kg" },
+  },
+  {
+    id: "sheep-leg",
+    name: "Sheep Legs",
+    category: "bulk-sheep",
+    type: "per-kg",
+    price: 10.99,
+    priceLabel: "per kg",
+    description: "Whole sheep legs, great for roasting. Sold per kg.",
+    unitLabel: "kg",
+    options: [{ label: "Cut Style", choices: ["Whole", "1-inch Steaks", "Diced"], default: "Whole" }],
+  },
+  {
+    id: "sheep-shoulder",
+    name: "Sheep Shoulder",
+    category: "bulk-sheep",
+    type: "per-kg",
+    price: 9.99,
+    priceLabel: "per kg",
+    description: "Fresh sheep shoulder, perfect for roasting or slow cooking. Sold per kg.",
+    unitLabel: "kg",
+    options: [{ label: "Cut Style", choices: ["Whole", "Diced"], default: "Whole" }],
+  },
 ];
 
+// === CHICKEN ===
 export const chickenProducts: Product[] = [
-  { id: "chicken-breast-box", name: "5kg Breast Box", category: "bulk-chicken", type: "box", price: 34.99, priceLabel: "per box", description: "5kg of chicken breast fillets.", note: "Chicken boxes do NOT come individually packed.", unitLabel: "box" },
-  { id: "chicken-thigh-box", name: "Chicken Thigh (on bone) Box", category: "bulk-chicken", type: "box", price: 24.99, priceLabel: "per box", description: "Chicken thighs on the bone. Available as 5kg box or per kg.", note: "Chicken boxes do NOT come individually packed.", options: [{ label: "Size", choices: ["5kg Box", "Per KG"], default: "5kg Box" }], unitLabel: "box" },
-  { id: "chicken-whole-box", name: "Whole Chicken Box", category: "bulk-chicken", type: "per-kg", price: 4.99, priceLabel: "per kg", description: "Whole chickens, sold by weight.", note: "Chicken boxes do NOT come individually packed.", unitLabel: "kg" },
-  { id: "chicken-legs", name: "Chicken Legs", category: "bulk-chicken", type: "per-piece", price: 7.99, priceLabel: "per 5 pieces", description: "Sold as 5-piece units.", note: "Chicken boxes do NOT come individually packed.", unitLabel: "5-piece" },
-  { id: "chicken-wings", name: "Chicken Wings", category: "bulk-chicken", type: "per-kg", price: 5.99, priceLabel: "per kg", description: "Chicken wings, sold by weight.", note: "Chicken boxes do NOT come individually packed.", unitLabel: "kg" },
-  { id: "chicken-drumsticks", name: "Chicken Drumsticks", category: "bulk-chicken", type: "per-piece", price: 9.99, priceLabel: "per 10 pieces", description: "Sold as 10-piece units.", note: "Chicken boxes do NOT come individually packed.", unitLabel: "10-piece" },
+  {
+    id: "chicken-breast-box",
+    name: "5kg Breast Box",
+    category: "bulk-chicken",
+    type: "box",
+    price: 34.99,
+    priceLabel: "per box",
+    badge: "🔥 Most Popular",
+    description: "5kg of chicken breast fillets.",
+    note: "Chicken boxes do NOT come individually packed. Chicken is outsourced from a reputable alternative halal-certified supplier.",
+    unitLabel: "box",
+  },
+  {
+    id: "chicken-thigh-box",
+    name: "Chicken Thigh Box (on bone)",
+    category: "bulk-chicken",
+    type: "box",
+    price: 24.99,
+    priceLabel: "per 5kg box",
+    description: "Chicken thighs on the bone, 5kg box. If you would like bones removed, an additional £15 charge applies and you will be charged the full weight with bones included.",
+    note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
+    unitLabel: "box",
+    options: [
+      { label: "Bones", choices: ["With Bones", "Bones Removed (+£15)"], default: "With Bones" },
+    ],
+  },
+  {
+    id: "chicken-whole-box",
+    name: "Whole Chicken Box",
+    category: "bulk-chicken",
+    type: "per-kg",
+    price: 4.99,
+    priceLabel: "per kg",
+    description: "Whole chickens, sold by weight.",
+    note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
+    unitLabel: "kg",
+  },
+  {
+    id: "chicken-legs-box",
+    name: "Chicken Legs Box",
+    category: "bulk-chicken",
+    type: "box",
+    price: 19.99,
+    priceLabel: "per 5kg box",
+    description: "Chicken legs sold as a 5kg box. If you would like bones removed, an additional £15 charge applies and you will be charged the full weight with bones included.",
+    note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
+    unitLabel: "box",
+    options: [
+      { label: "Bones", choices: ["With Bones", "Bones Removed (+£15)"], default: "With Bones" },
+    ],
+  },
+  {
+    id: "chicken-wings",
+    name: "Chicken Wings Box",
+    category: "bulk-chicken",
+    type: "box",
+    price: 14.99,
+    priceLabel: "per 3kg box",
+    description: "Chicken wings, sold as a 3kg box.",
+    note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
+    unitLabel: "box",
+  },
+  {
+    id: "chicken-drumsticks-box",
+    name: "Chicken Drumsticks Box",
+    category: "bulk-chicken",
+    type: "box",
+    price: 17.99,
+    priceLabel: "per 5kg box",
+    description: "Chicken drumsticks sold as a 5kg box. If you would like bones removed, an additional £15 charge applies and you will be charged the full weight with bones included.",
+    note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
+    unitLabel: "box",
+    options: [
+      { label: "Bones", choices: ["With Bones", "Bones Removed (+£15)"], default: "With Bones" },
+    ],
+  },
 ];
 
+// === EXTRAS ===
 export const extrasProducts: Product[] = [
   {
     id: "extras-seasoning-bundle",
@@ -386,10 +674,11 @@ export const extrasProducts: Product[] = [
     type: "bundle",
     price: 12.99,
     priceLabel: "per bundle",
-    description: "\"Lamb Chops & Steaks\" + \"The Steak Rub\" (90g each). Suitable for Halal, Vegetarian & Vegan.",
+    description: "\"Lamb Chops & Steaks\" + \"The Steak Rub\" (90g each). Sourced from an external specialist company — we highly recommend and resell as a retailer. Suitable for Halal, Vegetarian & Vegan.",
     details: [
       "Suitable for: Halal / Vegetarian / Vegan",
       "Allergen: Contains Celery",
+      "Sourced from an external specialist seasoning company.",
     ],
   },
   {
@@ -399,8 +688,20 @@ export const extrasProducts: Product[] = [
     type: "per-pack",
     price: 8.99,
     priceLabel: "per 1kg tub",
-    description: "Pure halal beef tallow, 1kg tub. Great for cooking and frying.",
+    description: "100% organic halal beef tallow, made in-house. 1kg tub. Great for cooking and frying.",
     unitLabel: "tub",
+    badge: "Made In-House",
+  },
+  {
+    id: "extras-organic-honey",
+    name: "Organic Honey",
+    category: "extras",
+    type: "per-pack",
+    price: 0,
+    priceLabel: "coming soon",
+    description: "100% organic honey from our own organic bee farm. Coming soon!",
+    contactOnly: true,
+    badge: "Coming Soon",
   },
   {
     id: "extras-eggs-free-range",
@@ -448,5 +749,5 @@ export const allProducts: Product[] = [
 export const getProductById = (id: string) => allProducts.find(p => p.id === id);
 
 // Weekly deal — featured product for promotion
-export const WEEKLY_DEAL_PRODUCT_ID = "beef-full-round-box";
-export const ANNOUNCEMENT_TEXT = "🔥 NEW: Full Round Box — Premium beef at unbeatable value. Weekly drop now live!";
+export const WEEKLY_DEAL_PRODUCT_ID = "beef-value-box";
+export const ANNOUNCEMENT_TEXT = "🔥 NEW: The Value Box — Premium beef, zero waste, unbeatable price. Weekly drop now live!";

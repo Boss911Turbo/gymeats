@@ -3,13 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Truck, Package, Shield, Store, ChevronRight } from "lucide-react";
-import { WHATSAPP_NUMBER, BUSINESS_EMAIL, beefProducts } from "@/data/products";
+import { Truck, Package, Shield, Store } from "lucide-react";
+import { WHATSAPP_NUMBER, BUSINESS_EMAIL } from "@/data/products";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "react-router-dom";
-
-const recommendedBoxes = beefProducts.filter(p => p.recommendedFor && p.recommendedFor.length > 0 && p.type === "box");
 
 const Wholesale = () => {
   const { toast } = useToast();
@@ -80,99 +77,56 @@ const Wholesale = () => {
         </div>
       </section>
 
-      {/* Recommended boxes for businesses */}
-      <section className="container-tight py-16">
-        <h2 className="text-2xl md:text-3xl font-black mb-4 text-center">Recommended Boxes for Businesses</h2>
-        <p className="text-muted-foreground text-center mb-10 max-w-xl mx-auto">
-          Our primal cut boxes are perfect for restaurants, retailers, and caterers. Available as half or full box.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recommendedBoxes.slice(0, 6).map(box => (
-            <div key={box.id} className="bg-card border border-border rounded-lg p-6">
-              <h3 className="font-bold text-lg mb-1">{box.name}</h3>
-              <div className="flex flex-wrap gap-1 mb-2">
-                {box.recommendedFor?.map(r => (
-                  <span key={r} className="bg-accent/10 text-accent text-[10px] font-semibold px-2 py-0.5 rounded-full">{r}</span>
-                ))}
-              </div>
-              <p className="text-muted-foreground text-sm mb-3">{box.description}</p>
-              <p className="text-accent font-bold text-lg mb-1">
-                From £{(box.halfBoxPrice || box.price / 2).toFixed(2)}
-                <span className="text-muted-foreground text-xs font-normal ml-1">(half box)</span>
-              </p>
-              <p className="text-sm text-muted-foreground mb-4">
-                Full box: £{box.price.toFixed(2)} · {box.weightRange?.avg}kg avg
-              </p>
-              {box.components && (
-                <ul className="text-xs text-muted-foreground space-y-0.5 mb-4">
-                  {box.components.slice(0, 3).map(c => (
-                    <li key={c.name}>• {c.name}: {c.detail}</li>
-                  ))}
-                  {box.components.length > 3 && <li>• +{box.components.length - 3} more...</li>}
-                </ul>
-              )}
-              <Link to="/bulk-beef">
-                <Button variant="outline" size="sm" className="w-full gap-1">
-                  View & Order <ChevronRight size={14} />
-                </Button>
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Enquiry form */}
-      <section className="bg-muted py-16">
-        <div className="container-tight">
-          <div className="max-w-xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-black mb-2 text-center">Get a Trade Quote</h2>
-            <p className="text-muted-foreground text-center mb-8">
-              Tell us about your business and what you need. We'll get back to you with a tailored quote.
+      <section className="container-tight py-16">
+        <div className="max-w-xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-black mb-2 text-center">Get a Trade Quote</h2>
+          <p className="text-muted-foreground text-center mb-8">
+            Tell us about your business and what you need. We'll get back to you with a tailored quote.
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="businessName">Business Name *</Label>
+                <Input id="businessName" required value={form.businessName} onChange={e => setForm(f => ({ ...f, businessName: e.target.value }))} />
+              </div>
+              <div>
+                <Label htmlFor="contactName">Contact Name *</Label>
+                <Input id="contactName" required value={form.contactName} onChange={e => setForm(f => ({ ...f, contactName: e.target.value }))} />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="phone">Phone *</Label>
+                <Input id="phone" type="tel" required value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
+              </div>
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="businessType">Business Type *</Label>
+              <Input id="businessType" required placeholder="e.g. Restaurant, Butcher Shop, Caterer, Slaughterhouse Client" value={form.businessType} onChange={e => setForm(f => ({ ...f, businessType: e.target.value }))} />
+            </div>
+
+            <div>
+              <Label htmlFor="details">What do you need? *</Label>
+              <Textarea id="details" required rows={5} placeholder="Tell us about your typical order size, products you're interested in, delivery frequency, slaughterhouse requirements, etc." value={form.details} onChange={e => setForm(f => ({ ...f, details: e.target.value }))} />
+            </div>
+
+            <Button type="submit" size="lg" className="w-full font-bold">
+              Send Enquiry via WhatsApp
+            </Button>
+
+            <p className="text-xs text-muted-foreground text-center">
+              Or email us directly at{" "}
+              <a href={`mailto:${BUSINESS_EMAIL}`} className="underline">{BUSINESS_EMAIL}</a>
             </p>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="businessName">Business Name *</Label>
-                  <Input id="businessName" required value={form.businessName} onChange={e => setForm(f => ({ ...f, businessName: e.target.value }))} />
-                </div>
-                <div>
-                  <Label htmlFor="contactName">Contact Name *</Label>
-                  <Input id="contactName" required value={form.contactName} onChange={e => setForm(f => ({ ...f, contactName: e.target.value }))} />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="phone">Phone *</Label>
-                  <Input id="phone" type="tel" required value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
-                </div>
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="businessType">Business Type *</Label>
-                <Input id="businessType" required placeholder="e.g. Restaurant, Butcher Shop, Caterer, Slaughterhouse Client" value={form.businessType} onChange={e => setForm(f => ({ ...f, businessType: e.target.value }))} />
-              </div>
-
-              <div>
-                <Label htmlFor="details">What do you need? *</Label>
-                <Textarea id="details" required rows={5} placeholder="Tell us about your typical order size, products you're interested in, delivery frequency, slaughterhouse requirements, etc." value={form.details} onChange={e => setForm(f => ({ ...f, details: e.target.value }))} />
-              </div>
-
-              <Button type="submit" size="lg" className="w-full font-bold">
-                Send Enquiry via WhatsApp
-              </Button>
-
-              <p className="text-xs text-muted-foreground text-center">
-                Or email us directly at{" "}
-                <a href={`mailto:${BUSINESS_EMAIL}`} className="underline">{BUSINESS_EMAIL}</a>
-              </p>
-            </form>
-          </div>
+          </form>
         </div>
       </section>
     </Layout>

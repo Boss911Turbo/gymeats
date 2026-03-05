@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Truck, Package, Shield, ChevronRight, Flame, Star } from "lucide-react";
+import { ShoppingCart, Truck, Package, Shield, ChevronRight, Flame, Star, Scissors } from "lucide-react";
 import heroImage from "@/assets/hero-meat.jpg";
 import { ANNOUNCEMENT_TEXT, WEEKLY_DEAL_PRODUCT_ID, beefProducts, FREE_DELIVERY_THRESHOLD } from "@/data/products";
 import BatchProgressBar from "@/components/BatchProgressBar";
@@ -39,21 +39,34 @@ const Index = () => (
         </p>
         <div className="flex flex-wrap gap-3">
           <Link to="/bulk-beef">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold">
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold gap-1">
               Shop Beef <ChevronRight size={18} />
             </Button>
           </Link>
           <Link to="/bulk-chicken">
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold">
-              Shop Chicken
+            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold gap-1">
+              Chicken <ChevronRight size={18} />
             </Button>
           </Link>
           <Link to="/cart">
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold gap-2">
-              <ShoppingCart size={18} /> Go to Cart
+            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold gap-1">
+              <ShoppingCart size={18} /> Cart
             </Button>
           </Link>
         </div>
+      </div>
+    </section>
+
+    {/* No Middleman */}
+    <section className="bg-primary text-primary-foreground py-12 border-t border-primary-foreground/10">
+      <div className="container-tight text-center">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Scissors size={28} />
+          <h2 className="text-2xl md:text-3xl font-black">Why Are We So Cheap?</h2>
+        </div>
+        <p className="text-primary-foreground/70 max-w-2xl mx-auto text-lg">
+          We <span className="font-bold text-primary-foreground">source, kill, and deliver ourselves</span>. No middleman. No markups. We own the full supply chain — from our own farms, our own slaughterhouse, to our own delivery fleet. That's why we can offer premium halal meat at prices others can't match.
+        </p>
       </div>
     </section>
 
@@ -69,7 +82,7 @@ const Index = () => (
           <div className="max-w-2xl mx-auto bg-card border-2 border-accent/30 rounded-xl p-8">
             <div className="flex items-center gap-2 mb-2">
               <Star size={18} className="text-accent fill-accent" />
-              <span className="text-xs font-bold text-accent uppercase tracking-widest">Save Big This Week</span>
+              <span className="text-xs font-bold text-accent uppercase tracking-widest">Most Recommended</span>
             </div>
             <h3 className="text-2xl font-black mb-2">{weeklyDealProduct.name}</h3>
             <p className="text-muted-foreground text-sm mb-4">{weeklyDealProduct.description}</p>
@@ -77,9 +90,10 @@ const Index = () => (
               £{weeklyDealProduct.price.toFixed(2)}
               <span className="text-muted-foreground text-sm font-normal ml-2">{weeklyDealProduct.priceLabel}</span>
             </p>
-            {weeklyDealProduct.halfBoxAvailable && (
-              <p className="text-sm text-muted-foreground mb-4">
-                Also available as <span className="font-bold">Half Box — £{(weeklyDealProduct.halfBoxPrice || weeklyDealProduct.price / 2).toFixed(2)}</span>
+            {weeklyDealProduct.depositAmount && (
+              <p className="text-sm text-muted-foreground mb-2">
+                💳 <span className="font-bold">£{weeklyDealProduct.depositAmount} deposit</span> required —{" "}
+                {weeklyDealProduct.depositRefundable ? "fully refundable if batch doesn't fill" : "non-refundable"}
               </p>
             )}
             <BatchProgressBar productId={weeklyDealProduct.id} />
@@ -144,9 +158,9 @@ const Index = () => (
       <h2 className="text-2xl md:text-3xl font-black mb-10 text-center">Why GYMEATS?</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: <Shield size={24} />, title: "100% Halal", desc: "All meat is certified halal from trusted sources." },
+          { icon: <Shield size={24} />, title: "100% Halal", desc: "All meat is certified halal from our own slaughterhouse." },
           { icon: <Package size={24} />, title: "Vacuum Packed", desc: "Individually packed for freshness and easy freezing." },
-          { icon: <Truck size={24} />, title: "Free Delivery Over £120", desc: `Free delivery on orders over £${FREE_DELIVERY_THRESHOLD}. Otherwise £20 flat fee.` },
+          { icon: <Truck size={24} />, title: `Free Delivery Over £${FREE_DELIVERY_THRESHOLD}`, desc: `Free delivery on orders over £${FREE_DELIVERY_THRESHOLD}. Orders under £50 = £10 delivery.` },
           { title: "⚖️ Accurate Weights", desc: "All weights are as close as possible to your desired amount." },
         ].map(item => (
           <div key={item.title} className="border border-border rounded-lg p-6">
@@ -164,11 +178,11 @@ const Index = () => (
         <h2 className="text-2xl md:text-3xl font-black mb-8 text-center">FAQ</h2>
         <div className="max-w-2xl mx-auto space-y-4">
           {[
-            { q: "Do you deliver or offer pickup?", a: `Yes, both! Delivery is free on orders over £${FREE_DELIVERY_THRESHOLD} (otherwise £20). Pickup is always free — we'll arrange a time via WhatsApp.` },
+            { q: "Do you deliver or offer pickup?", a: `Yes, both! Delivery is free on orders over £${FREE_DELIVERY_THRESHOLD}. Orders under £50 have a £10 delivery & packaging charge. Orders between £50–£${FREE_DELIVERY_THRESHOLD} are £20 delivery. Pickup is always free — we'll arrange a time via WhatsApp.` },
             { q: "Is there a minimum order?", a: "Minimum order details coming soon. Contact us for more info." },
-            { q: "What are the lead times?", a: "Lead times vary. We'll confirm via WhatsApp when you place your order." },
             { q: "How should I store the meat?", a: "All items are vacuum packed for easy freezing. Store in your freezer and defrost as needed. Most items will keep for several months when frozen." },
-            { q: "Can I order a half box?", a: "Yes! Most of our boxes are available as half box or full box. Select your preferred size when ordering." },
+            { q: "Can I order a half box?", a: "Yes! Most of our beef and sheep boxes are available as half box or full box. Lamb boxes are full only. Select your preferred size when ordering." },
+            { q: "What is the deposit for?", a: "Most boxes require a £50 non-refundable deposit to confirm your order. The Value Box requires a £30 refundable deposit — if the weekly batch doesn't fill, your deposit is fully refunded." },
           ].map(faq => (
             <details key={faq.q} className="bg-card border border-border rounded-lg p-4 group">
               <summary className="font-semibold cursor-pointer list-none flex justify-between items-center">

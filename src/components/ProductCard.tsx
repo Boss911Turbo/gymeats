@@ -77,7 +77,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg p-6 flex flex-col">
+    <div className="bg-card border border-border rounded-lg overflow-hidden flex flex-col">
+      {/* Product image */}
+      {product.image && (
+        <div className="w-full h-48 overflow-hidden">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+      <div className="p-6 flex flex-col flex-1">
       {/* Badge + name */}
       <div className="flex items-start justify-between mb-1">
         <h3 className="font-bold text-lg">{product.name}</h3>
@@ -239,6 +251,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <Button onClick={handleAdd} className="flex-1 gap-2">
           <ShoppingCart size={16} /> Add to Cart
         </Button>
+      </div>
       </div>
     </div>
   );

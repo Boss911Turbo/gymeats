@@ -14,6 +14,7 @@ const Checkout = () => {
     fullName: "", phone: "", email: "", address: "", deliveryMethod: "delivery", notes: "",
   });
   const [placed, setPlaced] = useState(false);
+  const [noRefundsConfirmed, setNoRefundsConfirmed] = useState(false);
 
   const getDeliveryFee = () => {
     if (form.deliveryMethod !== "delivery") return 0;
@@ -58,6 +59,7 @@ const Checkout = () => {
   const handlePlaceOrder = (e: React.FormEvent) => {
     e.preventDefault();
     if (items.length === 0) { toast.error("Your cart is empty"); return; }
+    if (!noRefundsConfirmed) { toast.error("Please confirm the no returns or refunds policy"); return; }
 
     const summary = buildOrderSummary();
     const waNumber = WHATSAPP_NUMBER.replace("+", "");
@@ -143,6 +145,20 @@ const Checkout = () => {
               <div>
                 <label className="text-sm font-semibold block mb-1">Notes (delivery slot, cutting preferences, etc.)</label>
                 <textarea className="w-full border border-input bg-background rounded px-3 py-2 text-sm resize-none" rows={3} placeholder="Any special instructions..." value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} />
+              </div>
+
+              <div className="flex items-start gap-2 mb-4">
+                <input
+                  type="checkbox"
+                  id="no-refunds"
+                  checked={noRefundsConfirmed}
+                  onChange={e => setNoRefundsConfirmed(e.target.checked)}
+                  className="mt-1 accent-accent"
+                  required
+                />
+                <label htmlFor="no-refunds" className="text-sm text-muted-foreground">
+                  I understand and agree that <span className="font-bold text-foreground">all sales are final — no returns or refunds</span>. Deposits are non-refundable unless stated otherwise (e.g. Value Box).
+                </label>
               </div>
 
               <Button type="submit" size="lg" className="w-full font-bold bg-accent text-accent-foreground hover:bg-accent/90">

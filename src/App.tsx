@@ -37,6 +37,7 @@ const App = () => (
               <Route path="/bulk-beef" element={<BulkBeef />} />
               <Route path="/bulk-lamb" element={<BulkLamb />} />
               <Route path="/bulk-sheep" element={<BulkSheep />} />
+              <Route path="/bulk-mutton" element={<BulkSheep />} />
               <Route path="/bulk-chicken" element={<BulkChicken />} />
               <Route path="/extras" element={<Extras />} />
               <Route path="/wholesale" element={<Wholesale />} />

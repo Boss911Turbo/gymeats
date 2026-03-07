@@ -9,7 +9,7 @@ import BatchProgressBar from "@/components/BatchProgressBar";
 const categories = [
   { to: "/bulk-beef", label: "Bulk Beef", emoji: "🥩" },
   { to: "/bulk-lamb", label: "Bulk Lamb", emoji: "🐑" },
-  { to: "/bulk-sheep", label: "Bulk Sheep", emoji: "🐏" },
+  { to: "/bulk-mutton", label: "Bulk Mutton", emoji: "🐏" },
   { to: "/bulk-chicken", label: "Bulk Chicken", emoji: "🍗" },
   { to: "/extras", label: "Extras", emoji: "🧂" },
 ];
@@ -18,10 +18,10 @@ const weeklyDealProduct = beefProducts.find(p => p.id === WEEKLY_DEAL_PRODUCT_ID
 
 const Index = () => (
   <Layout>
-    {/* Announcement Bar */}
-    <div className="bg-accent text-accent-foreground text-center py-2 px-4">
+    {/* Announcement Bar — clickable */}
+    <Link to="/bulk-beef" className="block bg-accent text-accent-foreground text-center py-2 px-4 hover:bg-accent/90 transition-colors cursor-pointer">
       <p className="text-sm font-bold tracking-wide">{ANNOUNCEMENT_TEXT}</p>
-    </div>
+    </Link>
 
     {/* Hero */}
     <section className="relative bg-primary text-primary-foreground overflow-hidden">
@@ -31,7 +31,7 @@ const Index = () => (
       />
       <div className="relative container-tight py-20 md:py-32">
         <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 max-w-2xl">
-          Bulk halal meat, ordered online.
+          Bulk meat, ordered online.
         </h1>
         <p className="text-lg md:text-xl text-primary-foreground/70 max-w-xl mb-8">
           Meal prep, family packs, bulk value. Vacuum packed and delivered fresh to your door.
@@ -161,7 +161,7 @@ const Index = () => (
           { icon: <Shield size={24} />, title: "100% Halal", desc: "All meat is certified halal from our own slaughterhouse." },
           { icon: <Package size={24} />, title: "Vacuum Packed", desc: "Individually packed for freshness and easy freezing." },
           { icon: <Truck size={24} />, title: `Free Delivery Over £${FREE_DELIVERY_THRESHOLD}`, desc: `Free delivery on orders over £${FREE_DELIVERY_THRESHOLD}. Orders under £50 = £10 delivery.` },
-          { title: "⚖️ Accurate Weights", desc: "All weights are as close as possible to your desired amount." },
+          { icon: <Package size={24} />, title: "Accurate Weights", desc: "All weights are as close as possible to your desired amount." },
         ].map(item => (
           <div key={item.title} className="border border-border rounded-lg p-6">
             {item.icon && <div className="mb-3 text-foreground">{item.icon}</div>}
@@ -178,10 +178,11 @@ const Index = () => (
         <h2 className="text-2xl md:text-3xl font-black mb-8 text-center">FAQ</h2>
         <div className="max-w-2xl mx-auto space-y-4">
           {[
+            { q: "Are you halal?", a: "Yes — all our meat is 100% halal certified. We own and operate our own slaughterhouse facilities, maintaining full halal compliance at every stage. Learn more on our About page." },
             { q: "Do you deliver or offer pickup?", a: `Yes, both! Delivery is free on orders over £${FREE_DELIVERY_THRESHOLD}. Orders under £50 have a £10 delivery & packaging charge. Orders between £50–£${FREE_DELIVERY_THRESHOLD} are £20 delivery. Pickup is always free — we'll arrange a time via WhatsApp.` },
             { q: "Is there a minimum order?", a: "Minimum order details coming soon. Contact us for more info." },
             { q: "How should I store the meat?", a: "All items are vacuum packed for easy freezing. Store in your freezer and defrost as needed. Most items will keep for several months when frozen." },
-            { q: "Can I order a half box?", a: "Yes! Most of our beef and sheep boxes are available as half box or full box. Lamb boxes are full only. Select your preferred size when ordering." },
+            { q: "Can I order a half box?", a: "Yes! Most of our beef and mutton boxes are available as half box or full box. Lamb boxes are full only. Select your preferred size when ordering." },
             { q: "What is the deposit for?", a: "Most boxes require a £50 non-refundable deposit to confirm your order. The Value Box requires a £30 refundable deposit — if the weekly batch doesn't fill, your deposit is fully refunded." },
           ].map(faq => (
             <details key={faq.q} className="bg-card border border-border rounded-lg p-4 group">

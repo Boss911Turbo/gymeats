@@ -34,10 +34,10 @@ const Influencers = () => {
             <span className="text-sm font-bold uppercase tracking-widest text-primary-foreground/60">Influencers & Collabs</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-black tracking-tighter mb-4 max-w-2xl">
-            Partner with GYMEATS
+            Join the GYMEATS Team
           </h1>
           <p className="text-lg text-primary-foreground/70 max-w-xl">
-            We're always looking to work with fitness influencers, food creators, and lifestyle brands. If you love quality halal meat and have an audience, let's talk.
+            We're building a team of fitness influencers, food creators, and lifestyle brands who share our passion for quality halal meat. Get exclusive deals, free products, and earn while you promote. Ready to represent GYMEATS? Let's talk.
           </p>
         </div>
       </section>

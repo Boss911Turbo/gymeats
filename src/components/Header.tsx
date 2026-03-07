@@ -5,15 +5,15 @@ import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 
 const navLinks = [
+  { to: "/about", label: "About" },
   { to: "/bulk-beef", label: "Beef" },
   { to: "/bulk-lamb", label: "Lamb" },
-  { to: "/bulk-sheep", label: "Sheep" },
+  { to: "/bulk-mutton", label: "Mutton" },
   { to: "/bulk-chicken", label: "Chicken" },
   { to: "/extras", label: "Extras" },
   { to: "/wholesale", label: "Wholesale" },
-  { to: "/influencers", label: "Influencers" },
+  { to: "/influencers", label: "Join the Team" },
   { to: "/careers", label: "Careers" },
-  { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
 

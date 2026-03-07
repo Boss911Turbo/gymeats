@@ -178,7 +178,7 @@ const Index = () => (
         <h2 className="text-2xl md:text-3xl font-black mb-8 text-center">FAQ</h2>
         <div className="max-w-2xl mx-auto space-y-4">
           {[
-            { q: "Are you halal?", a: "Yes — all our meat is 100% halal certified. We own and operate our own slaughterhouse facilities, maintaining full halal compliance at every stage. Learn more on our About page." },
+            { q: "Are you halal?", a: "Yes — all our meat is 100% halal certified. We own and operate our own slaughterhouse facilities, maintaining full halal compliance at every stage.", link: { text: "Learn more on our About page →", to: "/about" } },
             { q: "Do you deliver or offer pickup?", a: `Yes, both! Delivery is free on orders over £${FREE_DELIVERY_THRESHOLD}. Orders under £50 have a £10 delivery & packaging charge. Orders between £50–£${FREE_DELIVERY_THRESHOLD} are £20 delivery. Pickup is always free — we'll arrange a time via WhatsApp.` },
             { q: "Is there a minimum order?", a: "Minimum order details coming soon. Contact us for more info." },
             { q: "How should I store the meat?", a: "All items are vacuum packed for easy freezing. Store in your freezer and defrost as needed. Most items will keep for several months when frozen." },
@@ -190,7 +190,14 @@ const Index = () => (
                 {faq.q}
                 <ChevronRight size={18} className="text-muted-foreground group-open:rotate-90 transition-transform" />
               </summary>
-              <p className="mt-3 text-muted-foreground text-sm">{faq.a}</p>
+              <p className="mt-3 text-muted-foreground text-sm">
+                {faq.a}
+                {faq.link && (
+                  <Link to={faq.link.to} className="block mt-2 text-accent font-semibold hover:underline">
+                    {faq.link.text}
+                  </Link>
+                )}
+              </p>
             </details>
           ))}
         </div>

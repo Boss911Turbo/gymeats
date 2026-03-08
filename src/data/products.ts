@@ -19,7 +19,7 @@ export const beefProducts: Product[] = [
     priceLabel: "per box",
     badge: "⭐ Most Recommended",
     description:
-      "Premium beef at an unbeatable price. Made from half cow carcasses — our zero-waste system means you get the best value. Contains steaks, roasts, mince, diced, slow cook cuts and bones. £30 refundable deposit required to confirm your order. If the weekly batch doesn't fill, your deposit is fully refunded.",
+      "Our best-selling box and the smartest way to fill your freezer. Packed with premium steaks, roasts, lean mince, diced beef and slow-cook cuts — all from half a cow carcass. Zero waste, maximum value. Limited weekly batches only. £30 refundable deposit required.",
     halfBoxAvailable: false,
     weeklyDrop: true,
     depositAmount: 30,
@@ -36,7 +36,7 @@ export const beefProducts: Product[] = [
       { name: "Slow Cook Cuts (Short Ribs or Brisket)", detail: "~1kg" },
       { name: "Bones (Marrow or Soup Bones)", detail: "~1kg" },
     ],
-    weightRange: { min: 18, max: 22, avg: 20, unit: "kg" },
+    weightRange: { min: 9, max: 15, avg: 12, unit: "kg" },
     options: [
       { label: "Roasting / Large Cuts", choices: ["Keep as Roast", "Mince", "Stir Fry Strips", "Diced Beef"], default: "Keep as Roast" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -52,7 +52,7 @@ export const beefProducts: Product[] = [
     price: 199.99,
     priceLabel: "per box",
     badge: "🥩 Best for Steak Lovers",
-    description: "The ultimate steak lovers box. Packed with premium T-Bone, Sirloin, and Fillet steaks from the loin primal — the most tender and sought-after cuts on the cow. Finished with lean mince for everyday cooking. £50 non-refundable deposit required.",
+    description: "The ultimate steak lovers box. Packed with premium T-Bone, Sirloin, and Fillet steaks from the loin primal — the most tender and sought-after cuts on the cow. Perfect for date nights, BBQs, and anyone who takes their steak seriously. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 109.99,
     depositAmount: 50,
@@ -86,7 +86,7 @@ export const beefProducts: Product[] = [
     price: 179.99,
     priceLabel: "per box",
     badge: "🥩 Best for Steak Lovers",
-    description: "A rib-eye lover's dream. Generously loaded with thick-cut rib-eye steaks, meaty short ribs, and rib fingers — all from the rib primal. One of the most flavourful cuts of beef. £50 non-refundable deposit required.",
+    description: "A rib-eye lover's dream. Generously loaded with thick-cut rib-eye steaks, meaty short ribs, and rib fingers — all from the rib primal. Rich marbling means incredible flavour every time. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 99.99,
     depositAmount: 50,
@@ -118,7 +118,7 @@ export const beefProducts: Product[] = [
     price: 229.99,
     priceLabel: "per box",
     badge: "Luxury",
-    description: "The showstopper. Massive tomahawk steaks with the full rib bone attached, plus thick rib-eyes and meaty short ribs. Guaranteed to impress at any BBQ or dinner table. £50 non-refundable deposit required.",
+    description: "The showstopper. Massive tomahawk steaks with the full rib bone attached, plus thick rib-eyes and meaty short ribs. Guaranteed to be the centrepiece of any BBQ or dinner table. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 124.99,
     depositAmount: 50,
@@ -151,7 +151,7 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 159.99,
     priceLabel: "per box",
-    description: "Thick rump steaks, chunky diced beef and lean mince — the ultimate all-rounder box. Great for everyday meals, grilling and meal prep. £50 non-refundable deposit required.",
+    description: "Thick rump steaks, chunky diced beef and lean mince — the ultimate all-rounder box. Great for everyday meals, grilling and meal prep. One of our most versatile boxes. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 89.99,
     depositAmount: 50,
@@ -216,7 +216,7 @@ export const beefProducts: Product[] = [
     price: 99.99,
     priceLabel: "per box",
     badge: "🔥 New",
-    description: "Tender lamb shank cut into bite-sized curry pieces — ready to throw straight into the pot. Perfect for rich, slow-cooked curries and hearty stews. £50 non-refundable deposit required.",
+    description: "Tender beef cut into bite-sized curry pieces — ready to throw straight into the pot. Perfect for rich, slow-cooked curries and hearty stews. A kitchen staple for South Asian cooking. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 54.99,
     depositAmount: 50,
@@ -234,7 +234,7 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 375,
     priceLabel: "per box (£330–£420)",
-    description: "The kitchen workhorse. Chuck is one of the most versatile primals — perfect for slow-cooked roasts, hearty stews, braised blade steaks and rich mince. A favourite with restaurants. £50 non-refundable deposit required.",
+    description: "The kitchen workhorse. Chuck is one of the most versatile primals — perfect for slow-cooked roasts, hearty stews, braised blade steaks and rich mince. A favourite with restaurants and serious home cooks. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 195,
     depositAmount: 50,
@@ -268,7 +268,7 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 285,
     priceLabel: "per box (£240–£330)",
-    description: "The BBQ king. Choose how you want your brisket — whole for low-and-slow smoking, sliced for quick meals, diced for stews, or as mince. Rich, beefy flavour that's hard to beat. £50 non-refundable deposit required.",
+    description: "The BBQ king. Choose how you want your brisket — whole for low-and-slow smoking, sliced for quick meals, diced for stews, or as mince. Rich, beefy flavour that melts in your mouth. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 149,
     depositAmount: 50,
@@ -323,7 +323,7 @@ export const beefProducts: Product[] = [
     type: "box",
     price: 365,
     priceLabel: "per box (£320–£420)",
-    description: "The biggest box on the cow. Lean topside and silverside roasts, eye of round, chunky diced beef and mince. Can also be sold as caveman steaks/slices — thick, rustic cuts straight off the leg. £50 non-refundable deposit required.",
+    description: "The biggest box on the cow. Lean topside and silverside roasts, eye of round, chunky diced beef and mince. Can also be sold as caveman steaks/slices — thick, rustic cuts straight off the leg. Unbeatable value. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 189,
     depositAmount: 50,
@@ -394,7 +394,7 @@ export const beefProducts: Product[] = [
     price: 300,
     priceLabel: "per box (£260–£340)",
     badge: "💰 Cheap Steak Box",
-    description: "Skirt steaks, flank steaks, short plate ribs and diced beef — packed with beefy flavour at an unbeatable price. Perfect for grilling, stir-fry, fajitas and tacos. £50 non-refundable deposit required.",
+    description: "Skirt steaks, flank steaks, short plate ribs and diced beef — packed with beefy flavour at an unbeatable price. Perfect for grilling, stir-fry, fajitas, tacos and Asian-style cooking. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 159,
     depositAmount: 50,
@@ -415,7 +415,7 @@ export const beefProducts: Product[] = [
     weightRange: { min: 16, max: 22, avg: 19, unit: "kg" },
     image: "/images/plate-flank-box.jpg",
   },
-  // === PER-KG & CONTACT ITEMS ===
+  // === PER-KG ITEMS ===
   {
     id: "beef-oxtail",
     name: "Oxtail",
@@ -423,27 +423,12 @@ export const beefProducts: Product[] = [
     type: "per-kg",
     price: 12.99,
     priceLabel: "per kg",
-    description: "Rich, gelatinous oxtail cut into 1.5–2 inch pieces — the king of slow cooking. Makes incredible stews, soups, and Jamaican-style oxtail.",
+    description: "Rich, gelatinous oxtail cut into 1.5–2 inch pieces — the king of slow cooking. Makes incredible stews, soups, and Jamaican-style oxtail. Melt-in-your-mouth tender when braised low and slow.",
     options: [
       { label: "Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     unitLabel: "kg",
     image: "/images/oxtail.jpg",
-  },
-  {
-    id: "beef-bones",
-    name: "Beef Bones",
-    category: "bulk-beef",
-    type: "per-kg",
-    price: 3.99,
-    priceLabel: "per kg",
-    description: "Nutrient-rich beef bones — perfect for homemade bone broth, soups, or roasted bone marrow. Choose your preferred cut style.",
-    options: [
-      { label: "Cut Style", choices: ["Whole", "Cut in Half (Bone Marrow)", "Chunks"], default: "Whole" },
-      { label: "Pack Size", choices: ["1kg", "2kg", "5kg"], default: "2kg" },
-    ],
-    unitLabel: "kg",
-    image: "/images/beef-bones.jpg",
   },
 ];
 
@@ -456,7 +441,7 @@ export const lambProducts: Product[] = [
     type: "box",
     price: 179.99,
     priceLabel: "per box",
-    description: "A complete whole lamb, expertly broken down and vacuum packed. Every cut from legs to shanks, chops to mince — feeding the whole family for weeks. Full lamb only. £50 non-refundable deposit required.",
+    description: "A complete whole lamb, expertly broken down and vacuum packed. Every cut from juicy legs to tender shanks, thick chops to flavourful mince — feeding the whole family for weeks. Full lamb only — no half box. The freshest lamb you'll ever taste. £50 non-refundable deposit required.",
     halfBoxAvailable: false,
     depositAmount: 50,
     depositRefundable: false,
@@ -480,6 +465,7 @@ export const lambProducts: Product[] = [
       { label: "Ribs Cut", choices: ["Cubed", "Sliced"], default: "Sliced" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
+    image: "/images/lamb-box.jpg",
   },
   {
     id: "lamb-curry-cut-box",
@@ -488,7 +474,7 @@ export const lambProducts: Product[] = [
     type: "box",
     price: 169.99,
     priceLabel: "per box",
-    description: "Whole lamb broken down into curry-ready pieces — on the bone or boneless diced. Ready to cook straight from the bag. A staple in any South Asian kitchen. Full lamb only. £50 non-refundable deposit required.",
+    description: "Whole lamb broken down into curry-ready pieces — on the bone or boneless diced. Ready to cook straight from the bag. A staple in any South Asian kitchen — saves hours of prep. Full lamb only. £50 non-refundable deposit required.",
     halfBoxAvailable: false,
     depositAmount: 50,
     depositRefundable: false,
@@ -497,10 +483,11 @@ export const lambProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     weightRange: { min: 18, max: 25, avg: 21, unit: "kg" },
+    image: "/images/lamb-box.jpg",
   },
 ];
 
-// === MUTTON (formerly Sheep — Carcass boxes with half/full option) ===
+// === MUTTON (Carcass boxes with half/full option) ===
 export const sheepProducts: Product[] = [
   {
     id: "mutton-whole-box",
@@ -509,7 +496,7 @@ export const sheepProducts: Product[] = [
     type: "box",
     price: 219.99,
     priceLabel: "per box",
-    description: "A complete whole mutton carcass, expertly butchered and vacuum packed for freshness. Half box = half carcass, Full box = full carcass. Mutton has a richer, deeper flavour than lamb — ideal for curries, roasts, and slow-cooked dishes. £50 non-refundable deposit required.",
+    description: "A complete whole mutton carcass, expertly butchered and vacuum packed. Mutton has a richer, deeper flavour than lamb — ideal for curries, slow roasts, and flavour-packed dishes. Half box = half carcass, Full box = full carcass. A favourite in South Asian and Caribbean households. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 119.99,
     depositAmount: 50,
@@ -553,7 +540,7 @@ export const sheepProducts: Product[] = [
     type: "box",
     price: 209.99,
     priceLabel: "per box",
-    description: "Whole mutton broken down into curry-ready pieces — on the bone or boneless diced. The bold, rich flavour of mutton makes it the ultimate curry meat. Half box = half carcass, Full box = full carcass. £50 non-refundable deposit required.",
+    description: "Whole mutton broken down into curry-ready pieces — on the bone or boneless diced. The bold, rich flavour of mutton makes it the ultimate curry meat. Half box = half carcass, Full box = full carcass. Ready to go straight in the pot. £50 non-refundable deposit required.",
     halfBoxAvailable: true,
     halfBoxPrice: 114.99,
     depositAmount: 50,
@@ -572,7 +559,7 @@ export const sheepProducts: Product[] = [
     type: "per-kg",
     price: 10.99,
     priceLabel: "per kg",
-    description: "Whole mutton legs — bigger and more flavourful than lamb. Perfect for roasting low and slow, or cut into steaks for the grill.",
+    description: "Whole mutton legs — bigger and more flavourful than lamb. Perfect for roasting low and slow until the meat falls off the bone, or cut into thick steaks for the grill. A centrepiece roast for family gatherings.",
     unitLabel: "kg",
     options: [{ label: "Cut Style", choices: ["Whole", "1-inch Steaks", "Diced"], default: "Whole" }],
   },
@@ -583,7 +570,7 @@ export const sheepProducts: Product[] = [
     type: "per-kg",
     price: 9.99,
     priceLabel: "per kg",
-    description: "Rich and tender mutton shoulder — ideal for slow roasting until it falls off the bone, or diced for hearty stews and curries.",
+    description: "Rich and tender mutton shoulder — ideal for slow roasting until it falls apart, or diced for hearty stews and curries. One of the most flavourful cuts, with beautiful marbling throughout.",
     unitLabel: "kg",
     options: [{ label: "Cut Style", choices: ["Whole", "Diced"], default: "Whole" }],
   },
@@ -599,9 +586,10 @@ export const chickenProducts: Product[] = [
     price: 34.99,
     priceLabel: "per box",
     badge: "🔥 Most Popular",
-    description: "5kg of chicken breast fillets.",
+    description: "The gym favourite. 5kg of lean, high-protein chicken breast fillets — perfect for meal prep, stir-fries, grilling and everything in between. Our best-selling chicken box by far. Halal certified and outsourced from a reputable supplier.",
     note: "Chicken boxes do NOT come individually packed. Chicken is outsourced from a reputable alternative halal-certified supplier.",
     unitLabel: "box",
+    image: "/images/chicken-breast-box.jpg",
   },
   {
     id: "chicken-thigh-box",
@@ -610,12 +598,13 @@ export const chickenProducts: Product[] = [
     type: "box",
     price: 24.99,
     priceLabel: "per 5kg box",
-    description: "Chicken thighs on the bone, 5kg box. If you would like bones removed, an additional £15 charge applies and you will be charged the full weight with bones included.",
+    description: "Juicy chicken thighs on the bone — 5kg box. More flavour than breast, fantastic for curries, roasting, BBQ and slow cooking. Option to have bones removed for an additional £15 (full weight with bones charged).",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
     unitLabel: "box",
     options: [
       { label: "Bones", choices: ["With Bones", "Bones Removed (+£15)"], default: "With Bones" },
     ],
+    image: "/images/chicken-thigh-box.jpg",
   },
   {
     id: "chicken-whole-box",
@@ -624,9 +613,10 @@ export const chickenProducts: Product[] = [
     type: "per-kg",
     price: 4.99,
     priceLabel: "per kg",
-    description: "Whole chickens, sold by weight.",
+    description: "Whole chickens, sold by weight. Perfect for roasting, slow cooking, or breaking down into your own cuts. Nothing beats a whole roast chicken for the family. Halal certified.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
     unitLabel: "kg",
+    image: "/images/chicken-whole-box.jpg",
   },
   {
     id: "chicken-legs-box",
@@ -635,12 +625,13 @@ export const chickenProducts: Product[] = [
     type: "box",
     price: 19.99,
     priceLabel: "per 5kg box",
-    description: "Chicken legs sold as a 5kg box. If you would like bones removed, an additional £15 charge applies and you will be charged the full weight with bones included.",
+    description: "Meaty chicken legs in a 5kg box — great for oven bakes, curries, BBQ and kids' meals. Juicy dark meat with fantastic flavour. Option to have bones removed for an additional £15 (full weight with bones charged).",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
     unitLabel: "box",
     options: [
       { label: "Bones", choices: ["With Bones", "Bones Removed (+£15)"], default: "With Bones" },
     ],
+    image: "/images/chicken-legs-box.jpg",
   },
   {
     id: "chicken-wings",
@@ -649,9 +640,10 @@ export const chickenProducts: Product[] = [
     type: "box",
     price: 14.99,
     priceLabel: "per 3kg box",
-    description: "Chicken wings, sold as a 3kg box.",
+    description: "Crispy, crunchy chicken wings — 3kg box. The ultimate snack or party food. Season, bake, fry or air-fry. Perfect for game nights, BBQs and gatherings.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
     unitLabel: "box",
+    image: "/images/chicken-wings-box.jpg",
   },
   {
     id: "chicken-drumsticks-box",
@@ -660,12 +652,13 @@ export const chickenProducts: Product[] = [
     type: "box",
     price: 17.99,
     priceLabel: "per 5kg box",
-    description: "Chicken drumsticks sold as a 5kg box. If you would like bones removed, an additional £15 charge applies and you will be charged the full weight with bones included.",
+    description: "Classic chicken drumsticks in a 5kg box — a family favourite. Great for oven bakes, BBQs, marinades and kids' meals. Option to have bones removed for an additional £15 (full weight with bones charged).",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
     unitLabel: "box",
     options: [
       { label: "Bones", choices: ["With Bones", "Bones Removed (+£15)"], default: "With Bones" },
     ],
+    image: "/images/chicken-legs-box.jpg",
   },
 ];
 
@@ -678,12 +671,14 @@ export const extrasProducts: Product[] = [
     type: "bundle",
     price: 12.99,
     priceLabel: "per bundle",
-    description: "\"Lamb Chops & Steaks\" + \"The Steak Rub\" (90g each). Sourced from an external specialist company — we highly recommend and resell as a retailer. Suitable for Halal, Vegetarian & Vegan.",
+    badge: "⭐ Our Personal Recommendation",
+    description: "\"Lamb Chops & Steaks\" + \"The Steak Rub\" (90g each). Sourced from an external specialist company — we've tried them all and these are the best. Elevate every steak, chop and roast. Suitable for Halal, Vegetarian & Vegan.",
     details: [
       "Suitable for: Halal / Vegetarian / Vegan",
       "Allergen: Contains Celery",
       "Sourced from an external specialist seasoning company.",
     ],
+    image: "/images/extras-seasoning.jpg",
   },
   {
     id: "extras-beef-tallow",
@@ -692,9 +687,10 @@ export const extrasProducts: Product[] = [
     type: "per-pack",
     price: 8.99,
     priceLabel: "per 1kg tub",
-    description: "100% organic halal beef tallow, made in-house. 1kg tub. Great for cooking and frying.",
+    description: "100% organic halal beef tallow, made in-house from our own cattle. The healthiest cooking fat — perfect for frying, roasting, and making the crispiest chips you've ever tasted. Rich in vitamins A, D, E & K.",
     unitLabel: "tub",
     badge: "Made In-House",
+    image: "/images/extras-tallow-honey.jpg",
   },
   {
     id: "extras-organic-honey",
@@ -703,9 +699,10 @@ export const extrasProducts: Product[] = [
     type: "per-pack",
     price: 0,
     priceLabel: "coming soon",
-    description: "100% organic honey from our own organic bee farm. Coming soon!",
+    description: "100% organic honey from our own organic bee farm. Raw, unfiltered and packed with natural goodness. Coming soon!",
     contactOnly: true,
     badge: "Coming Soon",
+    image: "/images/extras-tallow-honey.jpg",
   },
   {
     id: "extras-eggs-free-range",
@@ -714,8 +711,9 @@ export const extrasProducts: Product[] = [
     type: "per-pack",
     price: 4.99,
     priceLabel: "per box of 12",
-    description: "Farm-fresh free range eggs, box of 12.",
+    description: "Farm-fresh free range eggs, box of 12. Rich golden yolks from happy hens — taste the difference compared to supermarket eggs. Perfect for baking, breakfast and everything in between.",
     unitLabel: "box",
+    image: "/images/extras-eggs.jpg",
   },
   {
     id: "extras-eggs-golden",
@@ -725,8 +723,9 @@ export const extrasProducts: Product[] = [
     price: 5.99,
     priceLabel: "per box of 12",
     badge: "Premium",
-    description: "Premium golden free range eggs, box of 12.",
+    description: "Premium golden free range eggs, box of 12. Deep orange yolks with an incredibly rich, creamy flavour. From heritage breed hens — the best eggs you'll ever crack.",
     unitLabel: "box",
+    image: "/images/extras-eggs.jpg",
   },
   {
     id: "extras-whole-pluck",
@@ -735,10 +734,48 @@ export const extrasProducts: Product[] = [
     type: "bundle",
     price: 14.99,
     priceLabel: "per bundle",
-    description: "Available for beef, lamb, or mutton. Add notes for your preference.",
+    description: "Offal at its finest — hearts, lungs and liver from beef, lamb or mutton. Nutrient-dense superfoods packed with iron and B12. Perfect for traditional dishes, homemade haggis, or feeding pets a raw diet.",
     options: [
       { label: "Animal", choices: ["Beef", "Lamb", "Mutton"], default: "Beef" },
     ],
+  },
+  // Beef Bones (moved from beef section)
+  {
+    id: "beef-bones",
+    name: "Beef Bones",
+    category: "extras",
+    type: "per-kg",
+    price: 3.99,
+    priceLabel: "per kg",
+    description: "Nutrient-rich beef bones — packed with collagen and minerals. Perfect for homemade bone broth, rich soups, or split for luxurious roasted bone marrow. Choose your preferred cut style.",
+    options: [
+      { label: "Cut Style", choices: ["Whole (Broth)", "Cut in Half (Bone Marrow)", "Chunks"], default: "Whole (Broth)" },
+      { label: "Pack Size", choices: ["1kg", "2kg", "5kg"], default: "2kg" },
+    ],
+    unitLabel: "kg",
+    image: "/images/beef-bones.jpg",
+  },
+  // Meat Bag Roll
+  {
+    id: "extras-meat-bag-roll",
+    name: "Meat Bag Roll",
+    category: "extras",
+    type: "per-pack",
+    price: 6.99,
+    priceLabel: "per roll",
+    description: "Professional-grade meat bags on a roll — the same ones we use in our own butchery. Perfect for storing large cuts, freezing joints, and keeping your meat fresh. Essential for anyone buying bulk.",
+    unitLabel: "roll",
+  },
+  // Butcher Paper
+  {
+    id: "extras-butcher-paper",
+    name: "Butcher Paper Roll",
+    category: "extras",
+    type: "per-pack",
+    price: 9.99,
+    priceLabel: "per roll",
+    description: "Premium food-grade butcher paper. Ideal for wrapping briskets for smoking, lining your countertop for carving, or serving BBQ the authentic way. Every serious meat lover needs a roll.",
+    unitLabel: "roll",
   },
 ];
 
@@ -754,4 +791,4 @@ export const getProductById = (id: string) => allProducts.find(p => p.id === id)
 
 // Weekly deal — featured product for promotion
 export const WEEKLY_DEAL_PRODUCT_ID = "beef-value-box";
-export const ANNOUNCEMENT_TEXT = "🔥 NEW: The Value Box — Premium beef, zero waste, unbeatable price. Weekly drop now live!";
+export const ANNOUNCEMENT_TEXT = "🔥 LIMITED WEEKLY DROP: The Value Box — Premium beef, zero waste, unbeatable price. Tap to shop →";

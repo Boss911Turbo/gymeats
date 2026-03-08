@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Truck, Package, Shield, ChevronRight, Flame, Star, Scissors } from "lucide-react";
+import { ShoppingCart, Truck, Package, Shield, ChevronRight, Flame, Star, Scissors, Clock } from "lucide-react";
 import heroImage from "@/assets/hero-meat.jpg";
 import { ANNOUNCEMENT_TEXT, WEEKLY_DEAL_PRODUCT_ID, beefProducts, FREE_DELIVERY_THRESHOLD } from "@/data/products";
 import BatchProgressBar from "@/components/BatchProgressBar";
@@ -20,7 +20,7 @@ const Index = () => (
   <Layout>
     {/* Announcement Bar — clickable */}
     <Link to="/bulk-beef" className="block bg-accent text-accent-foreground text-center py-2 px-4 hover:bg-accent/90 transition-colors cursor-pointer">
-      <p className="text-sm font-bold tracking-wide">{ANNOUNCEMENT_TEXT}</p>
+      <p className="text-sm font-bold tracking-wide">🔥 LIMITED WEEKLY DROP: The Value Box — Premium beef, zero waste, unbeatable price. Tap to shop →</p>
     </Link>
 
     {/* Hero */}
@@ -44,13 +44,13 @@ const Index = () => (
             </Button>
           </Link>
           <Link to="/bulk-chicken">
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold gap-1">
-              Chicken <ChevronRight size={18} />
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold gap-1">
+              Shop Chicken <ChevronRight size={18} />
             </Button>
           </Link>
           <Link to="/cart">
-            <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-bold gap-1">
-              <ShoppingCart size={18} /> Cart
+            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold gap-1">
+              <ShoppingCart size={18} /> Go to Cart
             </Button>
           </Link>
         </div>
@@ -85,7 +85,16 @@ const Index = () => (
               <span className="text-xs font-bold text-accent uppercase tracking-widest">Most Recommended</span>
             </div>
             <h3 className="text-2xl font-black mb-2">{weeklyDealProduct.name}</h3>
-            <p className="text-muted-foreground text-sm mb-4">{weeklyDealProduct.description}</p>
+            <p className="text-muted-foreground text-sm mb-3">{weeklyDealProduct.description}</p>
+            
+            {/* Limited weekly drop emphasis */}
+            <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 mb-4 flex items-start gap-2">
+              <Clock size={16} className="text-accent mt-0.5 shrink-0" />
+              <p className="text-sm text-foreground">
+                <span className="font-bold text-accent">Limited Weekly Drop</span> — This box is only available in limited batches each week due to its incredible value. Once the batch fills, orders close until next week. Don't miss out!
+              </p>
+            </div>
+
             <p className="text-accent font-black text-3xl mb-4">
               £{weeklyDealProduct.price.toFixed(2)}
               <span className="text-muted-foreground text-sm font-normal ml-2">{weeklyDealProduct.priceLabel}</span>
@@ -113,6 +122,20 @@ const Index = () => (
         </div>
       </section>
     )}
+
+    {/* Coming Soon */}
+    <section className="bg-muted/50 border-y border-border py-10">
+      <div className="container-tight text-center">
+        <h2 className="text-xl md:text-2xl font-black mb-4">Coming Soon 🔜</h2>
+        <div className="flex flex-wrap justify-center gap-3">
+          {["BBQ Box", "Qurbanis", "Pies", "Burgers", "Sausages", "Marinated Meats"].map(item => (
+            <span key={item} className="bg-card border border-border rounded-full px-4 py-2 text-sm font-medium text-muted-foreground">
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
 
     {/* Categories */}
     <section className="container-tight py-16">
@@ -156,7 +179,7 @@ const Index = () => (
     {/* Trust */}
     <section className="container-tight py-16">
       <h2 className="text-2xl md:text-3xl font-black mb-10 text-center">Why GYMEATS?</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {[
           { icon: <Shield size={24} />, title: "100% Halal", desc: "All meat is certified halal from our own slaughterhouse." },
           { icon: <Package size={24} />, title: "Vacuum Packed", desc: "Individually packed for freshness and easy freezing." },
@@ -164,7 +187,7 @@ const Index = () => (
           { icon: <Package size={24} />, title: "Accurate Weights", desc: "All weights are as close as possible to your desired amount." },
         ].map(item => (
           <div key={item.title} className="border border-border rounded-lg p-6">
-            {item.icon && <div className="mb-3 text-foreground">{item.icon}</div>}
+            <div className="mb-3 text-foreground">{item.icon}</div>
             <h3 className="font-bold mb-1">{item.title}</h3>
             <p className="text-muted-foreground text-sm">{item.desc}</p>
           </div>
@@ -180,7 +203,6 @@ const Index = () => (
           {[
             { q: "Are you halal?", a: "Yes — all our meat is 100% halal certified. We own and operate our own slaughterhouse facilities, maintaining full halal compliance at every stage.", link: { text: "Learn more on our About page →", to: "/about" } },
             { q: "Do you deliver or offer pickup?", a: `Yes, both! Delivery is free on orders over £${FREE_DELIVERY_THRESHOLD}. Orders under £50 have a £10 delivery & packaging charge. Orders between £50–£${FREE_DELIVERY_THRESHOLD} are £20 delivery. Pickup is always free — we'll arrange a time via WhatsApp.` },
-            { q: "Is there a minimum order?", a: "Minimum order details coming soon. Contact us for more info." },
             { q: "How should I store the meat?", a: "All items are vacuum packed for easy freezing. Store in your freezer and defrost as needed. Most items will keep for several months when frozen." },
             { q: "Can I order a half box?", a: "Yes! Most of our beef and mutton boxes are available as half box or full box. Lamb boxes are full only. Select your preferred size when ordering." },
             { q: "What is the deposit for?", a: "Most boxes require a £50 non-refundable deposit to confirm your order. The Value Box requires a £30 refundable deposit — if the weekly batch doesn't fill, your deposit is fully refunded." },

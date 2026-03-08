@@ -4,17 +4,21 @@ import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
 
-const navLinks = [
-  { to: "/about", label: "About" },
+const mainNavLinks = [
   { to: "/bulk-beef", label: "Beef" },
   { to: "/bulk-lamb", label: "Lamb" },
   { to: "/bulk-mutton", label: "Mutton" },
   { to: "/bulk-chicken", label: "Chicken" },
   { to: "/extras", label: "Extras" },
   { to: "/wholesale", label: "Wholesale" },
+];
+
+const moreLinks = [
+  { to: "/about", label: "About Us" },
   { to: "/influencers", label: "Join the Team" },
   { to: "/careers", label: "Careers" },
-  { to: "/contact", label: "Contact" },
+  { to: "/contact", label: "Contact Us" },
+  { to: "#", label: "Gym Wear / Merch", comingSoon: true },
 ];
 
 const Header = () => {
@@ -29,9 +33,9 @@ const Header = () => {
           GYMEATS
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop nav — product categories only */}
         <nav className="hidden md:flex items-center gap-5">
-          {navLinks.map(link => (
+          {mainNavLinks.map(link => (
             <Link
               key={link.to}
               to={link.to}
@@ -55,7 +59,7 @@ const Header = () => {
             )}
           </Link>
           <button
-            className="md:hidden text-primary-foreground"
+            className="text-primary-foreground"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -64,17 +68,38 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile nav */}
+      {/* Slide-out menu (hamburger) */}
       {menuOpen && (
-        <nav className="md:hidden bg-primary border-t border-border/20 pb-4">
-          {navLinks.map(link => (
+        <nav className="bg-primary border-t border-border/20 pb-4">
+          {/* On mobile, show product links too */}
+          <div className="md:hidden">
+            {mainNavLinks.map(link => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMenuOpen(false)}
+                className="block px-6 py-3 text-primary-foreground/70 hover:text-primary-foreground text-sm font-medium transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="border-t border-border/10 my-2" />
+          </div>
+          {moreLinks.map(link => (
             <Link
               key={link.to}
-              to={link.to}
-              onClick={() => setMenuOpen(false)}
-              className="block px-6 py-3 text-primary-foreground/70 hover:text-primary-foreground text-sm font-medium transition-colors"
+              to={link.comingSoon ? "#" : link.to}
+              onClick={() => !link.comingSoon && setMenuOpen(false)}
+              className={`block px-6 py-3 text-sm font-medium transition-colors ${
+                link.comingSoon
+                  ? "text-primary-foreground/40 cursor-default"
+                  : "text-primary-foreground/70 hover:text-primary-foreground"
+              }`}
             >
               {link.label}
+              {link.comingSoon && (
+                <span className="ml-2 text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">Coming Soon</span>
+              )}
             </Link>
           ))}
         </nav>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { BUSINESS_EMAIL } from "@/data/products";
 
 const Footer = () => (
   <footer className="bg-primary text-primary-foreground">
@@ -8,7 +9,6 @@ const Footer = () => (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-primary-foreground/70">
           <div>📦 Packaging & delivery: £20</div>
           <div>🥩 Vacuum packed, items individually packed (except chicken boxes)</div>
-          <div>⚖️ Mince packed in 500g or 1kg</div>
           <div>🥩 Big cuts packed in meat bags (e.g., Tomahawk, Beef ribs)</div>
           <div>📏 All weights will be as close as possible to desired weight</div>
         </div>
@@ -28,7 +28,7 @@ const Footer = () => (
           <div className="flex flex-col gap-2">
             <Link to="/bulk-beef" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Bulk Beef</Link>
             <Link to="/bulk-lamb" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Bulk Lamb</Link>
-            <Link to="/bulk-sheep" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Bulk Sheep</Link>
+            <Link to="/bulk-mutton" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Bulk Mutton</Link>
             <Link to="/bulk-chicken" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Bulk Chicken</Link>
             <Link to="/extras" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Extras</Link>
           </div>
@@ -38,14 +38,23 @@ const Footer = () => (
           <div className="flex flex-col gap-2">
             <Link to="/about" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">About Us</Link>
             <Link to="/contact" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Contact</Link>
+            <Link to="/influencers" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Join the Team</Link>
+            <Link to="/careers" className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">Careers</Link>
           </div>
         </div>
         <div>
           <h4 className="font-semibold mb-3 text-sm">Contact</h4>
           <div className="flex flex-col gap-2 text-sm text-primary-foreground/60">
-            <span>📱 +44 XXX XXXX XXX</span>
-            <span>📧 YOUR_EMAIL_HERE</span>
+            <span>📧 {BUSINESS_EMAIL}</span>
             <span>💬 WhatsApp available</span>
+            <a
+              href="https://instagram.com/gymeats"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary-foreground transition-colors"
+            >
+              📸 @gymeats on Instagram
+            </a>
           </div>
         </div>
       </div>

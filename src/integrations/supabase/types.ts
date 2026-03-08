@@ -41,14 +41,81 @@ export type Database = {
         }
         Relationships: []
       }
+      experience_surveys: {
+        Row: {
+          created_at: string
+          delivery_rating: string | null
+          id: string
+          improvement_suggestions: string | null
+          overall_rating: string | null
+          packaging_rating: string | null
+          quality_rating: string | null
+          updated_at: string
+          user_id: string
+          value_rating: string | null
+          would_recommend: string | null
+        }
+        Insert: {
+          created_at?: string
+          delivery_rating?: string | null
+          id?: string
+          improvement_suggestions?: string | null
+          overall_rating?: string | null
+          packaging_rating?: string | null
+          quality_rating?: string | null
+          updated_at?: string
+          user_id: string
+          value_rating?: string | null
+          would_recommend?: string | null
+        }
+        Update: {
+          created_at?: string
+          delivery_rating?: string | null
+          id?: string
+          improvement_suggestions?: string | null
+          overall_rating?: string | null
+          packaging_rating?: string | null
+          quality_rating?: string | null
+          updated_at?: string
+          user_id?: string
+          value_rating?: string | null
+          would_recommend?: string | null
+        }
+        Relationships: []
+      }
+      feedback: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address: string
           created_at: string
           email: string
+          email_opt_in: boolean
+          experience_survey_completed: boolean
           full_name: string
           id: string
           phone: string
+          preferred_language: string
+          preferred_unit: string
           referral_code: string
           referral_credit: number
           referred_by: string | null
@@ -60,9 +127,13 @@ export type Database = {
           address?: string
           created_at?: string
           email?: string
+          email_opt_in?: boolean
+          experience_survey_completed?: boolean
           full_name?: string
           id?: string
           phone?: string
+          preferred_language?: string
+          preferred_unit?: string
           referral_code?: string
           referral_credit?: number
           referred_by?: string | null
@@ -74,9 +145,13 @@ export type Database = {
           address?: string
           created_at?: string
           email?: string
+          email_opt_in?: boolean
+          experience_survey_completed?: boolean
           full_name?: string
           id?: string
           phone?: string
+          preferred_language?: string
+          preferred_unit?: string
           referral_code?: string
           referral_credit?: number
           referred_by?: string | null

@@ -36,6 +36,8 @@ export const beefProducts: Product[] = [
       { name: "Slow Cook Cuts (Short Ribs or Brisket)", detail: "~1kg" },
     ],
     weightRange: { min: 9, max: 15, avg: 12, unit: "kg" },
+    pricePerKg: 16.99,
+    competitorPricePerKg: 24.99,
     options: [
       { label: "Roasting / Large Cuts", choices: ["Keep as Roast", "Mince", "Stir Fry Strips", "Diced Beef"], default: "Keep as Roast" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },

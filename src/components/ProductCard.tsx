@@ -156,12 +156,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
         
         {/* Competitor price comparison */}
         {product.competitorPricePerKg && (
-          <div className="mt-2 bg-emerald-500/10 border border-emerald-500/20 rounded px-3 py-2">
-            <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+          <div className="mt-2 bg-accent/10 border border-accent/20 rounded px-3 py-2">
+            <p className="text-xs font-semibold text-accent">
               💰 Competitor price: <span className="line-through text-muted-foreground">£{product.competitorPricePerKg.toFixed(2)}/kg</span>
               {" → "}You pay: <span className="font-bold">£{(product.pricePerKg || product.price).toFixed(2)}/kg</span>
             </p>
-            <p className="text-xs font-bold text-emerald-700 dark:text-emerald-300 mt-0.5">
+            <p className="text-xs font-bold text-accent mt-0.5">
               You save ~£{(
                 hasWeightPricing
                   ? (product.competitorPricePerKg - effectivePricePerKg) * targetWeight

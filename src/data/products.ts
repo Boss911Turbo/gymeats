@@ -649,6 +649,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 24.99,
+    competitorPricePerKg: 7.99,
+    pricePerKg: 5.00,
     priceLabel: "per 5kg box",
     description: "Juicy chicken thighs on the bone — 5kg box. More flavour than breast, fantastic for curries, roasting, BBQ and slow cooking. The extra fat keeps it moist and delicious every time. Option to have bones removed for an additional £15.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",

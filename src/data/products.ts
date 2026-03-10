@@ -372,6 +372,9 @@ export const beefProducts: Product[] = [
       { name: "Mince", detail: "2.5–4kg" },
     ],
     weightRange: { min: 28, max: 35, avg: 32, unit: "kg" },
+    pricePerKg: 11.50,
+    halfBoxPricePerKg: 12.50,
+    competitorPricePerKg: 17.99,
     options: [
       { label: "Cut Style", choices: ["Standard Roasts & Diced", "Caveman Steaks / Slices"], default: "Standard Roasts & Diced" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },

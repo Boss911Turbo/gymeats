@@ -125,9 +125,21 @@ const Checkout = () => {
                 </div>
               </div>
               <div><label className="text-sm font-semibold block mb-1">Notes (cutting preferences, etc.)</label><textarea className="w-full border border-input bg-background rounded px-3 py-2 text-sm resize-none" rows={3} placeholder="Any special instructions..." value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} /></div>
+              <div className="bg-muted/50 border border-border rounded-lg p-4 mb-4">
+                <h3 className="font-bold text-sm mb-2 text-foreground">⚖️ Important: Weight-Based Pricing</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                  All our meat is priced by dead weight, which means the final cost is determined by the actual weight of your order after processing. While we aim to match your desired weight as closely as possible, slight variations are natural when purchasing bulk cuts — this is standard practice across the industry.
+                </p>
+                <p className="text-xs text-muted-foreground leading-relaxed mb-2">
+                  Once your deposit is received, we'll confirm the exact weight and final price with you via WhatsApp before dispatch. Your deposit secures your order in the current batch.
+                </p>
+                <p className="text-xs font-semibold text-muted-foreground leading-relaxed">
+                  Prices shown at checkout are approximate estimates based on your selected weight. The confirmed price may differ slightly depending on the actual cut weight available.
+                </p>
+              </div>
               <div className="flex items-start gap-2 mb-4">
                 <input type="checkbox" id="no-refunds" checked={noRefundsConfirmed} onChange={e => setNoRefundsConfirmed(e.target.checked)} className="mt-1 accent-accent" required />
-                <label htmlFor="no-refunds" className="text-sm text-muted-foreground">I understand and agree that <span className="font-bold text-foreground">all sales are final — no returns or refunds</span>. Deposits are non-refundable unless stated otherwise. Final pricing is based on actual meat weight.</label>
+                <label htmlFor="no-refunds" className="text-sm text-muted-foreground">I understand and agree that <span className="font-bold text-foreground">all sales are final — no returns or refunds</span>. Deposits are non-refundable unless stated otherwise. I acknowledge that final pricing is based on actual dead weight and will be confirmed via WhatsApp.</label>
               </div>
               <Button type="submit" size="lg" className="w-full font-bold bg-accent text-accent-foreground hover:bg-accent/90">Place Order via WhatsApp</Button>
             </form>

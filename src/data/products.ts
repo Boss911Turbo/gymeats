@@ -497,6 +497,8 @@ export const lambProducts: Product[] = [
       { name: "Lamb Mince", detail: "2–5kg" },
     ],
     weightRange: { min: 18, max: 25, avg: 21, unit: "kg" },
+    pricePerKg: 8.99,
+    competitorPricePerKg: 14.99,
     options: [
       { label: "Leg Cut", choices: ["Whole", "1-inch Steaks", "Diced"], default: "Whole" },
       { label: "Shoulder Cut", choices: ["Whole", "Diced"], default: "Whole" },

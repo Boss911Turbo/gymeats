@@ -447,6 +447,9 @@ export const beefProducts: Product[] = [
       { name: "Diced Beef", detail: "1.5–3kg" },
     ],
     weightRange: { min: 16, max: 22, avg: 19, unit: "kg" },
+    pricePerKg: 16.50,
+    halfBoxPricePerKg: 17.50,
+    competitorPricePerKg: 24.99,
     image: "/images/plate-flank-box.jpg",
   },
   // === PER-KG ITEMS ===

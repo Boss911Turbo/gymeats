@@ -240,6 +240,9 @@ export const beefProducts: Product[] = [
     recommendedFor: ["Home Cooks", "Caterers"],
     weeklyDrop: true,
     weightRange: { min: 8, max: 14, avg: 11, unit: "kg" },
+    pricePerKg: 9.50,
+    halfBoxPricePerKg: 10.50,
+    competitorPricePerKg: 14.99,
     image: "/images/curry-box.jpg",
   },
   // === FULL CHUCK BOX ===

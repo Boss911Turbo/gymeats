@@ -27,7 +27,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [kgAmount, setKgAmount] = useState(1);
 
   const isHalf = boxSize === "half" && product.halfBoxAvailable;
-  const displayPrice = isHalf ? (product.halfBoxPrice || product.price / 2) : product.price;
+  
+  // Dynamic price calculation based on weight
+  const effectivePricePerKg = isHalf
+    ? (product.halfBoxPricePerKg || product.pricePerKg || 0)
+    : (product.pricePerKg || 0);
+  
+  const hasWeightPricing = !!product.pricePerKg && !!product.weightRange;
+  const displayPrice = hasWeightPricing
+    ? effectivePricePerKg * targetWeight
+    : isHalf ? (product.halfBoxPrice || product.price / 2) : product.price;
+
   const displayWeight = product.weightRange
     ? isHalf
       ? { min: Math.round(product.weightRange.min / 2), max: Math.round(product.weightRange.max / 2), avg: Math.round(product.weightRange.avg / 2), unit: product.weightRange.unit }

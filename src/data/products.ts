@@ -618,6 +618,7 @@ export const sheepProducts: Product[] = [
     category: "bulk-mutton",
     type: "per-kg",
     price: 9.99,
+    competitorPricePerKg: 14.99,
     priceLabel: "per kg",
     description: "Rich and tender mutton shoulder — ideal for slow roasting until it falls apart, or diced for hearty stews and curries. Beautiful marbling throughout delivers an unmatched depth of flavour. One of the most rewarding cuts to cook.",
     unitLabel: "kg",

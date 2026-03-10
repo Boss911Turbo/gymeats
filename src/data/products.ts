@@ -523,6 +523,8 @@ export const lambProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     weightRange: { min: 18, max: 25, avg: 21, unit: "kg" },
+    pricePerKg: 8.49,
+    competitorPricePerKg: 13.99,
     image: "/images/lamb-box.jpg",
   },
 ];

@@ -595,6 +595,9 @@ export const sheepProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     weightRange: { min: 20, max: 45, avg: 30, unit: "kg" },
+    pricePerKg: 7.25,
+    halfBoxPricePerKg: 8.25,
+    competitorPricePerKg: 12.99,
     image: "/images/mutton-curry-box.jpg",
   },
   {

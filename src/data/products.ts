@@ -1,7 +1,7 @@
 import { Product } from "@/types/product";
 
 export const WHATSAPP_NUMBER = "+44XXXXXXXXXXX";
-export const BUSINESS_EMAIL = "YOUR_EMAIL_HERE";
+export const BUSINESS_EMAIL = "Alhirahalalmeats@gmail.com";
 export const DELIVERY_FEE = 20;
 export const FREE_DELIVERY_THRESHOLD = 100;
 export const SMALL_ORDER_THRESHOLD = 50;
@@ -36,6 +36,8 @@ export const beefProducts: Product[] = [
       { name: "Slow Cook Cuts (Short Ribs or Brisket)", detail: "~1kg" },
     ],
     weightRange: { min: 9, max: 15, avg: 12, unit: "kg" },
+    pricePerKg: 16.99,
+    competitorPricePerKg: 24.99,
     options: [
       { label: "Roasting / Large Cuts", choices: ["Keep as Roast", "Mince", "Stir Fry Strips", "Diced Beef"], default: "Keep as Roast" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -70,6 +72,9 @@ export const beefProducts: Product[] = [
       { name: "Beef Mince", detail: "1.5–4kg (lean or with fat)" },
     ],
     weightRange: { min: 22, max: 28, avg: 25, unit: "kg" },
+    pricePerKg: 8.50,
+    halfBoxPricePerKg: 9.50,
+    competitorPricePerKg: 14.99,
     options: [
       { label: "Mince Type", choices: ["Lean", "With Fat"], default: "Lean" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -102,6 +107,9 @@ export const beefProducts: Product[] = [
       { name: "Beef Mince", detail: "1.5–2kg (lean or with fat)" },
     ],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
+    pricePerKg: 8.50,
+    halfBoxPricePerKg: 9.50,
+    competitorPricePerKg: 14.99,
     options: [
       { label: "Mince Type", choices: ["Lean", "With Fat"], default: "Lean" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -136,6 +144,9 @@ export const beefProducts: Product[] = [
       { name: "Beef Mince", detail: "1–3kg (lean or with fat)" },
     ],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
+    pricePerKg: 10.99,
+    halfBoxPricePerKg: 11.99,
+    competitorPricePerKg: 18.99,
     options: [
       { label: "Mince Type", choices: ["Lean", "With Fat"], default: "Lean" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -167,6 +178,9 @@ export const beefProducts: Product[] = [
       { name: "Beef Mince", detail: "2–3kg (lean or with fat)" },
     ],
     weightRange: { min: 16, max: 24, avg: 20, unit: "kg" },
+    pricePerKg: 8.50,
+    halfBoxPricePerKg: 9.50,
+    competitorPricePerKg: 13.99,
     options: [
       { label: "Mince Type", choices: ["Lean", "With Fat"], default: "Lean" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -201,6 +215,9 @@ export const beefProducts: Product[] = [
       { name: "Lean Beef Mince", detail: "1.5–4kg" },
     ],
     weightRange: { min: 30, max: 45, avg: 37, unit: "kg" },
+    pricePerKg: 5.50,
+    halfBoxPricePerKg: 6.00,
+    competitorPricePerKg: 9.99,
     options: [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
@@ -223,6 +240,9 @@ export const beefProducts: Product[] = [
     recommendedFor: ["Home Cooks", "Caterers"],
     weeklyDrop: true,
     weightRange: { min: 8, max: 14, avg: 11, unit: "kg" },
+    pricePerKg: 9.50,
+    halfBoxPricePerKg: 10.50,
+    competitorPricePerKg: 14.99,
     image: "/images/curry-box.jpg",
   },
   // === FULL CHUCK BOX ===
@@ -254,6 +274,9 @@ export const beefProducts: Product[] = [
       { name: "Mince Beef", detail: "1.5–3kg" },
     ],
     weightRange: { min: 22, max: 30, avg: 26, unit: "kg" },
+    pricePerKg: 14.50,
+    halfBoxPricePerKg: 15.50,
+    competitorPricePerKg: 22.99,
     options: [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
@@ -274,6 +297,9 @@ export const beefProducts: Product[] = [
     depositRefundable: false,
     recommendedFor: ["BBQ Enthusiasts", "Restaurants", "Caterers"],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
+    pricePerKg: 13.50,
+    halfBoxPricePerKg: 14.50,
+    competitorPricePerKg: 21.99,
     options: [
       { label: "Brisket Cut Style", choices: ["Whole Briskets", "Brisket Slices", "Diced Brisket", "Mince"], default: "Whole Briskets" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -308,6 +334,9 @@ export const beefProducts: Product[] = [
       { name: "Rib Trimmings", detail: "1.5–2.5kg (BBQ or mince)" },
     ],
     weightRange: { min: 20, max: 28, avg: 24, unit: "kg" },
+    pricePerKg: 24.50,
+    halfBoxPricePerKg: 25.50,
+    competitorPricePerKg: 38.99,
     options: [
       { label: "Trimmings", choices: ["BBQ Cut", "Mince"], default: "BBQ Cut" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -343,6 +372,9 @@ export const beefProducts: Product[] = [
       { name: "Mince", detail: "2.5–4kg" },
     ],
     weightRange: { min: 28, max: 35, avg: 32, unit: "kg" },
+    pricePerKg: 11.50,
+    halfBoxPricePerKg: 12.50,
+    competitorPricePerKg: 17.99,
     options: [
       { label: "Cut Style", choices: ["Standard Roasts & Diced", "Caveman Steaks / Slices"], default: "Standard Roasts & Diced" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
@@ -379,6 +411,9 @@ export const beefProducts: Product[] = [
       { name: "Mince", detail: "1.5–2.5kg" },
     ],
     weightRange: { min: 20, max: 26, avg: 23, unit: "kg" },
+    pricePerKg: 19.50,
+    halfBoxPricePerKg: 20.50,
+    competitorPricePerKg: 29.99,
     options: [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
@@ -412,6 +447,9 @@ export const beefProducts: Product[] = [
       { name: "Diced Beef", detail: "1.5–3kg" },
     ],
     weightRange: { min: 16, max: 22, avg: 19, unit: "kg" },
+    pricePerKg: 16.50,
+    halfBoxPricePerKg: 17.50,
+    competitorPricePerKg: 24.99,
     image: "/images/plate-flank-box.jpg",
   },
   // === PER-KG ITEMS ===
@@ -421,6 +459,7 @@ export const beefProducts: Product[] = [
     category: "bulk-beef",
     type: "per-kg",
     price: 12.99,
+    competitorPricePerKg: 18.99,
     priceLabel: "per kg",
     description: "Rich, gelatinous oxtail cut into 1.5–2 inch pieces — the king of slow cooking. Makes incredible stews, soups, and Jamaican-style oxtail. Melt-in-your-mouth tender when braised low and slow.",
     options: [
@@ -458,6 +497,8 @@ export const lambProducts: Product[] = [
       { name: "Lamb Mince", detail: "2–5kg" },
     ],
     weightRange: { min: 18, max: 25, avg: 21, unit: "kg" },
+    pricePerKg: 8.99,
+    competitorPricePerKg: 14.99,
     options: [
       { label: "Leg Cut", choices: ["Whole", "1-inch Steaks", "Diced"], default: "Whole" },
       { label: "Shoulder Cut", choices: ["Whole", "Diced"], default: "Whole" },
@@ -482,6 +523,8 @@ export const lambProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     weightRange: { min: 18, max: 25, avg: 21, unit: "kg" },
+    pricePerKg: 8.49,
+    competitorPricePerKg: 13.99,
     image: "/images/lamb-box.jpg",
   },
 ];
@@ -524,6 +567,9 @@ export const sheepProducts: Product[] = [
       { name: "Mince", detail: "1.5–3kg" },
     ],
     weightRange: { min: 20, max: 45, avg: 30, unit: "kg" },
+    pricePerKg: 7.50,
+    halfBoxPricePerKg: 8.50,
+    competitorPricePerKg: 12.99,
     options: [
       { label: "Leg Cut", choices: ["Whole", "1-inch Steaks", "Diced"], default: "Whole" },
       { label: "Shoulder Cut", choices: ["Whole", "Diced"], default: "Whole" },
@@ -549,6 +595,9 @@ export const sheepProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     weightRange: { min: 20, max: 45, avg: 30, unit: "kg" },
+    pricePerKg: 7.25,
+    halfBoxPricePerKg: 8.25,
+    competitorPricePerKg: 12.99,
     image: "/images/mutton-curry-box.jpg",
   },
   {
@@ -557,6 +606,7 @@ export const sheepProducts: Product[] = [
     category: "bulk-mutton",
     type: "per-kg",
     price: 10.99,
+    competitorPricePerKg: 16.99,
     priceLabel: "per kg",
     description: "Whole mutton legs — bigger and more flavourful than lamb. Perfect for roasting low and slow until the meat falls off the bone, or cut into thick steaks for the grill. A showstopper centrepiece for family gatherings and Eid celebrations.",
     unitLabel: "kg",
@@ -568,6 +618,7 @@ export const sheepProducts: Product[] = [
     category: "bulk-mutton",
     type: "per-kg",
     price: 9.99,
+    competitorPricePerKg: 14.99,
     priceLabel: "per kg",
     description: "Rich and tender mutton shoulder — ideal for slow roasting until it falls apart, or diced for hearty stews and curries. Beautiful marbling throughout delivers an unmatched depth of flavour. One of the most rewarding cuts to cook.",
     unitLabel: "kg",
@@ -583,6 +634,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 34.99,
+    competitorPricePerKg: 9.99,
+    pricePerKg: 7.00,
     priceLabel: "per box",
     badge: "🔥 Most Popular",
     description: "The gym favourite. 5kg of lean, high-protein chicken breast fillets — perfect for meal prep, stir-fries, grilling and everything in between. Our best-selling chicken box by far. Halal certified and outsourced from a reputable supplier.",
@@ -596,6 +649,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 24.99,
+    competitorPricePerKg: 7.99,
+    pricePerKg: 5.00,
     priceLabel: "per 5kg box",
     description: "Juicy chicken thighs on the bone — 5kg box. More flavour than breast, fantastic for curries, roasting, BBQ and slow cooking. The extra fat keeps it moist and delicious every time. Option to have bones removed for an additional £15.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
@@ -611,6 +666,7 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "per-kg",
     price: 4.99,
+    competitorPricePerKg: 7.49,
     priceLabel: "per kg",
     description: "Whole chickens, sold by weight. Perfect for roasting, slow cooking, or breaking down into your own cuts. Nothing beats a whole roast chicken for the family — golden, crispy skin with juicy meat inside. Halal certified.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
@@ -623,6 +679,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 19.99,
+    competitorPricePerKg: 5.99,
+    pricePerKg: 4.00,
     priceLabel: "per 5kg box",
     description: "Whole chicken legs (drumstick + thigh still attached) in a 5kg box — juicy, meaty and full of flavour. Great for oven bakes, curries, BBQ and kids' meals. The connected joint keeps them succulent during cooking. Option to have bones removed for an additional £15.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
@@ -638,6 +696,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 14.99,
+    competitorPricePerKg: 7.99,
+    pricePerKg: 5.00,
     priceLabel: "per 3kg box",
     description: "Crispy, crunchy chicken wings — 3kg box. The ultimate snack or party food. Season, bake, fry or air-fry for game nights, BBQs and gatherings. Toss in your favourite sauce for an unbeatable crowd-pleaser.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",
@@ -650,6 +710,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 17.99,
+    competitorPricePerKg: 5.99,
+    pricePerKg: 3.60,
     priceLabel: "per 5kg box",
     description: "Classic chicken drumsticks only (no thigh) in a 5kg box — a family favourite. Great for oven bakes, BBQs, marinades and kids' meals. Compact, easy to cook and always a hit at the dinner table. Option to have bones removed for an additional £15.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",

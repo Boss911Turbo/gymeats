@@ -27,7 +27,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const [kgAmount, setKgAmount] = useState(1);
 
   const isHalf = boxSize === "half" && product.halfBoxAvailable;
-  const displayPrice = isHalf ? (product.halfBoxPrice || product.price / 2) : product.price;
+  
+  // Dynamic price calculation based on weight
+  const effectivePricePerKg = isHalf
+    ? (product.halfBoxPricePerKg || product.pricePerKg || 0)
+    : (product.pricePerKg || 0);
+  
+  const hasWeightPricing = !!product.pricePerKg && !!product.weightRange;
+  const displayPrice = hasWeightPricing
+    ? effectivePricePerKg * targetWeight
+    : isHalf ? (product.halfBoxPrice || product.price / 2) : product.price;
+
   const displayWeight = product.weightRange
     ? isHalf
       ? { min: Math.round(product.weightRange.min / 2), max: Math.round(product.weightRange.max / 2), avg: Math.round(product.weightRange.avg / 2), unit: product.weightRange.unit }
@@ -130,13 +140,46 @@ const ProductCard = ({ product }: ProductCardProps) => {
       )}
 
       {/* Price */}
-      <p className="text-accent font-bold text-lg mb-2">
-        £{displayPrice.toFixed(2)}{" "}
-        <span className="text-muted-foreground text-sm font-normal">
-          {isHalf ? "half box" : product.priceLabel}
-        </span>
-      </p>
-      <p className="text-xs text-muted-foreground italic mb-2">Placeholder price — will be updated</p>
+      <div className="mb-3">
+        <p className="text-accent font-bold text-xl">
+          ~£{displayPrice.toFixed(2)}{" "}
+          <span className="text-muted-foreground text-sm font-normal">
+            {hasWeightPricing ? `(£${effectivePricePerKg.toFixed(2)}/kg)` : isHalf ? "half box" : product.priceLabel}
+          </span>
+        </p>
+        {hasWeightPricing && (
+          <p className="text-xs text-muted-foreground italic">Approx. price — final price based on actual weight</p>
+        )}
+        {!hasWeightPricing && product.type === "per-kg" && product.competitorPricePerKg && (
+          <p className="text-xs text-muted-foreground italic">Approx. price — final price based on actual weight</p>
+        )}
+        
+        {/* Competitor price comparison */}
+        {product.competitorPricePerKg && (
+          <div className="mt-2 bg-accent/10 border border-accent/20 rounded px-3 py-2">
+            <p className="text-xs font-semibold text-accent">
+              💰 Competitor price: <span className="line-through text-muted-foreground">£{product.competitorPricePerKg.toFixed(2)}/kg</span>
+              {" → "}You pay: <span className="font-bold">£{(product.pricePerKg || product.price).toFixed(2)}/kg</span>
+            </p>
+            <p className="text-xs font-bold text-accent mt-0.5">
+              You save ~£{(
+                hasWeightPricing
+                  ? (product.competitorPricePerKg - effectivePricePerKg) * targetWeight
+                  : product.type === "per-kg"
+                    ? (product.competitorPricePerKg - product.price) * kgAmount
+                    : 0
+              ).toFixed(2)}{" "}
+              {hasWeightPricing
+                ? `on ${targetWeight}${displayWeight?.unit || "kg"}`
+                : product.type === "per-kg"
+                  ? `per ${kgAmount}kg`
+                  : "vs competitors"}
+              {" "}
+              ({Math.round(((product.competitorPricePerKg - (product.pricePerKg || product.price)) / product.competitorPricePerKg) * 100)}% cheaper)
+            </p>
+          </div>
+        )}
+      </div>
 
       {/* Deposit info */}
       {product.depositAmount && (

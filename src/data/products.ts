@@ -679,6 +679,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 19.99,
+    competitorPricePerKg: 5.99,
+    pricePerKg: 4.00,
     priceLabel: "per 5kg box",
     description: "Whole chicken legs (drumstick + thigh still attached) in a 5kg box — juicy, meaty and full of flavour. Great for oven bakes, curries, BBQ and kids' meals. The connected joint keeps them succulent during cooking. Option to have bones removed for an additional £15.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",

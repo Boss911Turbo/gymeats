@@ -334,6 +334,9 @@ export const beefProducts: Product[] = [
       { name: "Rib Trimmings", detail: "1.5–2.5kg (BBQ or mince)" },
     ],
     weightRange: { min: 20, max: 28, avg: 24, unit: "kg" },
+    pricePerKg: 24.50,
+    halfBoxPricePerKg: 25.50,
+    competitorPricePerKg: 38.99,
     options: [
       { label: "Trimmings", choices: ["BBQ Cut", "Mince"], default: "BBQ Cut" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },

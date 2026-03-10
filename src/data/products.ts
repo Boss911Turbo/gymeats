@@ -567,6 +567,9 @@ export const sheepProducts: Product[] = [
       { name: "Mince", detail: "1.5–3kg" },
     ],
     weightRange: { min: 20, max: 45, avg: 30, unit: "kg" },
+    pricePerKg: 7.50,
+    halfBoxPricePerKg: 8.50,
+    competitorPricePerKg: 12.99,
     options: [
       { label: "Leg Cut", choices: ["Whole", "1-inch Steaks", "Diced"], default: "Whole" },
       { label: "Shoulder Cut", choices: ["Whole", "Diced"], default: "Whole" },

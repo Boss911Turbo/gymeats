@@ -297,6 +297,9 @@ export const beefProducts: Product[] = [
     depositRefundable: false,
     recommendedFor: ["BBQ Enthusiasts", "Restaurants", "Caterers"],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
+    pricePerKg: 13.50,
+    halfBoxPricePerKg: 14.50,
+    competitorPricePerKg: 21.99,
     options: [
       { label: "Brisket Cut Style", choices: ["Whole Briskets", "Brisket Slices", "Diced Brisket", "Mince"], default: "Whole Briskets" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },

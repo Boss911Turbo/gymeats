@@ -666,6 +666,7 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "per-kg",
     price: 4.99,
+    competitorPricePerKg: 7.49,
     priceLabel: "per kg",
     description: "Whole chickens, sold by weight. Perfect for roasting, slow cooking, or breaking down into your own cuts. Nothing beats a whole roast chicken for the family — golden, crispy skin with juicy meat inside. Halal certified.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",

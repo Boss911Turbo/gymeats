@@ -37,6 +37,9 @@ export interface Product {
   recommendedFor?: string[];
   depositAmount?: number;
   depositRefundable?: boolean;
+  pricePerKg?: number;
+  halfBoxPricePerKg?: number;
+  competitorPricePerKg?: number;
 }
 
 export interface CartItem {

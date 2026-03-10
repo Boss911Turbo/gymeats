@@ -144,6 +144,9 @@ export const beefProducts: Product[] = [
       { name: "Beef Mince", detail: "1–3kg (lean or with fat)" },
     ],
     weightRange: { min: 18, max: 26, avg: 22, unit: "kg" },
+    pricePerKg: 10.99,
+    halfBoxPricePerKg: 11.99,
+    competitorPricePerKg: 18.99,
     options: [
       { label: "Mince Type", choices: ["Lean", "With Fat"], default: "Lean" },
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },

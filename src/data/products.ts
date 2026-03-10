@@ -696,6 +696,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 14.99,
+    competitorPricePerKg: 7.99,
+    pricePerKg: 5.00,
     priceLabel: "per 3kg box",
     description: "Crispy, crunchy chicken wings — 3kg box. The ultimate snack or party food. Season, bake, fry or air-fry for game nights, BBQs and gatherings. Toss in your favourite sauce for an unbeatable crowd-pleaser.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",

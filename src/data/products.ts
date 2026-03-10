@@ -606,6 +606,7 @@ export const sheepProducts: Product[] = [
     category: "bulk-mutton",
     type: "per-kg",
     price: 10.99,
+    competitorPricePerKg: 16.99,
     priceLabel: "per kg",
     description: "Whole mutton legs — bigger and more flavourful than lamb. Perfect for roasting low and slow until the meat falls off the bone, or cut into thick steaks for the grill. A showstopper centrepiece for family gatherings and Eid celebrations.",
     unitLabel: "kg",

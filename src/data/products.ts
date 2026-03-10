@@ -634,6 +634,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 34.99,
+    competitorPricePerKg: 9.99,
+    pricePerKg: 7.00,
     priceLabel: "per box",
     badge: "🔥 Most Popular",
     description: "The gym favourite. 5kg of lean, high-protein chicken breast fillets — perfect for meal prep, stir-fries, grilling and everything in between. Our best-selling chicken box by far. Halal certified and outsourced from a reputable supplier.",

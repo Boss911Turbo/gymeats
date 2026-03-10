@@ -459,6 +459,7 @@ export const beefProducts: Product[] = [
     category: "bulk-beef",
     type: "per-kg",
     price: 12.99,
+    competitorPricePerKg: 18.99,
     priceLabel: "per kg",
     description: "Rich, gelatinous oxtail cut into 1.5–2 inch pieces — the king of slow cooking. Makes incredible stews, soups, and Jamaican-style oxtail. Melt-in-your-mouth tender when braised low and slow.",
     options: [

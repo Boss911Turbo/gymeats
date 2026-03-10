@@ -710,6 +710,8 @@ export const chickenProducts: Product[] = [
     category: "bulk-chicken",
     type: "box",
     price: 17.99,
+    competitorPricePerKg: 5.99,
+    pricePerKg: 3.60,
     priceLabel: "per 5kg box",
     description: "Classic chicken drumsticks only (no thigh) in a 5kg box — a family favourite. Great for oven bakes, BBQs, marinades and kids' meals. Compact, easy to cook and always a hit at the dinner table. Option to have bones removed for an additional £15.",
     note: "Chicken is outsourced from a reputable alternative halal-certified supplier.",

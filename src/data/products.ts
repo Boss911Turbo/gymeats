@@ -312,6 +312,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/brisket-box.jpg",
+    comingSoon: true,
   },
   // === FULL RIB BOX ===
   {

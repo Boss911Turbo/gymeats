@@ -80,6 +80,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/loin-box.jpg",
+    comingSoon: true,
   },
   // === RIB EYE BOX ===
   {

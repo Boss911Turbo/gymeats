@@ -479,6 +479,7 @@ export const beefProducts: Product[] = [
     ],
     unitLabel: "kg",
     image: "/images/oxtail.jpg",
+    comingSoon: true,
   },
 ];
 

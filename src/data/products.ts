@@ -205,7 +205,7 @@ export const beefProducts: Product[] = [
     depositAmount: 50,
     depositRefundable: false,
     recommendedFor: ["Gym Goers", "Meal Prep"],
-    weeklyDrop: true,
+    weeklyDrop: false,
     components: [
       { name: "Topside Steak", detail: "10–16 pieces, 1\" thick, 250g–350g each" },
       { name: "Silverside Joint", detail: "8–15kg" },

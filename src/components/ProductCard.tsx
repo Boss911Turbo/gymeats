@@ -87,7 +87,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg overflow-hidden flex flex-col">
+    <div className="bg-card border border-border rounded-lg overflow-hidden flex flex-col relative">
+      {/* Coming Soon overlay */}
+      {product.comingSoon && (
+        <div className="absolute inset-0 z-10 bg-background/70 backdrop-blur-[2px] flex items-center justify-center rounded-lg">
+          <div className="text-center">
+            <p className="text-3xl font-black tracking-widest text-foreground/80 uppercase">Coming Soon</p>
+            <p className="text-sm text-muted-foreground mt-1">This box is launching shortly</p>
+          </div>
+        </div>
+      )}
       {/* Product image */}
       {product.image && (
         <div className="w-full h-48 overflow-hidden">

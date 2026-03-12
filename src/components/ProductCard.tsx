@@ -165,7 +165,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         {product.competitorPricePerKg && (
           <div className="mt-2 bg-accent/10 border border-accent/20 rounded px-3 py-2">
             <p className="text-xs font-semibold text-accent">
-              💰 Competitor price: <span className="line-through text-muted-foreground">£{product.competitorPricePerKg.toFixed(2)}/kg</span>
+              💰 High street retailer price: <span className="line-through text-muted-foreground">£{product.competitorPricePerKg.toFixed(2)}/kg</span>
               {" → "}You pay: <span className="font-bold">£{(product.pricePerKg || product.price).toFixed(2)}/kg</span>
             </p>
             <p className="text-xs font-bold text-accent mt-0.5">

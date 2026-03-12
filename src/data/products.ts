@@ -462,6 +462,7 @@ export const beefProducts: Product[] = [
     halfBoxPricePerKg: 17.50,
     competitorPricePerKg: 24.99,
     image: "/images/plate-flank-box.jpg",
+    comingSoon: true,
   },
   // === PER-KG ITEMS ===
   {

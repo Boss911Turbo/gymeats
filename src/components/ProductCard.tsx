@@ -298,9 +298,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <button onClick={() => setQuantity(quantity + 1)} className="border border-input rounded p-1 hover:bg-muted"><Plus size={16} /></button>
           </div>
         )}
-        <Button onClick={handleAdd} className="flex-1 gap-2" disabled={product.comingSoon}>
-          <ShoppingCart size={16} /> {product.comingSoon ? "Coming Soon" : "Add to Cart"}
-        </Button>
+        {product.comingSoon ? (
+          <Link to="/contact" className="flex-1">
+            <Button variant="outline" className="w-full gap-2">Available on Request</Button>
+          </Link>
+        ) : (
+          <Button onClick={handleAdd} className="flex-1 gap-2">
+            <ShoppingCart size={16} /> Add to Cart
+          </Button>
+        )}
       </div>
       </div>
     </div>

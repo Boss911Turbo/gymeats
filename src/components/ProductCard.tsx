@@ -103,11 +103,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {/* Badge + name */}
       <div className="flex items-start justify-between mb-1">
         <h3 className="font-bold text-lg">{product.name}</h3>
-        {product.badge && (
-          <span className="bg-accent text-accent-foreground text-xs font-semibold px-2 py-1 rounded whitespace-nowrap ml-2">
-            {product.badge}
-          </span>
-        )}
+        <div className="flex gap-1 ml-2">
+          {product.comingSoon && (
+            <span className="bg-muted text-muted-foreground text-xs font-semibold px-2 py-1 rounded whitespace-nowrap">
+              Coming Soon
+            </span>
+          )}
+          {product.badge && (
+            <span className="bg-accent text-accent-foreground text-xs font-semibold px-2 py-1 rounded whitespace-nowrap">
+              {product.badge}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Recommended for */}

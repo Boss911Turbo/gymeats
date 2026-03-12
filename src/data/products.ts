@@ -776,6 +776,7 @@ export const extrasProducts: Product[] = [
     description: "100% organic honey from our own bee farm. Raw, unfiltered and packed with natural goodness — the way honey should be. Drizzle on breakfast, stir into tea, or use as a glaze for roast lamb. Coming soon!",
     contactOnly: true,
     badge: "Coming Soon",
+    comingSoon: true,
     image: "/images/extras-tallow-honey.jpg",
   },
   {

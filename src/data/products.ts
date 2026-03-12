@@ -249,6 +249,7 @@ export const beefProducts: Product[] = [
     halfBoxPricePerKg: 10.50,
     competitorPricePerKg: 14.99,
     image: "/images/curry-box.jpg",
+    comingSoon: true,
   },
   // === FULL CHUCK BOX ===
   {

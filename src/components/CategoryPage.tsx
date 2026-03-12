@@ -19,7 +19,16 @@ const CategoryPage = ({ title, subtitle, infoBlocks, products }: CategoryPagePro
 
     <section className="container-tight py-10">
       <h1 className="text-3xl md:text-4xl font-black mb-2">{title}</h1>
-      {subtitle && <p className="text-muted-foreground mb-6">{subtitle}</p>}
+      {subtitle && <p className="text-muted-foreground mb-4">{subtitle}</p>}
+
+      {/* Weekly delivery freshness notice */}
+      <div className="bg-accent/10 border border-accent/20 rounded-lg px-4 py-3 mb-6 flex items-start gap-3">
+        <span className="text-lg">🚚</span>
+        <div>
+          <p className="text-sm font-bold text-foreground">Deliveries Every Week for Maximum Freshness</p>
+          <p className="text-xs text-muted-foreground">All orders are processed and delivered weekly using our refrigerated fleet — ensuring your meat arrives as fresh as the day it was cut. No long storage, no compromises on quality.</p>
+        </div>
+      </div>
 
       {infoBlocks && infoBlocks.length > 0 && (
         <div className="bg-muted rounded-lg p-4 mb-8 space-y-1">

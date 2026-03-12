@@ -87,7 +87,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <div className="bg-card border border-border rounded-lg overflow-hidden flex flex-col">
+    <div className="bg-card border border-border rounded-lg overflow-hidden flex flex-col relative">
+      {/* Coming Soon overlay */}
+      {product.comingSoon && (
+        <div className="absolute inset-0 z-10 bg-background/70 backdrop-blur-[2px] flex items-center justify-center rounded-lg">
+          <div className="text-center">
+            <p className="text-3xl font-black tracking-widest text-foreground/80 uppercase">Coming Soon</p>
+            <p className="text-sm text-muted-foreground mt-1">This box is launching shortly</p>
+          </div>
+        </div>
+      )}
       {/* Product image */}
       {product.image && (
         <div className="w-full h-48 overflow-hidden">
@@ -291,8 +300,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <button onClick={() => setQuantity(quantity + 1)} className="border border-input rounded p-1 hover:bg-muted"><Plus size={16} /></button>
           </div>
         )}
-        <Button onClick={handleAdd} className="flex-1 gap-2">
-          <ShoppingCart size={16} /> Add to Cart
+        <Button onClick={handleAdd} className="flex-1 gap-2" disabled={product.comingSoon}>
+          <ShoppingCart size={16} /> {product.comingSoon ? "Coming Soon" : "Add to Cart"}
         </Button>
       </div>
       </div>

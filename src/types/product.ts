@@ -40,6 +40,7 @@ export interface Product {
   pricePerKg?: number;
   halfBoxPricePerKg?: number;
   competitorPricePerKg?: number;
+  comingSoon?: boolean;
 }
 
 export interface CartItem {

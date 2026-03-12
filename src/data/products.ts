@@ -80,6 +80,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/loin-box.jpg",
+    comingSoon: true,
   },
   // === RIB EYE BOX ===
   {
@@ -115,6 +116,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/ribeye-box.jpg",
+    comingSoon: true,
   },
   // === TOMAHAWK BOX ===
   {
@@ -152,6 +154,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/tomahawk-box.jpg",
+    comingSoon: true,
   },
   // === RUMP BOX ===
   {
@@ -186,6 +189,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/rump-box.jpg",
+    comingSoon: true,
   },
   // === LEAN BULK / ROUND BOX ===
   {
@@ -222,6 +226,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/lean-box.jpg",
+    comingSoon: true,
   },
   // === CURRY PIECE BOX ===
   {
@@ -244,6 +249,7 @@ export const beefProducts: Product[] = [
     halfBoxPricePerKg: 10.50,
     competitorPricePerKg: 14.99,
     image: "/images/curry-box.jpg",
+    comingSoon: true,
   },
   // === FULL CHUCK BOX ===
   {
@@ -281,6 +287,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/chuck-box.jpg",
+    comingSoon: true,
   },
   // === FULL BRISKET BOX ===
   {
@@ -305,6 +312,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/brisket-box.jpg",
+    comingSoon: true,
   },
   // === FULL RIB BOX ===
   {
@@ -342,6 +350,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/rib-box.jpg",
+    comingSoon: true,
   },
   // === FULL ROUND (LEG) BOX ===
   {
@@ -380,6 +389,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/round-box.jpg",
+    comingSoon: true,
   },
   // === FULL RUMP BOX ===
   {
@@ -418,6 +428,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/full-rump-box.jpg",
+    comingSoon: true,
   },
   // === PLATE & FLANK BOX ===
   {
@@ -451,6 +462,7 @@ export const beefProducts: Product[] = [
     halfBoxPricePerKg: 17.50,
     competitorPricePerKg: 24.99,
     image: "/images/plate-flank-box.jpg",
+    comingSoon: true,
   },
   // === PER-KG ITEMS ===
   {
@@ -467,6 +479,7 @@ export const beefProducts: Product[] = [
     ],
     unitLabel: "kg",
     image: "/images/oxtail.jpg",
+    comingSoon: true,
   },
 ];
 
@@ -763,6 +776,7 @@ export const extrasProducts: Product[] = [
     description: "100% organic honey from our own bee farm. Raw, unfiltered and packed with natural goodness — the way honey should be. Drizzle on breakfast, stir into tea, or use as a glaze for roast lamb. Coming soon!",
     contactOnly: true,
     badge: "Coming Soon",
+    comingSoon: true,
     image: "/images/extras-tallow-honey.jpg",
   },
   {

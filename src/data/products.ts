@@ -428,6 +428,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/full-rump-box.jpg",
+    comingSoon: true,
   },
   // === PLATE & FLANK BOX ===
   {

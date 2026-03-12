@@ -154,6 +154,7 @@ export const beefProducts: Product[] = [
       { label: "Mince Pack Size", choices: ["500g", "1kg"], default: "1kg" },
     ],
     image: "/images/tomahawk-box.jpg",
+    comingSoon: true,
   },
   // === RUMP BOX ===
   {

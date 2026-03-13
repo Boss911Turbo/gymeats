@@ -101,9 +101,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
       )}
       <div className="p-6 flex flex-col flex-1">
       {/* Badge + name */}
-      <div className="flex items-start justify-between mb-1">
-        <h3 className="font-bold text-lg">{product.name}</h3>
-        <div className="flex gap-1 ml-2">
+      <div className="mb-1">
+        <h3 className="font-bold text-lg leading-tight mb-1">{product.name}</h3>
+        <div className="flex gap-1 flex-wrap">
           {product.comingSoon && (
             <span className="bg-muted text-muted-foreground text-xs font-semibold px-2 py-1 rounded whitespace-nowrap">
               Coming Soon

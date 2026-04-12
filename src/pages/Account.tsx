@@ -317,9 +317,9 @@ const Account = () => {
         {/* ===== REFERRALS TAB ===== */}
         {tab === "referrals" && (
           <div className="bg-card border border-border rounded-lg p-6">
-            <div className="flex items-center gap-2 mb-4"><Gift size={20} className="text-accent" /><h2 className="text-lg font-bold">Invite Friends — Get Up to £50 Off</h2></div>
+            <div className="flex items-center gap-2 mb-4"><Gift size={20} className="text-accent" /><h2 className="text-lg font-bold">Invite Friends — Get £10 Off</h2></div>
             <p className="text-sm text-muted-foreground mb-4">
-              Share your code with friends. When <strong>5 friends</strong> each spend over <strong>£50</strong>, you <em>both</em> get <strong>up to £50 off</strong> your next order! Credit is applied in £10 increments per qualifying referral.
+              Share your code with friends. When a friend spends over <strong>£50</strong>, you <em>both</em> get <strong>£10 off</strong> your next order!
             </p>
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-muted rounded px-4 py-2 font-mono font-bold text-lg tracking-wider">{profile.referral_code}</div>
@@ -333,7 +333,7 @@ const Account = () => {
             <div className="w-full bg-muted rounded-full h-3 mb-2">
               <div className="bg-accent h-3 rounded-full transition-all" style={{ width: `${Math.min(100, (referralCount / 5) * 100)}%` }} />
             </div>
-            <p className="text-xs text-muted-foreground">{Math.max(0, 5 - referralCount)} more referrals to unlock the full £50 reward!</p>
+            <p className="text-xs text-muted-foreground">Each qualifying referral earns you £10 off!</p>
           </div>
         )}
 

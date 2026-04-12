@@ -14,14 +14,35 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if we already have a session (user was auto-logged in via recovery link)
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setReady(true);
+        return;
+      }
+    };
+
+    // Listen for auth state changes — PASSWORD_RECOVERY or SIGNED_IN from recovery link
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" || (event === "SIGNED_IN" && session)) {
+        setReady(true);
+      }
+    });
+
+    // Also check hash for recovery tokens
     const hash = window.location.hash;
-    if (hash && hash.includes("type=recovery")) {
-      setReady(true);
+    if (hash && (hash.includes("type=recovery") || hash.includes("access_token"))) {
+      // Supabase client will pick up the tokens from the hash automatically
+      // Just wait a moment for it to process
+      setTimeout(() => {
+        checkSession();
+      }, 1000);
     } else {
-      supabase.auth.onAuthStateChange((event) => {
-        if (event === "PASSWORD_RECOVERY") setReady(true);
-      });
+      checkSession();
     }
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const handleReset = async (e: React.FormEvent) => {

@@ -3,19 +3,34 @@ import { Button } from "@/components/ui/button";
 import { Mail, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import { WHATSAPP_NUMBER, BUSINESS_EMAIL } from "@/data/products";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "", bulkRequest: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent("GYMEATS Contact Form");
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}\n\nBulk/Custom Request:\n${form.bulkRequest}`
-    );
-    window.open(`mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`, "_blank");
-    toast.success("Opening your email client...");
+    setSubmitting(true);
+
+    try {
+      const { error } = await supabase.from("contact_requests").insert({
+        name: form.name,
+        email: form.email,
+        message: form.message,
+        bulk_request: form.bulkRequest,
+      });
+
+      if (error) throw error;
+
+      toast.success("Message sent! We'll get back to you soon.");
+      setForm({ name: "", email: "", message: "", bulkRequest: "" });
+    } catch (err: any) {
+      toast.error("Failed to send message. Please try WhatsApp instead.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -50,7 +65,6 @@ const Contact = () => {
               </a>
             </div>
 
-            {/* Social media */}
             <div className="border border-border rounded-lg p-4">
               <h3 className="font-bold mb-3">Follow Us</h3>
               <a
@@ -104,7 +118,9 @@ const Contact = () => {
                 onChange={e => setForm({ ...form, bulkRequest: e.target.value })}
               />
             </div>
-            <Button type="submit" className="w-full">Send Message</Button>
+            <Button type="submit" className="w-full" disabled={submitting}>
+              {submitting ? "Sending..." : "Send Message"}
+            </Button>
           </form>
         </div>
       </section>

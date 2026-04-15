@@ -20,6 +20,7 @@ import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import Account from "./pages/Account";
+import Admin from "./pages/Admin";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 

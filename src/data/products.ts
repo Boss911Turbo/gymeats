@@ -1,6 +1,6 @@
 import { Product } from "@/types/product";
 
-export const WHATSAPP_NUMBER = "+44XXXXXXXXXXX";
+export const WHATSAPP_NUMBER = "+447743978220";
 export const BUSINESS_EMAIL = "Alhirahalalmeats@gmail.com";
 export const DELIVERY_FEE = 20;
 export const FREE_DELIVERY_THRESHOLD = 100;

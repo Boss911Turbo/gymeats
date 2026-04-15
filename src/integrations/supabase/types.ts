@@ -41,6 +41,45 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_requests: {
+        Row: {
+          admin_reply: string | null
+          bulk_request: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          admin_reply?: string | null
+          bulk_request?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          admin_reply?: string | null
+          bulk_request?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       experience_surveys: {
         Row: {
           created_at: string
@@ -104,6 +143,69 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          address: string | null
+          admin_notes: string | null
+          created_at: string
+          customer_name: string
+          customer_phone: string
+          delivery_fee: number
+          delivery_method: string
+          id: string
+          items: Json
+          notes: string | null
+          postcode: string | null
+          preferred_date: string | null
+          preferred_time: string | null
+          status: string
+          subtotal: number
+          total: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          admin_notes?: string | null
+          created_at?: string
+          customer_name: string
+          customer_phone: string
+          delivery_fee?: number
+          delivery_method?: string
+          id?: string
+          items?: Json
+          notes?: string | null
+          postcode?: string | null
+          preferred_date?: string | null
+          preferred_time?: string | null
+          status?: string
+          subtotal?: number
+          total?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          admin_notes?: string | null
+          created_at?: string
+          customer_name?: string
+          customer_phone?: string
+          delivery_fee?: number
+          delivery_method?: string
+          id?: string
+          items?: Json
+          notes?: string | null
+          postcode?: string | null
+          preferred_date?: string | null
+          preferred_time?: string | null
+          status?: string
+          subtotal?: number
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address: string
@@ -113,6 +215,7 @@ export type Database = {
           experience_survey_completed: boolean
           full_name: string
           id: string
+          is_blocked: boolean
           phone: string
           preferred_language: string
           preferred_unit: string
@@ -131,6 +234,7 @@ export type Database = {
           experience_survey_completed?: boolean
           full_name?: string
           id?: string
+          is_blocked?: boolean
           phone?: string
           preferred_language?: string
           preferred_unit?: string
@@ -149,6 +253,7 @@ export type Database = {
           experience_survey_completed?: boolean
           full_name?: string
           id?: string
+          is_blocked?: boolean
           phone?: string
           preferred_language?: string
           preferred_unit?: string
@@ -245,11 +350,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       increment_batch_order: {
         Args: { p_product_id: string }
         Returns: undefined
@@ -260,7 +393,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -387,6 +520,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const

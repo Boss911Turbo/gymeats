@@ -49,24 +49,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     ? (product.halfBoxComponents || product.components)
     : product.components;
 
-  if (product.contactOnly) {
-    return (
-      <div className="bg-card border border-border rounded-lg p-6 flex flex-col">
-        <div className="flex items-start justify-between mb-3">
-          <h3 className="font-bold text-lg">{product.name}</h3>
-          {product.badge && (
-            <span className="bg-accent text-accent-foreground text-xs font-semibold px-2 py-1 rounded">
-              {product.badge}
-            </span>
-          )}
-        </div>
-        <p className="text-muted-foreground text-sm mb-4 flex-1">{product.description}</p>
-        <Link to="/contact">
-          <Button variant="outline" className="w-full">Available on request</Button>
-        </Link>
-      </div>
-    );
-  }
+  // contactOnly products now use the normal card flow
 
   const handleAdd = () => {
     const isPerKg = product.type === "per-kg";
@@ -298,15 +281,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <button onClick={() => setQuantity(quantity + 1)} className="border border-input rounded p-1 hover:bg-muted"><Plus size={16} /></button>
           </div>
         )}
-        {product.comingSoon ? (
-          <Link to="/contact" className="flex-1">
-            <Button variant="outline" className="w-full gap-2">Available on Request</Button>
-          </Link>
-        ) : (
-          <Button onClick={handleAdd} className="flex-1 gap-2">
-            <ShoppingCart size={16} /> Add to Cart
-          </Button>
-        )}
+        <Button onClick={handleAdd} className="flex-1 gap-2">
+          <ShoppingCart size={16} /> Add to Cart
+        </Button>
       </div>
       </div>
     </div>

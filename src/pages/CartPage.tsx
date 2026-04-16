@@ -14,8 +14,8 @@ const CartPage = () => {
           <ShoppingCart size={48} className="mx-auto text-muted-foreground mb-4" />
           <h1 className="text-2xl font-black mb-2">Your cart is empty</h1>
           <p className="text-muted-foreground mb-6">Add some items to get started.</p>
-          <Link to="/bulk-beef">
-            <Button>Shop Beef</Button>
+          <Link to="/">
+            <Button>Shop Now</Button>
           </Link>
         </section>
       </Layout>

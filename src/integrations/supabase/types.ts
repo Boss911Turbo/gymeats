@@ -143,6 +143,85 @@ export type Database = {
         }
         Relationships: []
       }
+      order_action_tokens: {
+        Row: {
+          action: string
+          created_at: string
+          expires_at: string
+          id: string
+          order_id: string
+          token_hash: string
+          used_at: string | null
+          used_by: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          expires_at: string
+          id?: string
+          order_id: string
+          token_hash: string
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          order_id?: string
+          token_hash?: string
+          used_at?: string | null
+          used_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_action_tokens_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_status_logs: {
+        Row: {
+          changed_at: string
+          changed_by: string | null
+          id: string
+          new_status: string
+          old_status: string | null
+          order_id: string
+          source: string | null
+        }
+        Insert: {
+          changed_at?: string
+          changed_by?: string | null
+          id?: string
+          new_status: string
+          old_status?: string | null
+          order_id: string
+          source?: string | null
+        }
+        Update: {
+          changed_at?: string
+          changed_by?: string | null
+          id?: string
+          new_status?: string
+          old_status?: string | null
+          order_id?: string
+          source?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_status_logs_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       orders: {
         Row: {
           address: string | null
@@ -158,6 +237,9 @@ export type Database = {
           postcode: string | null
           preferred_date: string | null
           preferred_time: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           status: string
           subtotal: number
           total: number
@@ -178,6 +260,9 @@ export type Database = {
           postcode?: string | null
           preferred_date?: string | null
           preferred_time?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           subtotal?: number
           total?: number
@@ -198,6 +283,9 @@ export type Database = {
           postcode?: string | null
           preferred_date?: string | null
           preferred_time?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           status?: string
           subtotal?: number
           total?: number

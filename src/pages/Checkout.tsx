@@ -69,13 +69,63 @@ const Checkout = () => {
 
   const total = subtotal + deliveryFee;
 
+  const buildWhatsAppUrl = () => {
+    const orderLines = items.map((item, i) => {
+      const options = Object.entries(item.selectedOptions)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join(", ");
+      const weight = item.targetWeight ? ` (${item.targetWeight}kg)` : "";
+      const notes = item.notes ? ` — ${item.notes}` : "";
+      return `${i + 1}. ${item.productName}${weight} x${item.quantity} — £${(item.price * item.quantity).toFixed(2)}${options ? ` [${options}]` : ""}${notes}`;
+    });
+
+    const message = [
+      `*🥩 NEW GYMEATS ORDER — PENDING APPROVAL*`,
+      ``,
+      `*Customer:* ${form.name}`,
+      `*Phone:* ${form.phone}`,
+      form.deliveryMethod === "delivery"
+        ? `*Address:* ${form.address}, ${form.postcode}`
+        : `*Method:* Pickup`,
+      form.preferredDate ? `*Preferred Date:* ${form.preferredDate}` : "",
+      form.preferredTime ? `*Preferred Time:* ${form.preferredTime}` : "",
+      ``,
+      `*Items:*`,
+      ...orderLines,
+      ``,
+      `*Subtotal:* £${subtotal.toFixed(2)}`,
+      form.deliveryMethod === "delivery" ? `*Delivery:* £${deliveryFee.toFixed(2)}${deliveryFee === 0 ? " (FREE)" : ""}` : `*Pickup:* FREE`,
+      `*Estimated Total:* £${total.toFixed(2)}`,
+      ``,
+      `⚠️ _Pricing is based on dead weight — final price confirmed after processing. Deposit required to confirm order._`,
+      form.notes ? `\n*Notes:* ${form.notes}` : "",
+    ].filter(Boolean).join("\n");
+
+    const waNumber = WHATSAPP_NUMBER.replace(/[^0-9]/g, "");
+    return `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!acceptedTerms) { toast.error("Please accept the terms to continue"); return; }
+    if (!form.name.trim() || !form.phone.trim()) { toast.error("Please fill in your name and phone"); return; }
+    if (form.deliveryMethod === "delivery" && (!form.address.trim() || !form.postcode.trim())) {
+      toast.error("Please fill in your address and postcode");
+      return;
+    }
+
     setSubmitting(true);
 
+    // 1. Open WhatsApp IMMEDIATELY (synchronously) so the browser allows it as a user-initiated popup
+    const waUrl = buildWhatsAppUrl();
+    const waWindow = window.open(waUrl, "_blank");
+    if (!waWindow) {
+      // Fallback: navigate current tab if popup was blocked
+      window.location.href = waUrl;
+    }
+
+    // 2. Save order in the background (don't block WhatsApp opening)
     try {
-      // Save order to database
       const { error } = await supabase.from("orders").insert({
         user_id: user.id,
         customer_name: form.name,
@@ -92,49 +142,13 @@ const Checkout = () => {
         total,
         status: "pending",
       });
+      if (error) console.error("Order save failed:", error);
 
-      if (error) throw error;
-
-      // Build WhatsApp message for notification
-      const orderLines = items.map((item, i) => {
-        const options = Object.entries(item.selectedOptions)
-          .map(([k, v]) => `${k}: ${v}`)
-          .join(", ");
-        const weight = item.targetWeight ? ` (${item.targetWeight}kg)` : "";
-        const notes = item.notes ? ` — ${item.notes}` : "";
-        return `${i + 1}. ${item.productName}${weight} x${item.quantity} — £${(item.price * item.quantity).toFixed(2)}${options ? ` [${options}]` : ""}${notes}`;
-      });
-
-      const message = [
-        `*🥩 NEW GYMEATS ORDER — PENDING APPROVAL*`,
-        ``,
-        `*Customer:* ${form.name}`,
-        `*Phone:* ${form.phone}`,
-        form.deliveryMethod === "delivery"
-          ? `*Address:* ${form.address}, ${form.postcode}`
-          : `*Method:* Pickup`,
-        form.preferredDate ? `*Preferred Date:* ${form.preferredDate}` : "",
-        form.preferredTime ? `*Preferred Time:* ${form.preferredTime}` : "",
-        ``,
-        `*Items:*`,
-        ...orderLines,
-        ``,
-        `*Subtotal:* £${subtotal.toFixed(2)}`,
-        form.deliveryMethod === "delivery" ? `*Delivery:* £${deliveryFee.toFixed(2)}${deliveryFee === 0 ? " (FREE)" : ""}` : `*Pickup:* FREE`,
-        `*Estimated Total:* £${total.toFixed(2)}`,
-        ``,
-        `⚠️ _Pricing is based on dead weight — final price confirmed after processing. Deposit required to confirm order._`,
-        form.notes ? `\n*Notes:* ${form.notes}` : "",
-      ].filter(Boolean).join("%0A");
-
-      const waNumber = WHATSAPP_NUMBER.replace("+", "");
-      window.open(`https://wa.me/${waNumber}?text=${message}`, "_blank");
-
-      toast.success("Order submitted! We'll review and confirm via WhatsApp.");
+      toast.success("Order sent to WhatsApp! Tap send in WhatsApp to confirm.");
       clearCart();
       navigate("/account");
     } catch (err: any) {
-      toast.error(err.message || "Failed to place order");
+      toast.error(err.message || "Order sent to WhatsApp but failed to save locally");
     } finally {
       setSubmitting(false);
     }

@@ -237,7 +237,7 @@ const Checkout = () => {
 
             <Button type="submit" size="lg" className="w-full font-bold gap-2" disabled={submitting || !acceptedTerms}>
               <MessageCircle size={18} />
-              {submitting ? "Placing Order..." : "Place Order"}
+              {submitting ? "Opening WhatsApp..." : "Submit Order via WhatsApp"}
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">

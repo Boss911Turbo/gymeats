@@ -115,43 +115,35 @@ const Checkout = () => {
     }
 
     setSubmitting(true);
-
-    // 1. Open WhatsApp IMMEDIATELY (synchronously) so the browser allows it as a user-initiated popup
     const waUrl = buildWhatsAppUrl();
-    const waWindow = window.open(waUrl, "_blank");
-    if (!waWindow) {
-      // Fallback: navigate current tab if popup was blocked
-      window.location.href = waUrl;
-    }
 
-    // 2. Save order in the background (don't block WhatsApp opening)
-    try {
-      const { error } = await supabase.from("orders").insert({
-        user_id: user.id,
-        customer_name: form.name,
-        customer_phone: form.phone,
-        delivery_method: form.deliveryMethod,
-        address: form.address,
-        postcode: form.postcode,
-        preferred_date: form.preferredDate,
-        preferred_time: form.preferredTime,
-        notes: form.notes,
-        items: items as any,
-        subtotal,
-        delivery_fee: deliveryFee,
-        total,
-        status: "pending",
-      });
+    // 1. Save the order in the background — don't block the WhatsApp redirect on it
+    supabase.from("orders").insert({
+      user_id: user.id,
+      customer_name: form.name,
+      customer_phone: form.phone,
+      delivery_method: form.deliveryMethod,
+      address: form.address,
+      postcode: form.postcode,
+      preferred_date: form.preferredDate,
+      preferred_time: form.preferredTime,
+      notes: form.notes,
+      items: items as any,
+      subtotal,
+      delivery_fee: deliveryFee,
+      total,
+      status: "pending",
+    }).then(({ error }) => {
       if (error) console.error("Order save failed:", error);
+    });
 
-      toast.success("Order sent to WhatsApp! Tap send in WhatsApp to confirm.");
-      clearCart();
-      navigate("/account");
-    } catch (err: any) {
-      toast.error(err.message || "Order sent to WhatsApp but failed to save locally");
-    } finally {
-      setSubmitting(false);
-    }
+    clearCart();
+    toast.success("Opening WhatsApp — tap Send to confirm your order");
+
+    // 2. Redirect the SAME tab to WhatsApp.
+    // Same-tab navigation avoids popup blockers and the Cross-Origin-Opener-Policy
+    // error that window.open() triggers inside iframes (e.g. the Lovable preview).
+    window.location.href = waUrl;
   };
 
   return (

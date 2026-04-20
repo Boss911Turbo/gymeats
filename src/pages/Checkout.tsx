@@ -43,24 +43,17 @@ const Checkout = () => {
           </p>
 
           <div className="mx-auto max-w-md space-y-3">
-            <Button
-              type="button"
-              size="lg"
-              className="w-full font-bold gap-2"
-              onClick={() => window.location.assign(submittedLinks.appUrl)}
-            >
-              <MessageCircle size={18} />
-              Open WhatsApp
+            <Button asChild type="button" size="lg" className="w-full font-bold gap-2">
+              <a href={submittedLinks.appUrl}>
+                <MessageCircle size={18} />
+                Open WhatsApp
+              </a>
             </Button>
 
-            <Button
-              type="button"
-              variant="outline"
-              size="lg"
-              className="w-full"
-              onClick={() => window.open(submittedLinks.webUrl, "_blank", "noopener,noreferrer")}
-            >
-              Use WhatsApp Web
+            <Button asChild type="button" variant="outline" size="lg" className="w-full">
+              <a href={submittedLinks.webUrl} target="_blank" rel="noopener noreferrer">
+                Use WhatsApp Web
+              </a>
             </Button>
 
             <Link to="/account"><Button variant="ghost" className="w-full">Go to my account</Button></Link>
@@ -144,7 +137,7 @@ const Checkout = () => {
 
     return {
       appUrl: `whatsapp://send?phone=${waNumber}&text=${encodedMessage}`,
-      webUrl: `https://wa.me/${waNumber}?text=${encodedMessage}`,
+      webUrl: `https://web.whatsapp.com/send/?phone=${waNumber}&text=${encodedMessage}&type=phone_number&app_absent=0`,
     };
   };
 

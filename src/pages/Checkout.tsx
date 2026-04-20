@@ -7,7 +7,7 @@ import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { WHATSAPP_NUMBER, DELIVERY_FEE, FREE_DELIVERY_THRESHOLD, SMALL_ORDER_THRESHOLD, SMALL_ORDER_FEE } from "@/data/products";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ShoppingCart, MessageCircle, Truck, Store, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -15,11 +15,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const Checkout = () => {
-  const { items, subtotal, totalItems, clearCart } = useCart();
+  const { items, subtotal, clearCart } = useCart();
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [submittedLinks, setSubmittedLinks] = useState<{ appUrl: string; webUrl: string } | null>(null);
 
   const [form, setForm] = useState({
     name: "",
@@ -31,6 +31,44 @@ const Checkout = () => {
     preferredTime: "",
     notes: "",
   });
+
+  if (submittedLinks) {
+    return (
+      <Layout>
+        <section className="container-tight py-20 text-center">
+          <MessageCircle size={48} className="mx-auto text-primary mb-4" />
+          <h1 className="text-2xl font-black mb-2">Almost done</h1>
+          <p className="text-muted-foreground mb-6">
+            Your order is ready. Open WhatsApp below, then tap Send to confirm it.
+          </p>
+
+          <div className="mx-auto max-w-md space-y-3">
+            <Button
+              type="button"
+              size="lg"
+              className="w-full font-bold gap-2"
+              onClick={() => window.location.assign(submittedLinks.appUrl)}
+            >
+              <MessageCircle size={18} />
+              Open WhatsApp
+            </Button>
+
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              className="w-full"
+              onClick={() => window.open(submittedLinks.webUrl, "_blank", "noopener,noreferrer")}
+            >
+              Use WhatsApp Web
+            </Button>
+
+            <Link to="/account"><Button variant="ghost" className="w-full">Go to my account</Button></Link>
+          </div>
+        </section>
+      </Layout>
+    );
+  }
 
   if (items.length === 0) {
     return (
@@ -69,7 +107,7 @@ const Checkout = () => {
 
   const total = subtotal + deliveryFee;
 
-  const buildWhatsAppUrl = () => {
+  const buildWhatsAppLinks = () => {
     const orderLines = items.map((item, i) => {
       const options = Object.entries(item.selectedOptions)
         .map(([k, v]) => `${k}: ${v}`)
@@ -102,7 +140,12 @@ const Checkout = () => {
     ].filter(Boolean).join("\n");
 
     const waNumber = WHATSAPP_NUMBER.replace(/[^0-9]/g, "");
-    return `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+    const encodedMessage = encodeURIComponent(message);
+
+    return {
+      appUrl: `whatsapp://send?phone=${waNumber}&text=${encodedMessage}`,
+      webUrl: `https://wa.me/${waNumber}?text=${encodedMessage}`,
+    };
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -115,9 +158,8 @@ const Checkout = () => {
     }
 
     setSubmitting(true);
-    const waUrl = buildWhatsAppUrl();
+    const links = buildWhatsAppLinks();
 
-    // Save order in the background — don't block the WhatsApp redirect on it
     supabase.from("orders").insert({
       user_id: user.id,
       customer_name: form.name,
@@ -138,20 +180,9 @@ const Checkout = () => {
       else clearCart();
     });
 
-    toast.success("Opening WhatsApp — tap Send to confirm your order");
-
-    // Open WhatsApp via a real anchor click with target=_blank.
-    // This breaks out of the Lovable preview iframe (which would otherwise
-    // try to load whatsapp.com inside the frame and show a blank page).
-    const a = document.createElement("a");
-    a.href = waUrl;
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
+    setSubmittedLinks(links);
     setSubmitting(false);
+    toast.success("Order saved — tap below to open WhatsApp and send it");
   };
 
   return (

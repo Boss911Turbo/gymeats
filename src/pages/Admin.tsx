@@ -144,18 +144,15 @@ const Admin = () => {
   };
 
   const eraseAccount = async (customer: Customer) => {
-    if (!confirm(`Erase account for ${customer.full_name || customer.email}? They can re-register with the same email.`)) return;
-    // Delete profile (auth user remains but profile is cleared)
-    const { error } = await supabase.from("profiles").update({
-      full_name: "",
-      phone: "",
-      address: "",
-      referral_credit: 0,
-      survey_completed: false,
-      experience_survey_completed: false,
-    }).eq("id", customer.id);
-    if (error) { toast.error("Failed to erase"); return; }
-    toast.success("Account data erased — customer can re-register");
+    if (!confirm(`PERMANENTLY DELETE account for ${customer.full_name || customer.email}?\n\nThis removes their login, profile, orders and all related data. They can re-register later with the same email.`)) return;
+    const { data, error } = await supabase.functions.invoke("delete-user", {
+      body: { user_id: customer.user_id },
+    });
+    if (error || (data as any)?.error) {
+      toast.error((data as any)?.error || error?.message || "Failed to delete");
+      return;
+    }
+    toast.success("Account fully deleted");
     loadCustomers();
   };
 

@@ -117,7 +117,7 @@ const Checkout = () => {
     setSubmitting(true);
     const waUrl = buildWhatsAppUrl();
 
-    // 1. Save the order in the background — don't block the WhatsApp redirect on it
+    // Save order in the background — don't block the WhatsApp redirect on it
     supabase.from("orders").insert({
       user_id: user.id,
       customer_name: form.name,
@@ -135,15 +135,23 @@ const Checkout = () => {
       status: "pending",
     }).then(({ error }) => {
       if (error) console.error("Order save failed:", error);
+      else clearCart();
     });
 
-    clearCart();
     toast.success("Opening WhatsApp — tap Send to confirm your order");
 
-    // 2. Redirect the SAME tab to WhatsApp.
-    // Same-tab navigation avoids popup blockers and the Cross-Origin-Opener-Policy
-    // error that window.open() triggers inside iframes (e.g. the Lovable preview).
-    window.location.href = waUrl;
+    // Open WhatsApp via a real anchor click with target=_blank.
+    // This breaks out of the Lovable preview iframe (which would otherwise
+    // try to load whatsapp.com inside the frame and show a blank page).
+    const a = document.createElement("a");
+    a.href = waUrl;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    setSubmitting(false);
   };
 
   return (

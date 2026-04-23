@@ -6,10 +6,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { WHATSAPP_NUMBER, DELIVERY_FEE, FREE_DELIVERY_THRESHOLD, SMALL_ORDER_THRESHOLD, SMALL_ORDER_FEE } from "@/data/products";
-import { Link } from "react-router-dom";
-import { ShoppingCart, MessageCircle, Truck, Store, AlertTriangle } from "lucide-react";
-import { useState } from "react";
+import { DELIVERY_FEE, FREE_DELIVERY_THRESHOLD, SMALL_ORDER_THRESHOLD, SMALL_ORDER_FEE } from "@/data/products";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, Truck, Store, AlertTriangle, CheckCircle2, Info } from "lucide-react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -17,9 +17,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 const Checkout = () => {
   const { items, subtotal, clearCart } = useCart();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [submittedLinks, setSubmittedLinks] = useState<{ appUrl: string; webUrl: string } | null>(null);
+  const [submittedOrderId, setSubmittedOrderId] = useState<string | null>(null);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+  const [prefilled, setPrefilled] = useState(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -32,31 +35,43 @@ const Checkout = () => {
     notes: "",
   });
 
-  if (submittedLinks) {
+  // Auto-fill from profile
+  useEffect(() => {
+    if (!user) { setProfileLoaded(true); return; }
+    supabase
+      .from("profiles")
+      .select("full_name, phone, address")
+      .eq("user_id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data) {
+          const hasAny = !!(data.full_name || data.phone || data.address);
+          setForm(f => ({
+            ...f,
+            name: data.full_name || f.name,
+            phone: data.phone || f.phone,
+            address: data.address || f.address,
+          }));
+          if (hasAny) setPrefilled(true);
+        }
+        setProfileLoaded(true);
+      });
+  }, [user]);
+
+  if (submittedOrderId) {
     return (
       <Layout>
         <section className="container-tight py-20 text-center">
-          <MessageCircle size={48} className="mx-auto text-primary mb-4" />
-          <h1 className="text-2xl font-black mb-2">Almost done</h1>
-          <p className="text-muted-foreground mb-6">
-            Your order is ready. Open WhatsApp below, then tap Send to confirm it.
+          <CheckCircle2 size={56} className="mx-auto text-green-600 mb-4" />
+          <h1 className="text-2xl font-black mb-2">Order received!</h1>
+          <p className="text-muted-foreground mb-2 max-w-md mx-auto">
+            Thanks — your order is now <strong>pending review</strong>. Our team will check availability and approve it shortly.
           </p>
+          <p className="text-xs text-muted-foreground mb-6">Order ref: {submittedOrderId.slice(0, 8).toUpperCase()}</p>
 
           <div className="mx-auto max-w-md space-y-3">
-            <Button asChild type="button" size="lg" className="w-full font-bold gap-2">
-              <a href={submittedLinks.appUrl}>
-                <MessageCircle size={18} />
-                Open WhatsApp
-              </a>
-            </Button>
-
-            <Button asChild type="button" variant="outline" size="lg" className="w-full">
-              <a href={submittedLinks.webUrl} target="_blank" rel="noopener noreferrer">
-                Use WhatsApp Web
-              </a>
-            </Button>
-
-            <Link to="/account"><Button variant="ghost" className="w-full">Go to my account</Button></Link>
+            <Link to="/account"><Button size="lg" className="w-full font-bold">View my orders</Button></Link>
+            <Link to="/"><Button variant="outline" className="w-full">Continue shopping</Button></Link>
           </div>
         </section>
       </Layout>
@@ -100,47 +115,6 @@ const Checkout = () => {
 
   const total = subtotal + deliveryFee;
 
-  const buildWhatsAppLinks = () => {
-    const orderLines = items.map((item, i) => {
-      const options = Object.entries(item.selectedOptions)
-        .map(([k, v]) => `${k}: ${v}`)
-        .join(", ");
-      const weight = item.targetWeight ? ` (${item.targetWeight}kg)` : "";
-      const notes = item.notes ? ` — ${item.notes}` : "";
-      return `${i + 1}. ${item.productName}${weight} x${item.quantity} — £${(item.price * item.quantity).toFixed(2)}${options ? ` [${options}]` : ""}${notes}`;
-    });
-
-    const message = [
-      `*🥩 NEW GYMEATS ORDER — PENDING APPROVAL*`,
-      ``,
-      `*Customer:* ${form.name}`,
-      `*Phone:* ${form.phone}`,
-      form.deliveryMethod === "delivery"
-        ? `*Address:* ${form.address}, ${form.postcode}`
-        : `*Method:* Pickup`,
-      form.preferredDate ? `*Preferred Date:* ${form.preferredDate}` : "",
-      form.preferredTime ? `*Preferred Time:* ${form.preferredTime}` : "",
-      ``,
-      `*Items:*`,
-      ...orderLines,
-      ``,
-      `*Subtotal:* £${subtotal.toFixed(2)}`,
-      form.deliveryMethod === "delivery" ? `*Delivery:* £${deliveryFee.toFixed(2)}${deliveryFee === 0 ? " (FREE)" : ""}` : `*Pickup:* FREE`,
-      `*Estimated Total:* £${total.toFixed(2)}`,
-      ``,
-      `⚠️ _Pricing is based on dead weight — final price confirmed after processing. Deposit required to confirm order._`,
-      form.notes ? `\n*Notes:* ${form.notes}` : "",
-    ].filter(Boolean).join("\n");
-
-    const waNumber = WHATSAPP_NUMBER.replace(/[^0-9]/g, "");
-    const encodedMessage = encodeURIComponent(message);
-
-    return {
-      appUrl: `whatsapp://send?phone=${waNumber}&text=${encodedMessage}`,
-      webUrl: `https://web.whatsapp.com/send/?phone=${waNumber}&text=${encodedMessage}&type=phone_number&app_absent=0`,
-    };
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!acceptedTerms) { toast.error("Please accept the terms to continue"); return; }
@@ -151,9 +125,8 @@ const Checkout = () => {
     }
 
     setSubmitting(true);
-    const links = buildWhatsAppLinks();
 
-    supabase.from("orders").insert({
+    const { data, error } = await supabase.from("orders").insert({
       user_id: user.id,
       customer_name: form.name,
       customer_phone: form.phone,
@@ -168,14 +141,26 @@ const Checkout = () => {
       delivery_fee: deliveryFee,
       total,
       status: "pending",
-    }).then(({ error }) => {
-      if (error) console.error("Order save failed:", error);
-      else clearCart();
-    });
+    }).select("id").single();
 
-    setSubmittedLinks(links);
+    if (error || !data) {
+      console.error("Order save failed:", error);
+      toast.error("Failed to submit order. Please try again.");
+      setSubmitting(false);
+      return;
+    }
+
+    // Save updated profile details for next time
+    await supabase.from("profiles").update({
+      full_name: form.name,
+      phone: form.phone,
+      address: form.address,
+    }).eq("user_id", user.id);
+
+    clearCart();
+    setSubmittedOrderId(data.id);
     setSubmitting(false);
-    toast.success("Order saved — tap below to open WhatsApp and send it");
+    toast.success("Order submitted — pending approval");
   };
 
   return (
@@ -188,6 +173,13 @@ const Checkout = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-5">
+            {prefilled && (
+              <div className="bg-primary/10 border border-primary/30 rounded-lg p-3 flex items-start gap-2 text-sm">
+                <Info size={16} className="text-primary mt-0.5 shrink-0" />
+                <p>We've pre-filled your details from your account. <strong>Please double-check everything is correct</strong> before submitting.</p>
+              </div>
+            )}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="name">Full Name *</Label>
@@ -255,10 +247,10 @@ const Checkout = () => {
             <div className="bg-muted rounded-lg p-4 space-y-2 text-sm">
               <p className="font-bold flex items-center gap-2"><AlertTriangle size={16} className="text-yellow-600" /> Important — Please Read</p>
               <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
-                <li><strong>Dead Weight Pricing:</strong> All meat is priced by dead weight (including trimmings). The total shown is an estimate — your exact final price will be confirmed via WhatsApp after your order is processed.</li>
+                <li><strong>Dead Weight Pricing:</strong> All meat is priced by dead weight (including trimmings). The total shown is an estimate — your exact final price will be confirmed after your order is processed.</li>
                 <li><strong>Deposit Required:</strong> Once your order is approved, a deposit is required to confirm. Full payment is due once your order is processed and the exact weight/price is confirmed.</li>
                 <li><strong>No Refunds / Returns:</strong> Due to the nature of fresh meat products, all sales are final once processed.</li>
-                <li><strong>Order Approval:</strong> All orders are reviewed before processing. We'll contact you via WhatsApp to confirm availability and arrange payment.</li>
+                <li><strong>Order Approval:</strong> All orders are reviewed before processing. We'll contact you to confirm availability and arrange payment.</li>
               </ul>
             </div>
 
@@ -273,13 +265,12 @@ const Checkout = () => {
               </Label>
             </div>
 
-            <Button type="submit" size="lg" className="w-full font-bold gap-2" disabled={submitting || !acceptedTerms}>
-              <MessageCircle size={18} />
-              {submitting ? "Opening WhatsApp..." : "Submit Order via WhatsApp"}
+            <Button type="submit" size="lg" className="w-full font-bold" disabled={submitting || !acceptedTerms || !profileLoaded}>
+              {submitting ? "Submitting..." : "Submit Order for Approval"}
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">
-              Your order will be sent for review. We'll confirm availability and pricing via WhatsApp before requesting payment.
+              Your order will be sent for review. We'll confirm availability and pricing before requesting payment.
             </p>
           </form>
 

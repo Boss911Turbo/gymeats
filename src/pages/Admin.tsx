@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Shield, Users, Package, MessageSquare, Ban, Trash2, Check, X, Eye, Reply, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { WHATSAPP_NUMBER } from "@/data/products";
+
 
 type Tab = "orders" | "customers" | "contacts";
 
@@ -118,22 +118,10 @@ const Admin = () => {
     if (data) setContacts(data as ContactRequest[]);
   };
 
-  const updateOrderStatus = async (orderId: string, status: string, order: Order) => {
+  const updateOrderStatus = async (orderId: string, status: string, _order: Order) => {
     const { error } = await supabase.from("orders").update({ status }).eq("id", orderId);
     if (error) { toast.error("Failed to update order"); return; }
     toast.success(`Order ${status}`);
-
-    // Send WhatsApp notification
-    const waNumber = WHATSAPP_NUMBER.replace("+", "");
-    const msg = [
-      `*📦 Order ${status.toUpperCase()}*`,
-      `*Customer:* ${order.customer_name}`,
-      `*Phone:* ${order.customer_phone}`,
-      order.delivery_method === "delivery" ? `*Address:* ${order.address}, ${order.postcode}` : `*Pickup*`,
-      `*Total:* £${order.total.toFixed(2)}`,
-      `*Status:* ${status}`,
-    ].join("%0A");
-    window.open(`https://wa.me/${waNumber}?text=${msg}`, "_blank");
   };
 
   const toggleBlock = async (customer: Customer) => {

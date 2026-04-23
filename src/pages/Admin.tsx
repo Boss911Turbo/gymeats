@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Shield, Users, Package, MessageSquare, Ban, Trash2, Check, X, Eye, Reply, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { WHATSAPP_NUMBER } from "@/data/products";
+
 
 type Tab = "orders" | "customers" | "contacts";
 

@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      # Publishable (anon) Supabase values — safe to expose in client bundles.
+      VITE_SUPABASE_URL: https://xnnnyaiuloypugvpkwtm.supabase.co
+      VITE_SUPABASE_PUBLISHABLE_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhubm55YWl1bG95cHVndnBrd3RtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIyODk3ODQsImV4cCI6MjA4Nzg2NTc4NH0.0oh7H178D5zVjW4oQ4mzbDfeEk47Sl5UbJQrvAcqESU
+      VITE_SUPABASE_PROJECT_ID: xnnnyaiuloypugvpkwtm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - run: bun run build
+
+      # SPA fallback: serve index.html on unknown routes
+      - run: cp dist/index.html dist/404.html
+
+      # Preserve custom domain
+      - run: cp CNAME dist/CNAME
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

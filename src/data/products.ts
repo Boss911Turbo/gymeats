@@ -764,7 +764,7 @@ export const extrasProducts: Product[] = [
     description: "100% organic halal beef tallow, rendered in-house from our own cattle. The original cooking fat your grandparents swore by — perfect for frying chips, roasting potatoes, searing steaks, and making flaky pastry. Rich in vitamins A, D, E & K. Zero seed oils, zero nonsense.",
     unitLabel: "tub",
     badge: "Made In-House",
-    image: "/images/extras-tallow-honey.jpg",
+    image: "/images/extras-beef-tallow.jpg",
   },
   {
     id: "extras-organic-honey",
@@ -777,7 +777,7 @@ export const extrasProducts: Product[] = [
     contactOnly: true,
     badge: "Coming Soon",
     comingSoon: true,
-    image: "/images/extras-tallow-honey.jpg",
+    image: "/images/extras-organic-honey.jpg",
   },
   {
     id: "extras-eggs-free-range",

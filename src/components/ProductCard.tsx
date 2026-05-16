@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Product } from "@/types/product";
 import { useCart } from "@/context/CartContext";
 import { Link } from "react-router-dom";
@@ -37,6 +37,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const displayPrice = hasWeightPricing
     ? effectivePricePerKg * targetWeight
     : isHalf ? (product.halfBoxPrice || product.price / 2) : product.price;
+
+  // Keep targetWeight within the valid range when switching half/full
+  useEffect(() => {
+    if (!product.weightRange) return;
+    const range = isHalf
+      ? { min: Math.round(product.weightRange.min / 2), max: Math.round(product.weightRange.max / 2), avg: Math.round(product.weightRange.avg / 2) }
+      : { min: product.weightRange.min, max: product.weightRange.max, avg: product.weightRange.avg };
+    setTargetWeight((prev) => {
+      if (prev < range.min || prev > range.max) return range.avg;
+      return prev;
+    });
+  }, [isHalf, product.weightRange]);
 
   const displayWeight = product.weightRange
     ? isHalf
@@ -221,7 +233,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
             type="range"
             min={displayWeight.min}
             max={displayWeight.max}
-            value={Math.min(targetWeight, displayWeight.max)}
+            step={0.5}
+            value={Math.min(Math.max(targetWeight, displayWeight.min), displayWeight.max)}
             onChange={e => setTargetWeight(Number(e.target.value))}
             className="w-full accent-accent"
           />

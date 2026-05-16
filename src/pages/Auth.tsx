@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [signupComplete, setSignupComplete] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -18,8 +19,21 @@ const Auth = () => {
   const [referralCode, setReferralCode] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
   const { signUp, signIn } = useAuth();
   const navigate = useNavigate();
+
+  const handleResend = async () => {
+    setResendLoading(true);
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email,
+      options: { emailRedirectTo: `${window.location.origin}/` },
+    });
+    if (error) toast.error(error.message);
+    else toast.success("Verification email resent. Check your inbox.");
+    setResendLoading(false);
+  };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +56,6 @@ const Auth = () => {
     if (isSignUp) {
       const { error } = await signUp(email, password);
       if (error) { toast.error(error.message); setLoading(false); return; }
-      toast.success("Account created! Please check your email to verify.");
       const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
         if (event === "SIGNED_IN" && session) {
           subscription.unsubscribe();
@@ -52,6 +65,9 @@ const Auth = () => {
           }
         }
       });
+      setSignupComplete(true);
+      setLoading(false);
+      return;
     } else {
       const { error } = await signIn(email, password);
       if (error) { toast.error(error.message); setLoading(false); return; }
@@ -60,6 +76,44 @@ const Auth = () => {
     }
     setLoading(false);
   };
+
+  if (signupComplete) {
+    return (
+      <Layout>
+        <section className="container-tight py-16 max-w-md mx-auto text-center">
+          <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-accent/15 flex items-center justify-center text-3xl">
+            ✉️
+          </div>
+          <h1 className="text-3xl font-black mb-3">Verify your email</h1>
+          <p className="text-muted-foreground mb-2">
+            We've sent a confirmation link to
+          </p>
+          <p className="font-semibold mb-6 break-all">{email}</p>
+          <p className="text-sm text-muted-foreground mb-8">
+            Click the link in that email to verify your address and activate your account. Don't forget to check your spam folder.
+          </p>
+          <div className="space-y-3">
+            <Button
+              onClick={handleResend}
+              disabled={resendLoading}
+              variant="outline"
+              size="lg"
+              className="w-full font-bold"
+            >
+              {resendLoading ? "Resending..." : "Resend verification email"}
+            </Button>
+            <Button
+              onClick={() => { setSignupComplete(false); setIsSignUp(false); setPassword(""); }}
+              size="lg"
+              className="w-full font-bold bg-accent text-accent-foreground hover:bg-accent/90"
+            >
+              Back to Sign In
+            </Button>
+          </div>
+        </section>
+      </Layout>
+    );
+  }
 
   if (isForgotPassword) {
     return (

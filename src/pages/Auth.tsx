@@ -28,7 +28,7 @@ const Auth = () => {
     const { error } = await supabase.auth.resend({
       type: "signup",
       email,
-      options: { emailRedirectTo: `${window.location.origin}/` },
+      options: { emailRedirectTo: "https://gymeats.co.uk/" },
     });
     if (error) toast.error(error.message);
     else toast.success("Verification email resent. Check your inbox.");

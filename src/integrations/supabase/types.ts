@@ -82,6 +82,7 @@ export type Database = {
       }
       experience_surveys: {
         Row: {
+          account_name: string | null
           created_at: string
           delivery_rating: string | null
           id: string
@@ -95,6 +96,7 @@ export type Database = {
           would_recommend: string | null
         }
         Insert: {
+          account_name?: string | null
           created_at?: string
           delivery_rating?: string | null
           id?: string
@@ -108,6 +110,7 @@ export type Database = {
           would_recommend?: string | null
         }
         Update: {
+          account_name?: string | null
           created_at?: string
           delivery_rating?: string | null
           id?: string
@@ -389,6 +392,7 @@ export type Database = {
       }
       survey_responses: {
         Row: {
+          account_name: string | null
           created_at: string
           fitness_description: string | null
           freezer_space: string | null
@@ -405,6 +409,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          account_name?: string | null
           created_at?: string
           fitness_description?: string | null
           freezer_space?: string | null
@@ -421,6 +426,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          account_name?: string | null
           created_at?: string
           fitness_description?: string | null
           freezer_space?: string | null

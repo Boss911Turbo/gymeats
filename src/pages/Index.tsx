@@ -223,7 +223,7 @@ const Index = () => {
       </section>
 
       {/* Not Sure What's Best? Ask Us */}
-      <section className="bg-accent/5 border-y border-accent/20 py-16">
+      <section id="ask-recommendation" className="scroll-mt-24 bg-accent/5 border-y border-accent/20 py-16">
         <div className="container-tight max-w-3xl">
           <div className="flex items-center justify-center gap-3 mb-3">
             <MessageCircleQuestion size={28} className="text-accent" />

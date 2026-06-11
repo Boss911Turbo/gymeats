@@ -210,6 +210,29 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Not Sure What's Best? Ask Us */}
+      <section className="bg-accent/5 border-y border-accent/20 py-16">
+        <div className="container-tight max-w-3xl">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <MessageCircleQuestion size={28} className="text-accent" />
+            <h2 className="text-2xl md:text-3xl font-black text-center">Not Sure What's Best for You?</h2>
+          </div>
+          <p className="text-muted-foreground text-center mb-8">Tell us about you, your family, or your event — we'll personally recommend the right box, cuts and quantities. No pressure, no guesswork.</p>
+          <form onSubmit={handleAdviceSubmit} className="bg-card border border-border rounded-xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label className="text-sm font-semibold block mb-1">Name *</label><input className="w-full border border-input bg-background rounded px-3 py-2 text-sm" required value={adviceForm.name} onChange={e => setAdviceForm({...adviceForm, name: e.target.value})} /></div>
+            <div><label className="text-sm font-semibold block mb-1">Email *</label><input type="email" className="w-full border border-input bg-background rounded px-3 py-2 text-sm" required value={adviceForm.email} onChange={e => setAdviceForm({...adviceForm, email: e.target.value})} /></div>
+            <div><label className="text-sm font-semibold block mb-1">What's it for?</label><input className="w-full border border-input bg-background rounded px-3 py-2 text-sm" placeholder="e.g. meal prep, family freezer, BBQ, wedding" value={adviceForm.occasion} onChange={e => setAdviceForm({...adviceForm, occasion: e.target.value})} /></div>
+            <div><label className="text-sm font-semibold block mb-1">How many people?</label><input className="w-full border border-input bg-background rounded px-3 py-2 text-sm" placeholder="e.g. just me, family of 4, 50 guests" value={adviceForm.people} onChange={e => setAdviceForm({...adviceForm, people: e.target.value})} /></div>
+            <div className="sm:col-span-2"><label className="text-sm font-semibold block mb-1">Rough budget (optional)</label><input className="w-full border border-input bg-background rounded px-3 py-2 text-sm" placeholder="e.g. under £200, £500-ish, flexible" value={adviceForm.budget} onChange={e => setAdviceForm({...adviceForm, budget: e.target.value})} /></div>
+            <div className="sm:col-span-2"><label className="text-sm font-semibold block mb-1">Tell us more *</label><textarea required minLength={5} className="w-full border border-input bg-background rounded px-3 py-2 text-sm resize-none" rows={4} placeholder="What do you usually cook? Any preferences (steaks, curries, mince, BBQ)? Halal needs, freezer space, dislikes — anything that helps us recommend." value={adviceForm.message} onChange={e => setAdviceForm({...adviceForm, message: e.target.value})} /></div>
+            <div className="sm:col-span-2 flex flex-col sm:flex-row gap-3">
+              <Button type="submit" size="lg" disabled={adviceLoading} className="flex-1 font-bold bg-accent text-accent-foreground hover:bg-accent/90">{adviceLoading ? "Sending..." : "Get My Recommendation"}</Button>
+              <Button type="button" size="lg" variant="outline" onClick={openAdviceWhatsApp} className="flex-1 font-bold">Or Ask on WhatsApp</Button>
+            </div>
+          </form>
+        </div>
+      </section>
+
       {/* Custom Orders */}
       <section className="container-tight py-16">
         <h2 className="text-2xl md:text-3xl font-black mb-2 text-center">Custom Orders & Events</h2>

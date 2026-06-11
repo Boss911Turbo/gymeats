@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Truck, Package, Shield, ChevronRight, Flame, Star, Scissors, Clock, Snowflake, CreditCard, FileText, CalendarDays } from "lucide-react";
+import { ShoppingCart, Truck, Package, Shield, ChevronRight, Flame, Star, Scissors, Clock, Snowflake, CreditCard, FileText, CalendarDays, MessageCircleQuestion } from "lucide-react";
 import heroImage from "@/assets/hero-meat.jpg";
 import { ANNOUNCEMENT_TEXT, WEEKLY_DEAL_PRODUCT_ID, beefProducts, FREE_DELIVERY_THRESHOLD, WHATSAPP_NUMBER, BUSINESS_EMAIL } from "@/data/products";
 import BatchProgressBar from "@/components/BatchProgressBar";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const categories = [
   { to: "/bulk-beef", label: "Bulk Beef", emoji: "🥩" },

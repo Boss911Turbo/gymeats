@@ -21,6 +21,8 @@ const weeklyDealProduct = beefProducts.find(p => p.id === WEEKLY_DEAL_PRODUCT_ID
 
 const Index = () => {
   const [customForm, setCustomForm] = useState({ name: "", email: "", whatsapp: "", eventSize: "", location: "", date: "", time: "", notes: "" });
+  const [adviceForm, setAdviceForm] = useState({ name: "", email: "", occasion: "", people: "", budget: "", message: "" });
+  const [adviceLoading, setAdviceLoading] = useState(false);
 
   const handleCustomOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,6 +33,32 @@ const Index = () => {
     window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi! I'd like to place a custom/event order:\n\nName: ${customForm.name}\nEvent Size: ${customForm.eventSize}\nLocation: ${customForm.location}\nDate: ${customForm.date}\nTime: ${customForm.time}\nNotes: ${customForm.notes}`)}`, "_blank");
     toast.success("Custom order request sent!");
     setCustomForm({ name: "", email: "", whatsapp: "", eventSize: "", location: "", date: "", time: "", notes: "" });
+  };
+
+  const handleAdviceSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (adviceLoading) return;
+    setAdviceLoading(true);
+    const composed = `Looking for a recommendation.\nOccasion: ${adviceForm.occasion || "—"}\nPeople: ${adviceForm.people || "—"}\nBudget: ${adviceForm.budget || "—"}\n\n${adviceForm.message}`;
+    const { error } = await supabase.from("contact_requests").insert({
+      name: adviceForm.name,
+      email: adviceForm.email,
+      message: composed,
+      bulk_request: "recommendation",
+    });
+    setAdviceLoading(false);
+    if (error) {
+      toast.error("Couldn't send — please try WhatsApp instead.");
+      return;
+    }
+    toast.success("Thanks! We'll get back to you shortly with a recommendation.");
+    setAdviceForm({ name: "", email: "", occasion: "", people: "", budget: "", message: "" });
+  };
+
+  const openAdviceWhatsApp = () => {
+    const waNumber = WHATSAPP_NUMBER.replace("+", "");
+    const txt = `Hi GYMEATS! I'm not sure what's best for me — can you recommend something?\n\nOccasion: ${adviceForm.occasion || "(tell us)"}\nPeople: ${adviceForm.people || "(tell us)"}\nBudget: ${adviceForm.budget || "(tell us)"}\n${adviceForm.message ? `\nDetails: ${adviceForm.message}` : ""}`;
+    window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(txt)}`, "_blank");
   };
 
   return (

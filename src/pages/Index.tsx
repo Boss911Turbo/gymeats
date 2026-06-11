@@ -82,8 +82,20 @@ const Index = () => {
             <Link to="/bulk-chicken"><Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold gap-1">Shop Chicken <ChevronRight size={18} /></Button></Link>
             <Link to="/cart"><Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold gap-1"><ShoppingCart size={18} /> Go to Cart</Button></Link>
           </div>
+          <a href="#ask-recommendation" className="inline-flex items-center gap-2 mt-6 text-primary-foreground/90 hover:text-primary-foreground underline underline-offset-4 text-sm font-semibold">
+            <MessageCircleQuestion size={18} /> Not sure what's best? Ask us for a recommendation →
+          </a>
         </div>
       </section>
+
+      {/* Ask Us Banner */}
+      <Link to="/#ask-recommendation" className="block bg-accent/15 border-y border-accent/30 hover:bg-accent/25 transition-colors">
+        <div className="container-tight py-4 flex items-center justify-center gap-3 text-center">
+          <MessageCircleQuestion size={22} className="text-accent shrink-0" />
+          <p className="text-sm md:text-base font-bold">Not sure what to order? <span className="text-accent underline underline-offset-4">Tell us about you and we'll recommend the perfect box →</span></p>
+        </div>
+      </Link>
+
 
       {/* No Middleman */}
       <section className="bg-primary text-primary-foreground py-12 border-t border-primary-foreground/10">
@@ -211,7 +223,7 @@ const Index = () => {
       </section>
 
       {/* Not Sure What's Best? Ask Us */}
-      <section className="bg-accent/5 border-y border-accent/20 py-16">
+      <section id="ask-recommendation" className="scroll-mt-24 bg-accent/5 border-y border-accent/20 py-16">
         <div className="container-tight max-w-3xl">
           <div className="flex items-center justify-center gap-3 mb-3">
             <MessageCircleQuestion size={28} className="text-accent" />
